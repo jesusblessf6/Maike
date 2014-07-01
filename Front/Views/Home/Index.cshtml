@@ -1,0 +1,758 @@
+﻿@{
+    ViewBag.Title = "迈科现货销售平台";
+}
+<style> 
+    #time_back{width:300px;height:20px;border:1px solid #246;background:#CCC} 
+    #time_bar{width:0;height:18px;background:#470;color:#FFF;text-align:center;} 
+
+    .ajax-link {
+    }
+    /*一级菜单图片的大小*/
+    .nav.main-menu > li > a > .fa-2x {
+        font-size: 22px;
+    }
+    /*表头居中*/
+    .box table th {
+        text-align: center;
+    }
+    /*表格内容居中*/
+    .box table td {
+        text-align: center;
+    }
+    /*layer关闭图片的层*/
+    .xubox_setwin a {
+        z-index: 1999;
+    }
+    /*定义表单label与文本框之间的间距*/
+    label[class~=control-label], label[class=control-label] {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    /*表单行间距*/
+    .box-content .form-group {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+    /*select2底部间距*/
+    .select2-container {
+        padding-bottom: 5px;
+    }
+
+    textarea {
+        resize: none;
+    }
+
+    .priceTextTop {
+        height: 20px;
+        line-height: 20px;
+        position: absolute;
+        top: 2px;
+        overflow: hidden;
+    }
+
+    .priceTextBottom {
+        height: 20px;
+        line-height: 20px;
+        position: absolute;
+        top: 25px;
+        overflow: hidden;
+    }
+
+    .priceTextRow {
+        position: absolute;
+        top: 0px;
+        height: 50px;
+        line-height: 50px;
+        overflow: hidden;
+    }
+
+    .green {
+        background: url('../../Content/img/arrow.gif') no-repeat 0 -40px;
+        width: 21px;
+        height: 49px;
+        margin-left: 4px;
+    }
+
+    .red {
+        background: url('../../Content/img/arrow.gif') no-repeat 0 0;
+        width: 21px;
+        height: 49px;
+        margin-left: 4px;
+    }
+
+    .pagination {
+        margin-top: 5px;
+        margin-bottom: 0;
+    }
+</style>
+
+<div id="screensaver">
+    <canvas id="canvas"></canvas>
+    <i class="fa fa-lock" id="screen_unlock"></i>
+</div>
+
+<!--header-->
+<header class="navbar" style="height: 50px;">
+    <div class="container-fluid expanded-panel">
+        <div class="row">
+            <div class="col-xs-12 col-sm-2" style="padding-left: 0px;">
+                <img src="~/Content/img/maike.logo.png" />
+            </div>
+
+            <div id="top-panel" class="col-xs-12 col-sm-10" style="height: 50px; box-shadow: 0 0 6px #131313;">
+                <div class="row">
+                    <div class="col-xs-1 col-sm-1">
+                        <a href="#" class="show-sidebar" id="sideBarToggle">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                    </div>
+
+                    <!--价格-->
+                    <div class="col-sm-8" id="priceBox" style="padding-left: 0px; padding-right: 0px;">
+                    </div>
+
+                    <div class="col-sm-3 top-panel-right">
+                        <ul class="nav navbar-nav pull-right panel-menu" style="height: 46px;">
+                            <li class="hidden-xs" style="height: 46px;">
+                                <a href="javascript:void(0);" class="alert-link" id="msgAlert" style="padding-top: 5px; height: 48px;">
+                                    <i class="fa fa-bell fa-lg" onclick="showAlert()"></i>
+                                    <span class="badge">0</span>
+                                </a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle account" data-toggle="dropdown" style="padding-top: 5px;">
+                                    <div class="avatar">
+                                        <i class="fa fa-user fa-lg"></i>
+                                    </div>
+                                    <i class="fa fa-angle-down pull-right"></i>
+                                    <div class="user-mini pull-right">
+                                        <span class="welcome">欢迎,</span>
+                                        <span>@ViewBag.CurrentUser.Name</span>
+                                    </div>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a class="ajax-link" href="#" data-address="/Resetpassword/Index">
+                                            <i class="fa fa-key"></i>
+                                            <span class="hidden-sm">修改密码</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/Sign/Out">
+                                            <i class="fa fa-power-off"></i>
+                                            <span class="hidden-sm">退出</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!--main-->
+<div id="main" class="container-fluid">
+    <div class="row">
+
+        <!--menu-->
+        <div id="sidebar-left" class="col-xs-2 col-sm-2">
+            <ul class="nav main-menu">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="businessSubs" onclick="javascript:toggleMenuFolder(this);">
+                        <i class="fa fa-cny fa-2x"></i>
+                        <span class="hidden-xs" style="font-weight: bolder; font-size: 16px;">&nbsp; 交易管理</span>
+                    </a>
+                    <ul class="dropdown-menu" id="businessSubs">
+                        <li><a id="aTradeManagement" class="ajax-link" href="#" data-address="/TradeManagement/Index"><i class="fa fa-file-text-o fa-lg"></i>&nbsp; 订单管理</a></li>
+                        <li><a class="ajax-link" href="#" data-address="/SalesOrder/Index"><i class="fa fa-search fa-lg"></i>&nbsp; 订单查询</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <!--main content-->
+        <div id="content" class="col-xs-12 col-sm-10">
+            <div class="preloader">
+                <img src="/Content/img/devoops_getdata.gif" class="devoops-getdata" alt="preloader" />
+            </div>
+            <div id="ajax-content"></div>
+        </div>
+    </div>
+</div>
+
+<div id="alertBox" class="layer_pageContent" style="display: none; margin: 0 auto; width: 600px;">
+    <div class="row" style="margin-top: 20px; margin-left: auto; margin-right: auto;">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="box" style="margin: 0 auto;">
+                <div class="box-header">
+                    <div class="box-header">
+                        <div class="box-name">
+                            <i class="fa fa-bell"></i>
+                            <span>消息</span>
+                        </div>
+                        <div class="no-move"></div>
+                    </div>
+                </div>
+                <div class="box-content" style="position: relative; max-height: 440px; overflow: auto;">
+                    <table class="table table-condensed table-hover table-striped table-heading table-datatable" id="MsgTable" style="width: 500px;">
+                        <thead>
+                            <tr>
+                                <th style="width: 20px;">#</th>
+                                <th>消息</th>
+                                <th style="width: 50px;">操作</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="alertBoxForMakeSureOrder" class="layer_pageContent" style="display: none; margin: 0 auto; width: 600px;">
+    <div class="row" style="margin-top: 20px; margin-left: auto; margin-right: auto;">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="box" style="margin: 0 auto;">
+                <div class="box-header">
+                    <div class="box-header">
+                        <div class="box-name">
+                            <i class="fa fa-bell"></i>
+                            <span>消息</span>
+                        </div>
+                        <div class="no-move"></div>
+                        <input type="hidden" id="objHidden" />
+                    </div>
+                </div>
+                <div class="box-content" style="position: relative; max-height: 440px; overflow: auto;">
+                    您将以 <span id="spanBuyer"></span> 的名义从<span id="salerSpan"></span>以最终价格[<span id="finalPriceSpan"></span>]<span id="txtSpan"></span>元 / 吨，
+                    购买[<span id="qtySpan"></span>]吨的<span id="brandSpan"></span><span id="commodityTypeSpan"></span>，该货物位于<span id="warehouseSpan"></span>
+                    <br /><br />
+                    <div style="text-align:center; align-content:center;">
+                        <span id="mmSpan"></span>秒后，系统自动取消<br />
+                        @*<div id="time_back" >*@<div id="time_bar" style="margin-left:38%;"></div>@*</div>*@                 
+                    <br />
+                        </div><br />
+                     <div style="text-align:center">
+                    <button type="submit" class="btn btn-primary btn-label-left" id="divMakeSureOrderOK" style="margin-right:30px;">
+                        <span><i class="fa fa-clock-o"></i></span>确定
+                    </button>
+                    <button type="submit" class="btn btn-primary btn-label-left" id="divMakeSureOrderCancel">
+                        <span><i class="fa fa-times"></i></span>取消
+                    </button>
+                         </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" value="@ViewBag.CurrentUser.SHFECodes" id="hiddenSHFECodes"/>
+
+<script src="~/Scripts/jquery.signalR-2.0.3.min.js"></script>
+@*<script src="http://58.246.189.186/maike.price/signalr/hubs"></script>*@
+<script src="http://172.20.70.172/maike.price/signalr/hubs"></script>
+@*<script src="http://localhost:59222/signalr/hubs"></script>*@
+
+<script>
+    var aaData = [];//消息数组
+    var shfeCodeCollection = [];//当前用户订阅的金属
+    var shfeNameCollection = [];
+    var table;
+    var msgCount = 0;//消息条数
+    var demo;//SignalR实例
+    var updatePriceCallBack = $.Callbacks("unique");
+    var updatePremiumCallBack = $.Callbacks("unique");
+    var updateQtyCallBack = $.Callbacks("unique");
+    var ClearQtyCallBack = $.Callbacks("unique");
+
+    //删除指定下标的数组元素
+    Array.prototype.removeByIndex = function (index) {
+        this.splice(index, 1);
+    }
+
+    function toggleMenuFolder(caller) {
+        var parents = $(caller).parents('li');
+        var otherItems = $('.main-menu li').not(parents);
+        if ($(caller).hasClass("active-parent")) {
+            var x = $(caller).attr("data-toggle");
+            $("#" + x).slideUp();
+            $(caller).removeClass("active-parent");
+        } else {
+            var x = $(caller).attr("data-toggle");
+            $("#" + x).slideDown();
+            $(caller).addClass("active-parent");
+            otherItems.find('a').removeClass("active");
+            otherItems.find('a').removeClass("active-parent");
+        }
+    }
+
+    function initMsg() {
+        table = $('#MsgTable').dataTable({
+            info: false,
+            lengthChange: false,
+            paging: false,
+            ordering: false,
+            filter: false,
+            bAutoWidth: false,
+            data: aaData,
+            oLanguage: chineseLang,
+            columns: [
+                 {
+                     render: function (data, type, row, meta) {
+                         return meta.row + 1;
+                     }
+                 },
+              { title: "消息" },
+              {
+                  title: "操作",
+                  render: function (data, type, row, meta) {
+                      return "<a href='#' style='text-decoration:none; margin-left:10px' onclick='javascript:delMsg(" + data + ")'><i class='fa fa-trash-o fa-lg'></i></a>";
+                  }
+              }
+            ]
+        });
+    }
+
+    function initSHFECodeCollection() {
+        shfeCodeCollection.length = 0;
+        var shfeCodes = $("#hiddenSHFECodes").val();
+        if (shfeCodes != "") {
+            var aCommodityCode = shfeCodes.split("||");
+            for (var i = 0; i < aCommodityCode.length; i++) {
+                var str = aCommodityCode[i].split(",");
+                shfeCodeCollection[str[0]] = str[1];
+                shfeNameCollection[str[0]] = str[2];
+            }
+        }
+
+    }
+
+    function initCommodityPrice() {
+        $("#priceBox").empty();
+        for (var collection in shfeCodeCollection) {
+            if (collection == "removeByIndex") {
+                continue;
+            }
+            initPriceCompent(collection);
+        }
+    }
+
+    $(document).ready(function () {
+        initMsg();
+        initSHFECodeCollection();
+        initCommodityPrice();
+        updatePriceCallBack.add(backUpdatePrice);
+        updatePremiumCallBack.add(backUpdatePremium);
+        updateQtyCallBack.add(backUpdateQty);
+        ClearQtyCallBack.add(backClearQty);
+
+        var menus = $(".dropdown-toggle");
+        for (var i = 1; i < menus.length; i++) {
+            toggleMenuFolder(menus[i]);
+        }
+        //side-bar toggle
+        $('#sideBarToggle').on('click', function () {
+            $('div#main').toggleClass('sidebar-show');
+        });
+
+        //active menu
+        $(".main-menu").on("click", "a", function (e) {
+            var parents = $(this).parents('li');
+            var li = $(this).closest('li.dropdown');
+            //var otherItems = $('.main-menu li').not(parents);
+
+        });
+
+        //ajax-link
+        $('.ajax-link').on('click', function () {
+            if (!$(this).hasClass("active")) {
+                $(this).addClass("active");
+            }
+            $('.main-menu li a').not(this).removeClass("active");
+            LoadAjaxContent($(this).attr("data-address"));
+        });
+
+        var height = window.innerHeight - 50;
+        $('#main').css('min-height', height)
+        .on('click', '.expand-link', function (e) {
+            var body = $('body');
+            e.preventDefault();
+            var box = $(this).closest('div.box');
+            var button = $(this).find('i');
+            button.toggleClass('fa-expand').toggleClass('fa-compress');
+            box.toggleClass('expanded');
+            body.toggleClass('body-expanded');
+            var timeout = 0;
+            if (body.hasClass('body-expanded')) {
+                timeout = 100;
+            }
+            setTimeout(function () {
+                box.toggleClass('expanded-padding');
+            }, timeout);
+            setTimeout(function () {
+                box.resize();
+                box.find('[id^=map-]').resize();
+            }, timeout + 50);
+        })
+        .on('click', '.collapse-link', function (e) {
+            e.preventDefault();
+            var box = $(this).closest('div.box');
+            var button = $(this).find('i');
+            var content = box.find('div.box-content');
+            content.slideToggle('fast');
+            button.toggleClass('fa-chevron-up').toggleClass('fa-chevron-down');
+            setTimeout(function () {
+                box.resize();
+                box.find('[id^=map-]').resize();
+            }, 50);
+        })
+        .on('click', '.close-link', function (e) {
+            e.preventDefault();
+            var content = $(this).closest('div.box');
+            content.remove();
+        });
+        $('#locked-screen').on('click', function (e) {
+            e.preventDefault();
+            $('body').addClass('body-screensaver');
+            $('#screensaver').addClass("show");
+            ScreenSaver();
+        });
+
+        //SignalR
+        //$.connection.hub.url = "http://58.246.189.186/maike.price/signalr";
+        //$.connection.hub.url = "http://localhost:59222/signalr";
+        $.connection.hub.url = "http://172.20.70.172/maike.price/signalr";
+        demo = $.connection.distributorHub;
+
+        $.connection.hub.start().done(function () {
+            demo.server.requireAllPrices();
+        });
+        $.connection.hub.disconnected(function () {
+            setTimeout(function () {
+                if ($.connection.hub.state != $.signalR.connectionState.connected) {
+                    $.connection.hub.start().done(function () { });
+                }
+            }, 10000);
+        });
+        demo.client.updatePrice = function (item) {
+            getChangePrice(item);
+        };
+        demo.client.addAlert = function (msg) {
+            addMsg(msg);
+        };
+        demo.client.updateSHFECodes = function (commodityCode, shfeCode, shfeName) {
+            if (shfeCodeCollection[commodityCode]) {
+                shfeCodeCollection[commodityCode] = shfeCode;
+                var obj = $("#price" + commodityCode);
+                //var shfeCode = obj.find(".priceShfecode");
+                //changeData(shfeCode, shfeName);
+                resetPrice(obj, shfeName);
+            }
+        }
+
+        demo.client.updatePremium = function (id, newPremium) {
+            //alert("newPremium");
+            updatePremiumCallBack.fire(id, newPremium);
+        };
+        demo.client.updateStockPrice = function (id, newPrice) {
+            updatePriceCallBack.fire(id, newPrice);
+        };
+        demo.client.updateStock = function (id, delta) {
+            updateQtyCallBack.fire(id, delta);
+        };
+        demo.client.clearStock = function (id) {
+            ClearQtyCallBack.fire(id);
+        };
+
+        $("#aTradeManagement").click();
+    });
+
+    function checkSHFECodeExist(commodityCode, shfeCode) {
+        var isExist = false;
+        if (shfeCodeCollection[commodityCode]) {
+            if (shfeCodeCollection[commodityCode] == shfeCode) {
+                isExist = true;
+            }
+        }
+        return isExist;
+    }
+    //改变箭头
+    function green(obj) {
+        var arrow = obj.find(".priceArrow");
+        var range = obj.find(".priceRange");
+        var rate = obj.find(".priceRate");
+        var price = obj.find(".pricePrice");
+        range.css("color", "green");
+        rate.css("color", "green");
+        price.css("color", "green");
+        arrow.removeClass("red");
+        arrow.addClass("green");
+    }
+
+    function red(obj) {
+        var arrow = obj.find(".priceArrow");
+        var range = obj.find(".priceRange");
+        var rate = obj.find(".priceRate");
+        var price = obj.find(".pricePrice");
+        range.css("color", "#9A0009");
+        rate.css("color", "#9A0009");
+        price.css("color", "#9A0009");
+        arrow.removeClass("green");
+        arrow.addClass("red");
+    }
+
+    function noArrow(obj) {
+        var arrow = obj.find(".priceArrow");
+        var range = obj.find(".priceRange");
+        var rate = obj.find(".priceRate");
+        var price = obj.find(".pricePrice");
+        range.css("color", "#f8f8f8");
+        rate.css("color", "#f8f8f8");
+        price.css("color", "#f8f8f8");
+        arrow.removeClass("green");
+        arrow.removeClass("red");
+    }
+
+    function changeData(obj, data) {
+        if (data != null && data != "") {
+            if (obj.is(":animated")) {
+                obj.finish();
+            }
+            if (obj.text() != data) {
+                obj.animate({ marginTop: "-35px" }, 1000, function () {
+                    obj.text(data);
+                    obj.css({ marginTop: "1px" });
+                });
+            }
+        }
+    }
+
+
+    //构造显示的价格
+    function initPriceCompent(commodityCode) {
+        var divLayout = $("<div>");
+        divLayout.addClass("col-md-6");
+        divLayout.attr("id", "price" + commodityCode);
+        divLayout.css({ "paddingLeft": "0px", "paddingRight": "0px", "minWidth": "320px" });
+
+        var divWrap = $("<div style=\"position: relative; height: 50px; width: 370px; background-color: #7BC5D3; color: #f8f8f8; font-weight: bolder;\"></div>");
+        divLayout.append(divWrap);
+
+        var shfecodeDiv = $("<div style=\"left: 40px;\" class=\"priceTextBottom\"><div class=\"priceShfecode\">" + shfeNameCollection[commodityCode] + "</div></div>");
+        divWrap.append(shfecodeDiv);
+
+        var priceDiv = $("<div style=\"left: 40px; width: 55px; text-align: center;font-size:16px;\" class=\"priceTextTop\"><div class=\"pricePrice\">-</div></div>");
+        divWrap.append(priceDiv);
+
+        var arrowDiv = $("<div style=\"left: 92px; width: 21px; height: 49px;\" class=\"priceTextRow red priceArrow\"></div>");
+        divWrap.append(arrowDiv);
+
+        var rangeDiv = $("<div style=\"left: 122px;\" class=\"priceTextTop\"><div class=\"priceRange\">-</div></div>");
+        divWrap.append(rangeDiv);
+
+        var rateDiv = $("<div style=\"left: 122px;\" class=\"priceTextBottom\"><div class=\"priceRate\">-</div></div>");
+        divWrap.append(rateDiv);
+
+        var salePLDiv = $("<div style=\"left: 167px;\" class=\"priceTextTop\"><div>卖价</div></div>");
+        divWrap.append(salePLDiv);
+
+        var buyPLDiv = $("<div style=\"left: 167px;\" class=\"priceTextBottom\"><div>买价</div></div>");
+        divWrap.append(buyPLDiv);
+
+        var salePDiv = $("<div style=\"left: 202px;font-size:16px;\" class=\"priceTextTop\"><div class=\"priceSaleP\">-</div></div>");
+        divWrap.append(salePDiv);
+
+        var buyPDiv = $("<div style=\"left: 202px;font-size:16px;\" class=\"priceTextBottom\"><div class=\"priceBuyP\">-</div></div>");
+        divWrap.append(buyPDiv);
+
+        var saleQLDiv = $("<div style=\"left: 252px;\" class=\"priceTextTop\"><div>卖量</div></div>");
+        divWrap.append(saleQLDiv);
+
+        var buyQLDiv = $("<div style=\"left: 252px;\" class=\"priceTextBottom\"><div>买量</div></div>");
+        divWrap.append(buyQLDiv);
+
+        var saleQDiv = $("<div style=\"left: 288px;font-size:16px;\" class=\"priceTextTop\"><div class=\"priceSaleQ\">-</div></div>");
+        divWrap.append(saleQDiv);
+
+        var buyQDiv = $("<div style=\"left: 288px;font-size:16px;\" class=\"priceTextBottom\"><div class=\"priceBuyQ\">-</div></div>");
+        divWrap.append(buyQDiv);
+
+        $("#priceBox").append(divLayout);
+    }
+
+    function getChangePrice(priceItem) {
+        var result = checkSHFECodeExist(priceItem.CommodityCode, priceItem.SHFECode)
+        if (result) {
+            var obj = $("#price" + priceItem.CommodityCode);
+            updatePrice(obj, priceItem);
+        }
+        priceitem = null;
+        delete priceitem;
+    }
+
+    function updatePrice(obj, priceItem) {
+        var shfeCode = obj.find(".priceShfecode");
+        var price = obj.find(".pricePrice");
+        var arrow = obj.find(".priceArrow");
+        var range = obj.find(".priceRange");
+        var rate = obj.find(".priceRate");
+        var salePrice = obj.find(".priceSaleP");
+        var buyPrice = obj.find(".priceBuyP");
+        var saleQuan = obj.find(".priceSaleQ");
+        var buyQuan = obj.find(".priceBuyQ");
+
+        changeData(shfeCode, priceItem.Name);
+        changeData(price, priceItem.NewPrice);
+        var flag = "";
+        if (priceItem.ChangeAmount != null) {
+            var amount = parseInt(priceItem.ChangeAmount);
+
+            if (amount > 0) {
+                red(obj);
+                flag = "+";
+            }
+            else {
+                green(obj);
+                flag = "";
+            }
+            priceItem.ChangePercent += "%";
+        }
+        else {
+            flag = "";
+            priceItem.ChangeAmount = "";
+            //priceItem.ChangePercent = "";
+            //noArrow(obj);
+        }
+
+        changeData(range, flag + priceItem.ChangeAmount);
+        changeData(rate, priceItem.ChangePercent);
+        changeData(salePrice, priceItem.SellPrice);
+        changeData(buyPrice, priceItem.BuyPrice);
+        changeData(saleQuan, priceItem.SellVolumn);
+        changeData(buyQuan, priceItem.BuyVolumn);
+    }
+
+    function resetPrice(obj, code) {
+        var shfeCode = obj.find(".priceShfecode");
+        var price = obj.find(".pricePrice");
+        var arrow = obj.find(".priceArrow");
+        var range = obj.find(".priceRange");
+        var rate = obj.find(".priceRate");
+        var salePrice = obj.find(".priceSaleP");
+        var buyPrice = obj.find(".priceBuyP");
+        var saleQuan = obj.find(".priceSaleQ");
+        var buyQuan = obj.find(".priceBuyQ");
+
+        changeData(shfeCode, code);
+        changeData(price, "-");
+        red(obj);
+        range.css("color", "#f8f8f8");
+        rate.css("color", "#f8f8f8");
+        price.css("color", "#f8f8f8");
+        changeData(range, "-");
+        changeData(rate, "-");
+        changeData(salePrice, "-");
+        changeData(buyPrice, "-");
+        changeData(saleQuan, "-");
+        changeData(buyQuan, "-");
+    }
+
+    //发送消息
+    function sendMsgToServer(msg) {
+        if (demo) {
+            demo.server.all_AddAlert(msg);
+        }
+    }
+    //显示消息框
+    function showAlert() {
+        $.layer({
+            type: 1,
+            shadeClose: false,
+            title: false,
+            shade: [0.1, '#fff'],
+            offset: ['20px', ''],
+            area: ['600px', ($(window).height() - 200) + 'px'],
+            page: { dom: "#alertBox" },
+            success: function (layero) {
+
+            },
+            close: function (index) {
+
+            }
+        });
+        return false;
+    }
+
+    function addMsg(msg) {
+        msgCount++;
+        $("#msgAlert .badge").text(msgCount);
+        aaData.unshift([" ", msg, msgCount]);
+        table.fnClearTable(); //清空数据
+        table.fnDestroy();
+        initMsg();
+    }
+
+    function delMsg(rowIndex) {
+        var index = -1;
+        for (var i = 0; i < aaData.length; i++) {
+            if (aaData[i][2] == rowIndex) {
+                index = i;
+                aaData.removeByIndex(i);
+                break;
+            }
+        }
+
+        if (index != -1) {
+            msgCount--;
+            $("#msgAlert .badge").text(msgCount);
+            table.fnClearTable(); //清空数据
+            table.fnDestroy();
+            initMsg();
+        }
+    }
+
+    //库存修改推送
+    function backUpdatePrice(id, newPrice) {
+        var table = $("#StockTable");
+        if (table.length > 0) {
+            var price = $("#stockPrice" + id);
+            var editFinalPrice = document.getElementById("tradeFinalPrice");
+            if (editFinalPrice != null) {
+                editFinalPrice.value = newPrice;
+            }
+            price.text(newPrice);
+            var label = $("<label class=\"label label-success pull-right\">update</label>");
+            price.append(label);
+        }
+    }
+    function backUpdatePremium(id, newPremium) {
+        var table = $("#StockTable");
+        if (table.length > 0) {
+            var premium = $("#stockPreminum" + id);
+            var editPremium = document.getElementById("tradePremium");
+            premium.text(newPremium);
+            if (editPremium != null) {
+                editPremium.value = newPremium;
+            }
+            var label = $("<label class=\"label label-success pull-right\">update</label>");
+            premium.append(label);
+        }
+    }
+    function backUpdateQty(id, newQty) {
+        var table = $("#StockTable");
+        if (table.length > 0) {
+            var qty = $("#stockAQty" + id);
+            var calcQty = parseFloat(qty.text()) + parseFloat(newQty);
+            qty.text(calcQty);
+            var label = $("<label class=\"label label-success pull-right\">update</label>");
+            qty.append(label);
+        }
+    }
+    function backClearQty(id) {
+        var table = $("#StockTable");
+        if (table.length > 0) {
+            table.DataTable().ajax.reload();
+        }
+    }
+</script>

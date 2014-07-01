@@ -1,0 +1,167 @@
+﻿@using System.Web.Mvc.Html
+@using Management.Models
+@model ResetPasswordVM
+
+<div class="row">
+    <div id="breadcrumb" class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="#">修改密码</a></li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-6">
+
+        <div class="box">
+            <div class="box-header">
+                <div class="box-name">
+                    <i class="fa fa-key"></i>
+                    <span>修改密码</span>
+                </div>
+                <div class="box-icons">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="expand-link">
+                        <i class="fa fa-expand"></i>
+                    </a>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+                <div class="no-move"></div>
+            </div>
+
+            <div class="box-content" style="position: relative; overflow: auto; max-height: 475px;">
+                <form class="form-horizontal" id="ResetPasswordForm">
+                    <div class="form-group">
+                        @Html.LabelFor(o => o.OldPsw, "原密码", new { @class = "col-sm-3 control-label", @for = "userOldPsw" })
+                        <div class="col-sm-7">
+                            @Html.TextBoxFor(o => o.OldPsw, new { @class = "form-control", name = "OldPsw", type = "password", @id = "userOldPsw" })
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(o => o.NewPsw, "新密码", new { @class = "col-sm-3 control-label", @for = "userNewPsw" })
+                        <div class="col-sm-7">
+                            @Html.TextBoxFor(o => o.NewPsw, new { @class = "form-control", name = "NewPsw", type = "password", @id = "userNewPsw" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(o => o.ConfirmPsw, "再次输入新密码", new { @class = "col-sm-3 control-label", @for = "userConfirmPsw" })
+                        <div class="col-sm-7">
+                            @Html.TextBoxFor(o => o.ConfirmPsw, new { @class = "form-control", name = "ConfirmPsw", type = "password", @id = "userConfirmPsw" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-label-left">
+                                <span>
+                                    <i class="fa fa-clock-o"></i>
+                                </span>
+                                确定
+                            </button>
+                            @Html.HiddenFor(o => o.UserId, new { @id = "hiddenIdField" })
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    var dt;
+    var userid = $('#hiddenIdField').val();
+    $(document).ready(function () {
+        $('.form-control').tooltip();
+        $('#ResetPasswordForm').bootstrapValidator({
+            message: "输入有误",
+            live: "enabled",
+            trigger: null,
+
+            fields: {
+                OldPsw: {
+                    trigger: "blur",
+                    validators: {
+                        notEmpty: {
+                            message: "请输入您现在的密码"
+                        },
+                        remote: {
+                            url: '/Resetpassword/Validatepassword',
+                            message: "当前密码不正确",
+                            data: {
+                                id: userid
+                            }
+                        }
+                    }
+                },
+
+                NewPsw: {
+                    trigger: "blur",
+                    validators: {
+                        notEmpty: {
+                            message: "请输入新密码"
+                        },
+                        identical: {
+                          field: 'ConfirmPsw',
+                          message: '您两次输入的新密码不一致，请确认'
+                        },
+                        stringLength: {
+                            min: 6,
+                            max: 30,
+                            message: '密码长度要大于5小于30'
+                        },
+                        
+
+                    }
+                },
+                ConfirmPsw: {
+                    trigger: "blur",
+                    validators: {
+                        notEmpty: {
+                            message: "请再次输入新密码"
+                        },
+                        identical: {
+                          field: 'NewPsw',
+                          message: '您两次输入的新密码不一致，请确认'
+                        },
+                        stringLength: {
+                            min: 6,
+                            max: 30,
+                            message: '密码长度要大于5小于30'
+                        },
+                    }
+                }
+            },
+
+
+            //submitButtons: '#submitBtn',
+            submitHandler: function (validator, form, submitButton) {
+
+                $.ajax({
+                    url: "/ResetPassword/ResetPassword",
+                    data: form.serialize(),
+                    dataType: 'json',
+                    type: 'POST',
+                    success: function(data) {
+                      $.procAjaxData(data, function () {
+                        window.location = "/Sign/Out";
+                      }, function () {
+                        return;
+                      });
+                    },
+                    error: function () {
+                        dt.ajax.reload();
+
+                    }
+                });
+            }
+        });
+        WinMove();
+
+    });
+
+</script>

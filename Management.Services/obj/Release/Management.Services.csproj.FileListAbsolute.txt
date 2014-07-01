@@ -1,0 +1,16 @@
+F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\Management.Services\bin\Release\Management.Services.dll
+F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\Management.Services\bin\Release\Management.Services.pdb
+F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\Management.Services\bin\Release\DAL.dll
+F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\Management.Services\bin\Release\Entities.dll
+F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\Management.Services\bin\Release\Management.Models.dll
+F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\Management.Services\bin\Release\Util.dll
+F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\Management.Services\bin\Release\EntityFramework.dll
+F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\Management.Services\bin\Release\DAL.pdb
+F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\Management.Services\bin\Release\Entities.pdb
+F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\Management.Services\bin\Release\Management.Models.pdb
+F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\Management.Services\bin\Release\Util.pdb
+F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\Management.Services\bin\Release\EntityFramework.xml
+F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\Management.Services\bin\Release\zh-Hans\EntityFramework.resources.dll
+F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\Management.Services\obj\Release\Management.Services.csprojResolveAssemblyReference.cache
+F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\Management.Services\obj\Release\Management.Services.dll
+F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\Management.Services\obj\Release\Management.Services.pdb

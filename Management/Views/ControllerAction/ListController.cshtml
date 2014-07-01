@@ -1,0 +1,105 @@
+﻿@{
+  Layout = "~/Views/Shared/_ControllerActionLayout.cshtml";
+}
+
+<div>
+  <table id="controllersTree" title="控制器/操作管理" class="easyui-treegrid" style="width: 700px; height: 400px; "
+         toolbar="#tb"
+         data-options="fitColumns:true,
+        pagination:true,
+        rownumbers:true,
+        url:'/ControllerAction/ListControllerCore',
+        idField:'id',
+        treeField:'name',
+        nowrap: false,
+        pageSize:10,
+        showPageList: false,
+        onBeforeLoad: function(row,param){
+          if (!row) {    // load top level rows
+            param.id = 0;    // set id=0, indicate to load new page rows
+          }
+        }
+        ">
+    <thead>
+      <tr>
+        <th field="name" width="160">名称</th>
+        <th field="internalName" width="100">内部名称</th>
+        <th field="type" width="60" >类型</th>
+        <th field="description" width="100" align="right">描述</th>
+        <th field="isOpenForAll" width="120">是否对所有人开放</th>
+        <th field="internalId" hidden="true">内部ID</th>
+      </tr>
+    </thead>
+  </table>
+</div>
+<div id="tb">
+  <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:newController();">添加控制器</a>
+  <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:newAction();">添加操作</a>
+  <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="javascript:editLine();">编辑</a>
+  <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="javascript:deleteLine();">删除</a>
+  <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:collapseAllNode();">全部收起</a>
+  <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="javascript:expandAllNode();">全部展开</a>
+</div>
+  
+<script type="text/javascript">
+  function newController() {
+    location.href = "/ControllerAction/CreateController";
+  }
+  
+  function newAction() {
+    location.href = "/ControllerAction/CreateAction";
+  }
+    
+  function editLine() {
+    var selectObj = $('#controllersTree').treegrid('getSelected');
+      
+    if (selectObj) {
+      if (selectObj.type == "Controller") {
+        location.href = "/ControllerAction/UpdateController/" + selectObj.internalId;
+      } else if (selectObj.type == "Action") {
+        location.href = "/ControllerAction/UpdateAction/" + selectObj.internalId;
+      }
+    } else {
+      $.alertMsg("请选择一条记录！", "提示");
+    }
+      
+  }
+    
+  function deleteLine() {
+    var selectObj = $('#controllersTree').treegrid('getSelected');
+      
+    if (selectObj) {
+      var url = "/ControllerAction/";
+      if (selectObj.type == "Controller") {
+        url += "DeleteController/";
+      } else if (selectObj.type == "Action") {
+        url += "DeleteAction/";
+      }
+      url += selectObj.internalId;
+
+      $.ajax({
+        url: url,
+        type: "DELETE",
+        success: ajaxJump
+      });
+    } else {
+      $.alertMsg("请选择一条记录！", "提示");
+    }
+      
+  }
+  
+  function collapseAllNode() {
+    $('#controllersTree').treegrid('collapseAll');
+  }
+
+  function expandAllNode() {
+    $('#controllersTree').treegrid('expandAll');
+  }
+
+  $(document).ready(function() {
+    var pager = $('#controllersTree').treegrid('getPager');
+    pager.pagination({
+      showPageList: false
+    });
+  });
+</script>

@@ -1,0 +1,57 @@
+﻿@model List<Management.Models.CommodityViewVM>
+
+<div class="row">
+  <div class="col-xs-12 col-sm-7">
+    <div class="box">
+      <div class="box-header">
+        <div class="box-name">
+          <i class="fa fa-table"></i>
+          <span>金属</span>
+        </div>
+        <div class="box-icons">
+          <a class="collapse-link">
+            <i class="fa fa-chevron-up"></i>
+          </a>
+          <a class="expand-link">
+            <i class="fa fa-expand"></i>
+          </a>
+          <a class="close-link">
+            <i class="fa fa-times"></i>
+          </a>
+        </div>
+        <div class="no-move"></div>
+      </div>
+      <div class="box-content" style="position: relative">
+        <table class="table table-condensed table-hover table-striped" id="commodityTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>名称</th>
+              <th>编码</th>
+              <th>备注</th>
+            </tr>
+          </thead>
+          <tbody>
+          @{
+            for (int i = 0; i < Model.Count; i++)
+            {
+              <tr>
+                <td>@(i+1)</td>
+                <td>@Html.DisplayFor(o => o[i].Name)</td>
+                <td>@Html.DisplayFor(o => o[i].Code)</td>
+                <td>@Html.DisplayFor(o => o[i].Description)</td>
+              </tr>
+            }
+          }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+</div>
+<script>
+  $(document).ready(function () {
+    WinMove();
+  });
+</script>

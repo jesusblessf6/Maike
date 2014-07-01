@@ -1,0 +1,163 @@
+﻿@using Management.Models
+@model SwitchMarketManagementEditVM
+
+<div class="box" id="OpenTimeEditBox">
+    <div class="box-header">
+        <div class="box-name">
+            <i class="fa fa-edit"></i>
+            <span>@ViewBag.Title</span>
+        </div>
+        <div class="box-icons">
+            <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+            </a>
+            <a class="expand-link">
+                <i class="fa fa-expand"></i>
+            </a>
+            <a class="close-link">
+                <i class="fa fa-times"></i>
+            </a>
+        </div>
+        <div class="no-move"></div>
+    </div>
+    <div class="box-content" style="position: relative">
+        <form class="form-horizontal" id="newOpenTimeForm">
+            <div class="form-group">
+                @Html.LabelFor(o => o.StartTime, "开始时间", new { @class = "col-sm-3 control-label", @for = "openTimeForStartTime" })
+                <div class="col-sm-7">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-info-circle"></i>
+                        </span>
+                        @Html.TextBoxFor(o => o.StartTime, new { @class = "form-control", @id = "openTimeForStartTime", @name = "StartTime" })
+                        @*<input type="text" class="form-control" name="openTimeForStartTime" />*@
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+
+                @Html.LabelFor(o => o.EndTime, "结束时间", new { @class = "col-sm-3 control-label", @for = "openTimeForEndTime" })
+                <div class="col-sm-7">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-info-circle"></i>
+                        </span>
+                        @Html.TextBoxFor(o => o.EndTime, new { @class = "form-control", @id = "openTimeForEndTime", @name = "EndTime" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="text-center">
+                    <button class="btn btn-primary btn-label-left" type="submit" id="addOpenTimeBtn">
+                        <span>
+                            <i class="fa fa-clock-o"></i>
+                        </span>确定
+                    </button>
+                    @Html.HiddenFor(o => o.Id, new { @id = "hiddenIdField" })
+                     @Html.HiddenFor(o => o.StartTime, new { @id = "hiddenStartTimeField" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="text-center">
+                    <span>时间格式：<font color="red">小时:分钟</font> &nbsp;例如：<font color="red">9:10 或者 15:30</font></span>
+                </div>
+            </div>
+         @*   <div class="form-group">
+                <label class="col-lg-3 control-label">Meeting time</label>
+                <div class="col-sm-4">
+                    <div class="input-group date" id="datetimePicker">
+                        <input type="text" class="form-control" name="meeting" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                    <span class="help-block">MM/DD/YYYY h:m A</span>
+                </div>
+            </div>*@
+        </form>
+    </div>
+</div>
+<script>
+    function DemoTimePicker() {
+        $('#openTimeForStartTime').timepicker({ setDate: new Date() });
+        $('#openTimeForEndTime').timepicker({ setDate: new Date() });
+    }
+
+    $(document).ready(function () {        
+        //LoadTimePickerScript(DemoTimePicker);
+
+        $('#newOpenTimeForm').bootstrapValidator({
+            message: "输入有误",
+            live: 'enabled',
+            trigger: null,
+
+            fields: {
+                StartTime: {
+                    trigger: "blur",
+                    validators: {
+                        notEmpty: {
+                            message: "开始时间不能为空"
+                        }
+                        ,
+                        time: {
+                            format: 'hh:mm',
+                            message: '时间格式不正确'
+                        }
+                    }
+                },
+                EndTime: {
+                    trigger: "blur",
+                    validators: {
+                        notEmpty: {
+                            message: "结束时间不能为空"
+                        }
+                        ,
+                        time: {
+                            format: 'hh:mm',
+                            message: '时间格式不正确'
+                        },
+                        remote: {
+                            url: "/SwitchMarketManagement/ValidateOpenTimes",
+                            message: "时间段有重复",
+                            data: function (validator) {
+                                return {
+                                    startTime: validator.getFieldElements('StartTime').val()
+                                };
+                            }
+                            
+                        }
+                    }
+
+                }
+            },
+            //submitButtons: "addOpenTimeBtn",
+            submitHandler: function (validator, form, submitButton) {
+                var openTimeId = $('#hiddenIdField').val();
+                var url;
+                if (!openTimeId || openTimeId == "0") {
+                    url = "/SwitchMarketManagement/Create";
+                } else {
+                    url = "/SwitchMarketManagement/Update";
+                }
+
+                $.ajax({
+                    url: url,
+                    data: form.serialize(),
+                    dataType: 'json',
+                    type: 'POST',
+                    success: function (data) {
+                        $.procAjaxData(data, function () {
+                            $("#OpenTimeEditBox").remove();
+                            var dt = $('#OpenMarketTimeSlotTable').DataTable();
+                            dt.ajax.reload();
+                        },
+                        function () {
+                            return;
+                        });
+                    }
+                });
+            }
+        });
+        WinMove();
+    });
+</script>

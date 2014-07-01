@@ -1,0 +1,181 @@
+﻿@model List<Management.Models.MarketManagementVM>
+
+<div class="row">
+    <div id="breadcrumb" class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="#">设置</a></li>
+            <li><a href="#">行情管理</a></li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12  col-md-12 col-sm-12">
+        <div class="box">
+            <div class="box-header">
+                <div class="box-name">
+                    <i class="fa fa-refresh"></i>
+                    <span>行情管理</span>
+                </div>
+                <div class="box-icons">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="expand-link">
+                        <i class="fa fa-expand"></i>
+                    </a>
+                </div>
+                <div class="no-move"></div>
+            </div>
+            <div class="box-content" style="position: relative; overflow: auto; height: 440px;">
+                @{
+                    for (int i = 0; i < Model.Count; i++)
+                    {
+
+                    <br />
+                    <table border="0" style="width: 100%">
+                        <tbody>
+                            <tr>
+                                <td align="center" style="width: 8%;text-align:left;"><span style="font-size: 16px; font-weight: bold;"><font color="#6AA6D6">@Model[i].CommodityName</font></span></td>
+                                <td colspan="5">
+                                    <div class="col-sm-2" style="width: 30%; text-align:left;">
+                                        <button class="btn btn-primary btn-label-left" type="submit" onclick="javascript:saveContract('@i');">
+                                            <span>
+                                                <i class="fa fa-clock-o"></i>
+                                            </span>确定
+                                        </button>
+                                    </div>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                @{   
+                        for (int j = 0; j < 6; j++)
+                        {
+                                    <td style="width: 8%; text-align:left;">
+                                        <div class="radio">
+                                            <label>
+
+                                                @{
+                            if (@Model[i].SHFECodeList.Count > j)
+                            {
+                                                    @Html.RadioButton("rbtn" + i, @Model[i].SHFECodeList[j].Id + "-" + @Model[i].SHFECodeList[j].Name + "-" + @Model[i].CommodityName, @Model[i].SHFECodeList[j].IsInUse ?? false)@Model[i].SHFECodeList[j].Name
+                            }
+                                                }
+                                                <i class="fa fa-circle-o small"></i>
+                                            </label>
+                                        </div>
+                                    </td>
+                        }
+                                }
+                                @* <td rowspan="2" style="width: 14%; text-align: center; vertical-align: middle;">
+                                    <button class="btn btn-primary" style="margin:auto;" onclick="javascript:saveContract('@i');">确定</button></td>*@
+                            </tr>
+                            <tr>
+                                @{
+                        for (int a = 6; a < 12; a++)
+                        {
+                          
+                                    <td style="width: 8%; text-align:left;">
+                                        <div class="radio">
+                                            <label>
+                                                @{
+                            if (@Model[i].SHFECodeList.Count > a)
+                            {
+                                                    @Html.RadioButton("rbtn" + i, @Model[i].SHFECodeList[a].Id + "-" + @Model[i].SHFECodeList[a].Name + "-" + @Model[i].CommodityName, @Model[i].SHFECodeList[a].IsInUse ?? false)@Model[i].SHFECodeList[a].Name
+                            }
+                                                }
+                                                <i class="fa fa-circle-o small"></i>
+                                            </label>
+                                        </div>
+                                    </td>
+                        }
+                                }
+                                @*<td style="width: 14%"></td>*@
+                            </tr>
+                        </tbody>
+                    </table>
+@*<input id="marketSub + @i" type="submit" value="确定" />*@
+                    <br />
+                    <br />
+                            
+                    } 
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    function saveContract(code) {
+        var SHFECodeId;
+        var SHFECodeName;
+        var CommodityName;
+
+        var SHFECode = document.getElementsByName("rbtn" + code);
+
+        for (var i = 0; i < SHFECode.length; i++) {
+            if (SHFECode[i].checked) {
+                var aValue = SHFECode[i].value.split("-");
+                SHFECodeId = aValue[0];
+                SHFECodeName = aValue[1];
+                CommodityName = aValue[2];
+            }
+        }
+
+        $.ajax({
+            url: "/MarketManagement/Update",
+            data: { codeId: SHFECodeId },
+            dataType: 'json',
+            type: 'POST',
+            success: function (data) {
+                $.procAjaxData(data, function () {
+                    sendMsgToServer("上期所" + CommodityName + "合约更换至" + SHFECodeName);
+                    demo.server.refreshSHFECodes(SHFECodeId);
+                }, function () {
+
+                });
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        //$('#marketSub0').click(function () {
+        //    $.ajax({
+        //        url: "/MarketManagement/Update",
+        //        data: {id: 1},
+        //        dataType: 'json',
+        //        type: 'POST',
+        //        success: function (data) {
+        //            $.procAjaxData(data, function () {
+
+        //            }, function () {
+
+        //            });
+        //        }
+        //    });
+        //}
+        //)
+        //$('#marketForm').bootstrapValidator({
+        //    live: false,
+
+        //    submitButtons: "marketSub",
+        //    submitHandler: function (validator, form, submitButton) {
+        //        $.ajax({
+        //            url: "/MarketManagement/Update",
+        //            data: form.serialize(),
+        //            dataType: 'json',
+        //            type: 'POST',
+        //            success: function (data) {
+        //                $.procAjaxData(data, function () {
+
+        //                }, function () {
+
+        //                });
+        //            }
+        //        });
+        //    }
+        //});
+
+        WinMove();
+    });
+</script>

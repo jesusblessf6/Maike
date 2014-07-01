@@ -1,0 +1,165 @@
+﻿@using System.Web.Mvc.Html
+@using Management.Models
+@model CompanyVM
+<div class="box" id="companyInfoBox">
+    <div class="box-header">
+        <div class="box-name">
+            <i class="fa fa-edit"></i>
+            <span>@ViewBag.Title</span>
+        </div>
+        <div class="box-icons">
+            <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+            </a>
+            <a class="expand-link">
+                <i class="fa fa-expand"></i>
+            </a>
+            <a class="close-link">
+                <i class="fa fa-times"></i>
+            </a>
+        </div>
+        <div class="no-move"></div>
+    </div>
+    <div class="box-content" style="position: relative">
+        <form class="form-horizontal" id="companyInfoForm">
+            <div class="form-group">
+                @Html.LabelFor(o => o.Name, "公司简称", new { @class = "col-sm-3 control-label", @for = "comPanyName" })
+                <div class="col-sm-7">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-info-circle"></i>
+                        </span>
+                        @Html.TextBoxFor(o => o.Name, new { @class = "form-control", name = "Name", @id = "comPanyName" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(o => o.FullName, "公司全称", new { @class = "col-sm-3 control-label", @for = "comPanyFullName" })
+                <div class="col-sm-7">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-info-circle"></i>
+                        </span>
+                        @Html.TextBoxFor(o => o.FullName, new { @class = "form-control", @id = "comPanyFullName", name = "FullName" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(o => o.Address, "地址", new { @class = "control-label col-sm-3", @for = "companyAddress" })
+                <div class="col-sm-7">
+                    @Html.TextBoxFor(o => o.Address, new { @class = "form-control", name = "Address", @id = "companyAddress" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(o => o.Zip, "邮编", new { @class = "control-label col-sm-3", @for = "companyZip" })
+                <div class="col-sm-7">
+                    @Html.TextBoxFor(o => o.Zip, new { @class = "form-control", name = "Zip", @id = "companyZip" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(o => o.Comment, "备注", new { @class = "control-label col-sm-3", @for = "companyComment" })
+                <div class="col-sm-7">
+                    @Html.TextAreaFor(o => o.Comment, new { @class = "form-control", name = "Comment", @id = "companyComment", style = "resize:none;" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary btn-label-left" id="companySaveBtn">
+                        <span><i class="fa fa-clock-o"></i></span>确定
+                    </button>
+                    @*@Html.HiddenFor(o => o.Id, new { @id = "hiddenIdField" })*@
+                    <input type="hidden" value="@ViewBag.Id" id="hiddenIdField" name="Id"/>
+                    @Html.HiddenFor(o => o.Type, new { @id = "hiddenTypeField" })
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    $(function () {
+        $('#companyInfoForm').bootstrapValidator({
+            message: "输入有误",
+            live: 'enabled',
+            trigger: null,
+
+            fields: {
+                Name: {
+                    trigger: "blur",
+                    validators: {
+                        notEmpty: {
+                            message: "公司简称不能为空"
+                        },
+                        stringLength: {
+                            max: 50,
+                            message: '公司简称不能超过50个字符'
+                        },
+                        remote: {
+                            url: '/Company/ValidateName',
+                            message: "名称已存在",
+                            data: {
+                                id: $("#hiddenIdField").val(),
+                                type: $('#hiddenTypeField').val()
+                            }
+                        }
+                    }
+                },
+                FullName: {
+                    trigger: "blur",
+                    validators: {
+                        notEmpty: {
+                            message: "公司全称不能为空"
+                        },
+                        stringLength: {
+                            max: 100,
+                            message: '公司简称不能超过100个字符'
+                        },
+                        remote: {
+                            url: '/Company/ValidateFullName',
+                            message: "公司全称已存在",
+                            data: {
+                                id: $("#hiddenIdField").val(),
+                                type: $('#hiddenTypeField').val()
+                            }
+                        }
+                    }
+                },
+                Zip: {
+                    trigger: "blur",
+                    validators: {
+                        regexp: {
+                            regexp: /^[1-9][0-9]{5}$/,
+                            message: "请输入正确的邮编"
+                        }
+                    }
+                }
+            },
+            //submitButtons: "companySaveBtn",
+            submitHandler: function (validator, form, submitButton) {
+                var id = $('#hiddenIdField').val();
+                var url;
+                if (!id || id == "0") {
+                    url = "/Company/Create";
+                } else {
+                    url = "/Company/Update";
+                }
+                $.ajax({
+                    url: url,
+                    data: form.serialize(),
+                    dataType: 'json',
+                    type: 'POST',
+                    success: function (data) {
+                        $.procAjaxData(data, function () {
+                            $('#companyInfoBox').remove();
+                            var dt = $('#CompanyTable').DataTable();
+                            dt.ajax.reload();
+                        }, function () {
+                            return;
+                        });
+                    }
+                });
+            }
+        });
+
+        WinMove();
+    });
+</script>

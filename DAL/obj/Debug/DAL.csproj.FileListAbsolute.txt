@@ -1,0 +1,10 @@
+F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\DAL\bin\Debug\DAL.dll
+F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\DAL\bin\Debug\DAL.pdb
+F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\DAL\bin\Debug\Entities.dll
+F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\DAL\bin\Debug\EntityFramework.dll
+F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\DAL\bin\Debug\Entities.pdb
+F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\DAL\bin\Debug\EntityFramework.xml
+F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\DAL\bin\Debug\zh-Hans\EntityFramework.resources.dll
+F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
+F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\DAL\obj\Debug\DAL.dll
+F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\DAL\obj\Debug\DAL.pdb

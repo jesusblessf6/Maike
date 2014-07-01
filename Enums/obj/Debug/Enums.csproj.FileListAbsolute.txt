@@ -1,0 +1,5 @@
+F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\Enums\bin\Debug\Enums.dll
+F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\Enums\bin\Debug\Enums.pdb
+F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\Enums\obj\Debug\Enums.dll
+F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\Enums\obj\Debug\Enums.pdb
+F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\Enums\obj\Debug\Enums.csprojResolveAssemblyReference.cache

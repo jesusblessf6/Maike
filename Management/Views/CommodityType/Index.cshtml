@@ -1,0 +1,193 @@
+﻿
+<div class="row">
+  <div id="breadcrumb" class="col-md-12">
+    <ol class="breadcrumb">
+      <li><a href="#">设置</a></li>
+      <li><a href="#">金属</a></li>
+    </ol>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12 col-sm-7">
+    
+    <div class="box">
+      <div class="box-header">
+        <div class="box-name">
+          <i class="fa fa-cube"></i>
+          <span>金属类型</span>
+        </div>
+        <div class="box-icons">
+          <a href="#" onclick="javascript:addCommodityType();">
+            <i class="fa fa-plus"></i>
+          </a>
+          <a class="collapse-link">
+            <i class="fa fa-chevron-up"></i>
+          </a>
+          <a class="expand-link">
+            <i class="fa fa-expand"></i>
+          </a>
+          <a class="close-link">
+            <i class="fa fa-times"></i>
+          </a>
+        </div>
+        <div class="no-move"></div>
+      </div>
+      <div class="box-content" style="position: relative; overflow: auto; max-height:475px;">
+        <div class="container-fluid">
+          <div id="commodityTypeSearchForm" class="form-horizontal">
+            <div class="form-group" style="margin-top:0;margin-bottom: 0">
+              <label class="col-sm-1 text-right control-label" for="commodityIdFilter" style="padding-left: 0; padding-right: 0">金属</label>
+              <div class="col-sm-3">
+                <input type="hidden" id="commodityIdFilter" />
+              </div>
+              <label class="col-sm-1 text-right control-label" style="padding-left: 0; padding-right: 0" for="commodityTypeNameFilter">名称</label>
+              <div class="col-sm-3">
+                <input type="text" class="form-control" id="commodityTypeNameFilter"/>
+              </div>
+              <button class="btn btn-primary btn-sm" onclick="javascript:searchCommodityTypes();"><i class="fa fa-search"></i></button>
+              <input type="hidden" id="commodityIdFilterValue"/>
+              <input type="hidden" id="commodityTypeNameFilterValue"/>
+            </div>
+          </div>
+        </div>
+        <table class="table table-condensed table-hover table-striped table-heading table-datatable" id="commodityTypeTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>名称</th>
+              <th>金属</th>
+              <th>备注</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+         
+        </table>
+        
+       
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-5" id="editPanel">
+    
+  </div>
+</div>
+
+<script>
+  var dt;
+  
+  function addCommodityType() {
+    $('#commodityTypeEditBox').remove();
+    LoadAjaxContent2("/CommodityType/Create", function(data) {
+      $('#editPanel').html(data);
+    });
+  }
+  
+  function editCommodityType(id) {
+    $('#commodityTypeEditBox').remove();
+    LoadAjaxContent2("/CommodityType/Update/" + id, function (data) {
+      $('#editPanel').html(data);
+    });
+  }
+  
+  function searchCommodityTypes() {
+    //debugger;
+    
+    var commId = $('#commodityIdFilter').val();
+    var commTypeName = $('#commodityTypeNameFilter').val();
+    $('#commodityIdFilterValue').val(commId);
+    $('#commodityTypeNameFilterValue').val(commTypeName);
+
+    //var dt = $('#commodityTypeTable').DataTable();
+    dt.ajax.reload();
+  }
+  
+  function deleteCommodityType(id) {
+    $('#commodityTypeEditBox').remove();
+    $.ajax({
+      url: '/CommodityType/Delete/' + id,
+      type: "DELETE",
+      success: function(data) {
+        $.procAjaxData(data, function() {
+          //var dt = $('#commodityTypeTable').DataTable();
+          dt.ajax.reload();
+        }, function() {
+          return;
+        });
+      }
+    });
+  }
+
+  $(document).ready(function() {
+
+    $('#commodityIdFilter').select2({
+      placeholder: "选择金属",
+      minimumInputLength: 0,
+      allowClear: true,
+      ajax: {
+        url: '/CommodityType/GetAllCommodities',
+        type: "POST",
+        dataType: 'json',
+        data: function(term) {
+          return {
+            q: term
+          };
+        },
+        results: function(data) {
+          return {results: data};
+        }
+      },
+      dropdownCssClass: "bigdrop",
+      escapeMarkup: function (m) { return m; }
+    });
+    
+    dt = $('#commodityTypeTable').DataTable({
+      info: false,
+      lengthChange: false,
+      paging: true,
+      ordering: false,
+      filter: false,
+      
+      paginationType: "bootstrap",
+      iDisplayLength: 10,
+      
+      serverSide: true,
+      ajax:{
+        url: "/CommodityType/GetCommodityTypes",
+        type: "POST",
+        dataType: "json",
+        data: function(d) {
+          d.commodityIdFilterValue = $('#commodityIdFilterValue').val();
+          d.commodityNameFilterValue = $('#commodityTypeNameFilterValue').val();
+        }
+      },
+      
+      processing: true,
+      
+      columns: [
+        {
+          render: function (data, type, row, meta) {
+            var page = dt.page();
+            var len = dt.page.len();
+            return page * len + meta.row + 1;
+          }
+        },
+        { data: "Name" },
+        { data: "CommodityName" },
+        { data: "Description" },
+        {
+          data: "Id",
+          render: function(data, type, row) {
+            return "<a href='#' style='text-decoration:none' onclick='javascript:editCommodityType(" + data + ");'>" +
+              "<i class='fa fa-edit fa-lg'></i></a><a href='#' style='text-decoration:none; margin-left:10px' onclick='javascript:deleteCommodityType("+data+")'><i class='fa fa-trash-o fa-lg'></i></a>";
+          }
+        }
+      ],
+      language: chineseLang,
+      
+    });
+    
+    WinMove();
+    
+  });
+
+</script>

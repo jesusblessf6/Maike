@@ -1,0 +1,5 @@
+F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\Front.Models\bin\Debug\Front.Models.dll
+F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\Front.Models\bin\Debug\Front.Models.pdb
+F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\Front.Models\obj\Debug\Front.Models.dll
+F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\Front.Models\obj\Debug\Front.Models.pdb
+F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\Front.Models\obj\Debug\Front.Models.csprojResolveAssemblyReference.cache

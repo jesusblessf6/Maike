@@ -1,0 +1,73 @@
+﻿@{
+  Layout = "~/Views/Shared/_ControllerActionLayout.cshtml";
+}
+@model Management.Models.RoleVM 
+
+<div>
+  <table id="controllersTree"></table>
+</div>
+
+<div id="tb">
+  <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript: $('#controllersTree').treegrid('expandAll');">全部展开</a>
+  <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="javascript: $('#controllersTree').treegrid('collapseAll');">全部收起</a>
+</div>
+<input type="hidden" id="userId" value="@Model.Id"/>
+
+<script>
+  $('#controllersTree').treegrid({
+    title: '@ViewBag.Title',
+    url: '/Role/RolePermList/@Model.Id',
+    toolbar: '#tb',
+    method: 'get',
+    rownumbers: true,
+    nowrap: false,
+    fitColumns: true,
+    idField: 'id',
+    treeField: 'name',
+    singleSelect: false,
+    selectOnCheck: false,
+    checkOnSelect: false,
+    onBeforeLoad: gridBeforeLoad,
+    columns: [[
+      {
+        field: 'ck',
+        formatter: function (value, row, index) {
+          //alert(row.id);
+          var tagId = "ck-" + row.type + '-' + row.internalId;
+          if (value) {
+            return '<input type="checkbox" name="' + tagId + '" id="' + tagId + '" checked="checked" onChange="javacript:permChanged(\'' + row.type + '\', ' + row.internalId + ')">';
+          } else {
+            return '<input type="checkbox" name="' + tagId + '" id="' + tagId + '" onChange="javacript:permChanged(\'' + row.type + '\', ' + row.internalId + ')">';
+          }
+        }
+      },
+      { field: 'id', hidden: true },
+      { field: 'name', title: '名称' },
+      { field: 'internalId', hidden: true },
+      { field: 'description', title: '描述' },
+      { field: 'type', title: '类型', formatter: caTypeFormatter },
+      { field: 'internalName', title: '内部名称', hidden: true }
+    ]],
+  });
+  
+  function permChanged(type, id) {
+    var c = document.getElementById("ck-" + type + "-" + id);
+    var url = "";
+    if (c.checked) {
+      url = "/Role/AddPerm";
+    } else {
+      url = "/Role/RemovePerm";
+    }
+    $.messager.progress();
+    $.ajax({
+      url: url,
+      type: "POST",
+      data: { roleId: '@Model.Id', targetId: id, type: type },
+      success: function (result) {
+        $.messager.progress('close');
+        ajaxJump(result);
+      }
+    });
+
+  }
+</script>

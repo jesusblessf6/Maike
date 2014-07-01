@@ -1,0 +1,130 @@
+﻿@using System.Web.Mvc.Html
+@using Management.Models
+@model CommodityTypeEditVM
+
+<div class="box" id="commodityTypeEditBox">
+  <div class="box-header">
+    <div class="box-name">
+      <i class="fa fa-edit"></i>
+      <span>@ViewBag.Title</span>
+    </div>
+    <div class="box-icons">
+      <a class="collapse-link">
+        <i class="fa fa-chevron-up"></i>
+      </a> 
+      <a class="expand-link">
+        <i class="fa fa-expand"></i>
+      </a>
+      <a class="close-link">
+        <i class="fa fa-times"></i>
+      </a>
+    </div> 
+    <div class="no-move"></div>
+  </div>
+  <div class="box-content" style="position: relative">
+    <form class="form-horizontal" id="newCommodityTypeForm">
+      <div class="form-group">
+        @Html.LabelFor(o => o.CommodityId, "金属", new { @class = "col-sm-3 control-label", @for = "commdityTypeCommodityId" })
+        <div class="col-sm-7">
+          <div class="input-group">
+            <span class="input-group-addon"> 
+              <i class="fa fa-info-circle"></i>
+            </span>
+            @Html.DropDownListFor(o => o.CommodityId, new SelectList(ViewBag.AllCommodities, "Id", "Name"), new { @id = "commdityTypeCommodityId", @name = "CommodityId", @style = "padding-bottom: 0px;"  })
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        @Html.LabelFor(o => o.Name, "名称", new { @class = "col-sm-3 control-label", @for = "commodityTypeName" })
+        <div class="col-sm-7">
+          <div class="input-group">
+            <span class="input-group-addon">
+              <i class="fa fa-info-circle"></i>
+            </span>
+            @Html.TextBoxFor(o => o.Name, new { @class = "form-control", @id = "commodityTypeName", @name = "Name" })
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        @Html.LabelFor(o => o.Description, "备注", new { @class = "control-label col-sm-3", @for = "commodityTypeComment" })
+        <div class="col-sm-7">
+          @Html.TextAreaFor(o => o.Description, new { @class = "form-control", @name = "Description", @id = "commodityTypeComment" })
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary btn-label-left" id="addCommodityTypeBtn">
+            <span><i class="fa fa-clock-o"></i></span>确定
+          </button>
+          @Html.HiddenFor(o => o.Id, new { @id = "hiddenIdField" })
+        </div>
+      </div>
+      <div></div>
+    </form>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function () {
+    var commodityTypeId = $('#hiddenIdField').val();
+    $('#commdityTypeCommodityId').select2();
+
+    $('#newCommodityTypeForm').bootstrapValidator({
+      message: "输入有误",
+      live: 'enabled',
+      trigger: null,
+      feedbackIcons: {
+        valid: 'fa fa-check',
+        invalid: 'fa fa-times',
+        validating: 'fa fa-spinner'
+      },
+
+      fields: {
+        Name: {
+          trigger: "blur",
+          validators: {
+            notEmpty: {
+              message: "金属类型名称不能为空"
+            },
+            remote: {
+              url: '/CommodityType/ValidateName',
+              message: "名称已存在",
+              data: {
+                id: commodityTypeId,
+                commodityId: $('#commdityTypeCommodityId').select2("val")
+              }
+            }
+          }
+        }
+      },
+
+      //submitButtons: "addCommodityTypeBtn",
+      submitHandler: function (validator, form, submitButton) {
+
+        var url;
+        if (!commodityTypeId || commodityTypeId == "0") {
+          url = "/CommodityType/Create";
+        } else {
+          url = "/CommodityType/Update";
+        }
+        $.ajax({
+          url: url,
+          data: form.serialize(),
+          dataType: 'json',
+          type: 'POST',
+          success: function (data) {
+            $.procAjaxData(data, function () {
+              $('#commodityTypeEditBox').remove();
+              var dt = $('#commodityTypeTable').DataTable();
+              dt.ajax.reload();
+            }, function () {
+              return;
+            });
+          }
+        });
+      }
+    });
+
+    WinMove();
+  });
+</script>

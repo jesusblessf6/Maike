@@ -1,0 +1,344 @@
+﻿<div class="row">
+    <div id="breadcrumb" class="col-md-12" style="margin-bottom: 0px;">
+        <ol class="breadcrumb">
+            <li><a href="#">交易管理</a></li>
+            <li><a href="#">订单管理</a></li>
+        </ol>
+    </div>
+</div>
+<div class="row" style="margin-top: 20px;">
+    <div class="col-xs-12 col-sm-12 col-md-9">
+        <div class="box">
+            <div class="box-header">
+                <div class="box-header">
+                    <div class="box-name">
+                        <i class="fa fa-file-text-o"></i>
+                        <span>订单管理</span>
+                    </div>
+                    
+                    <div class="no-move"></div>
+                </div>
+            </div>
+            <div class="box-content" style="position: relative">
+                <div class="container-fluid">
+                    <div id="companySearchForm" class="form-horizontal" role="form">
+                        <div class="form-group" style="margin-top: 0; margin-bottom: 0">
+                            <div class="row">
+
+                                <label class="col-sm-2 col-xs-2 col-md-1 text-right control-label" style="padding-left: 10px; padding-right: 0; width: 6em;" for="commoditySelect">金属</label>
+                                <div class="col-sm-3 col-xs-3 col-md-3">
+                                    <input type="hidden" id="commoditySelect" />
+                                </div>
+                                <label class="col-sm-2 col-xs-2 col-md-1 text-right control-label" style="padding-left: 0; padding-right: 0; width: 3em;" for="commodityTypeSelect">类型</label>
+                                <div class="col-sm-3 col-xs-3 col-md-3">
+                                    <input type="hidden" id="commodityTypeSelect" />
+                                </div>
+                                <label class="col-sm-2 col-xs-2 col-md-1 text-right control-label" style="padding-left: 0; padding-right: 0; width: 3em;" for="brandSelect">品牌</label>
+                                <div class="col-sm-3 col-xs-3 col-md-3">
+                                    <input type="hidden" id="brandSelect" />
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <label class="col-sm-2 col-xs-2 col-md-1 text-right control-label" style="padding-left: 10px; padding-right: 0; width: 6em;" for="companySelect">销售方</label>
+                                <div class="col-sm-3 col-xs-3 col-md-3">
+                                    <input type="hidden" id="companySelect" />
+                                </div>
+                                <label class="col-sm-2 col-xs-2 col-md-1 text-right control-label" style="padding-left: 0; padding-right: 0; width: 3em;" for="warsehouseSelect">仓库</label>
+                                <div class="col-sm-3 col-xs-3 col-md-3">
+                                    <input type="hidden" id="warsehouseSelect" />
+                                </div>
+                                <div class="col-sm-2 col-xs-2 col-md-1 text-right control-label" style="padding-left: 0; padding-right: 0; width: 3em; padding-top: 0">
+                                    <button class="btn btn-primary btn-sm" id="stockSearchBtn"><i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-condensed table-hover table-striped table-heading table-datatable" id="StockTable">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>销售方</th>
+                            <th>金属</th>
+                            <th>类型</th>
+                            <th>品牌</th>
+                            <th>仓库</th>
+                            <th>可售吨数</th>
+                            <th>已售吨数</th>
+                            <th>升贴水</th>
+                            <th>固定价</th>
+                            <th>最小购买单位</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-3" id="editPanel">
+    </div>
+</div>
+<script>
+    var aCommodityType = [];
+    var aBrand = [];
+    var commodityId = 0;
+    var commodityTypeId = 0;
+    var brandId = 0;
+    var dt;
+    $(function () {
+        var selectCommodityType = $("#commodityTypeSelect").select2({ data: aCommodityType, allowClear: true, placeholder: "选择类型" });
+        var selectBrand = $("#brandSelect").select2({ data: aBrand, allowClear: true, placeholder: "选择品牌" });
+
+        $("#companySelect").select2({
+            placeholder: "内部客户",
+            minimumInputLength: 0,
+            allowClear: true,
+            ajax: {
+                url: "/TradeManagement/GetCompany",
+                type: "POST",
+                dataType: 'json',
+                quietMillis: 100,
+                data: function (term, page) {
+                    return {
+                        q: term,
+                        page_limit: 10,
+                        page: page,
+                        companyType: 2
+                    };
+                },
+                results: function (data, page) {
+                    var more = (page * 10) < data.total;
+                    return { results: data.company, more: more };
+                }
+            },
+            dropdownCssClass: "bigdrop",
+            escapeMarkup: function (m) { return m; }
+        });
+
+        $("#warsehouseSelect").select2({
+            placeholder: "选择仓库",
+            minimumInputLength: 0,
+            allowClear: true,
+            ajax: {
+                url: "/TradeManagement/GetWarehouse",
+                type: "POST",
+                dataType: 'json',
+                quietMillis: 100,
+                data: function (term, page) {
+                    return {
+                        q: term,
+                        page_limit: 10,
+                        page: page
+                    };
+                },
+                results: function (data, page) {
+                    var more = (page * 10) < data.total;
+                    return { results: data.warehouse, more: more };
+                }
+            },
+            dropdownCssClass: "bigdrop",
+            escapeMarkup: function (m) { return m; }
+        });
+
+        var selectCommodity = $('#commoditySelect').select2({
+            placeholder: "选择金属",
+            minimumInputLength: 0,
+            allowClear: true,
+            ajax: {
+                url: '/TradeManagement/GetAllCommodities',
+                type: "POST",
+                dataType: 'json',
+                data: function (term) {
+                    return {
+                        q: term
+                    };
+                },
+                results: function (data) {
+                    return { results: data };
+                }
+            },
+            dropdownCssClass: "bigdrop",
+            escapeMarkup: function (m) { return m; }
+        });
+
+        //$("#commoditySelect").on("select2-clearing", function () {
+        //    commodityId = 0;
+        //    commodityTypeId = 0;
+        //    brandId = 0;
+        //    aCommodityType.length = 0;
+        //    aBrand.length = 0;
+        //    resetBrand();
+        //    resetCommodityType();
+        //});
+
+        $("#commoditySelect").on("change", function (data) {
+            commodityId = data.val;
+            if (commodityId == "") {
+                commodityId = 0;
+                aCommodityType.length = 0;
+                aBrand.length = 0;
+                resetBrand();
+                resetCommodityType();
+            }
+            else {
+                onCommoditySelectChange();
+            }
+        });
+
+        $("#commodityTypeSelect").on("change", function (data) {
+            commodityTypeId = data.val;
+            if (commodityTypeId == "")
+            {
+                commodityTypeId = 0;
+                aBrand.length = 0;
+                resetBrand();
+            }
+            else
+            {
+                onCommodityTypeSelectChange();
+            }
+        });
+
+        //$("#commodityTypeSelect").on("select2-clearing", function () {
+        //    commodityTypeId = 0;
+        //    brandId = 0;
+        //    aBrand.length = 0;
+        //    resetBrand();
+        //});
+
+        $("#brandSelect").on("change", function (data) {
+            brandId = data.val;
+            if (brandId == "")
+                brandId = 0;
+        });
+
+        //$("#brandSelect").on("select2-clearing", function () {
+        //    brandId = 0;
+        //});
+
+        $("#stockSearchBtn").click(function () {
+            dt.ajax.reload();
+        });
+
+        dt = $('#StockTable').DataTable({
+            info: false,
+            lengthChange: false,
+            paging: true,
+            ordering: false,
+            filter: false,
+            scrollX: true,
+            paginationType: "bootstrap",
+            iDisplayLength: 10,
+            serverSide: true,
+            ajax: {
+                url: "/TradeManagement/GetStocks",
+                data: function (d) {
+                    d.companyId = $("#companySelect").val() || 0;
+                    d.warehouseId = $("#warsehouseSelect").val() || 0;
+                    d.commodityId = commodityId;
+                    d.commodityTypeId = commodityTypeId;
+                    d.brandId = brandId;
+                },
+                type: "POST",
+                dataType: "json"
+            },
+
+            processing: true,
+
+            columns: [
+              {
+                  render: function (data, type, row, meta) {
+                      var page = dt.page();
+                      var len = dt.page.len();
+                      return page * len + meta.row + 1;
+                  }
+              },
+              { data: "CompanyName" },
+              { data: "CommotityName" },
+              { data: "CommodityTypeName" },
+              { data: "BrandName" },
+              { data: "WarehouseName" },
+              {
+                  data: "AvailableQty",
+                  render: function (data, type, row) {
+                      return "<div id='stockAQty" + row.Id + "'>" + (data || 0) + "</div>";
+                  }
+              },
+              {
+                  data: "SaleQty"
+              },
+              {
+                  data: "Premium",
+                  render: function (data, type, row) {
+                      return "<div id='stockPreminum" + row.Id + "'>" + (data || '') + "</div>";
+                  }
+              },
+              {
+                  data: "Price",
+                  render: function (data, type, row) {
+                      return "<div id='stockPrice" + row.Id + "'>" + (data || '') + "</div>";
+                  }
+              },
+              { data: "BuyUnit" },
+              {
+                  data: "Id",
+                  render: function (data, type, row) {
+                      //return "<a href='#' style='text-decoration:none' onclick='javascript:buyOrder(" + data + ");'>购买</a>"
+                     return  "<a href='#' style='text-decoration:none' onclick='javascript:buyOrder(" + data + ");'>" +
+             "<i class='fa fa-shopping-cart fa-lg'></i></a>"
+                  }
+              }
+            ],
+            language: chineseLang,
+            fnInitComplete: function () {
+                //debugger;
+
+                //var obj = $("td:contains('管理员一')", this).parent();
+                //var row = dt.row(obj);
+            }
+        });
+
+
+        WinMove();
+    });
+
+    function resetBrand() {
+        selectBrand = $("#brandSelect").select2({ data: aBrand, allowClear: true, placeholder: "选择品牌" });
+    }
+
+    function resetCommodityType() {
+        selectCommodityType = $("#commodityTypeSelect").select2({ data: aCommodityType, allowClear: true, placeholder: "选择类型" });
+    }
+
+    function onCommoditySelectChange() {
+        //改变金属
+        $.post("/TradeManagement/GetCommodityTypeByCommodityId", { commId: commodityId }, function (result) {
+            aCommodityType.length = 0;
+            $.each(result, function (i, data) {
+                var obj = { id: data.Id, text: data.Name };
+                aCommodityType.push(obj);
+            });
+            resetCommodityType();
+        });
+    };
+
+    function onCommodityTypeSelectChange() {
+        //改变类型
+        $.post("/TradeManagement/GetBrandByCommodityIdAndCommodityTypeId", { commId: commodityId, commTypeId: commodityTypeId }, function (result) {
+            aBrand.length = 0;
+            $.each(result, function (i, data) {
+                var obj = { id: data.Id, text: data.Name };
+                aBrand.push(obj);
+            });
+            resetBrand();
+        });
+    };
+
+    function buyOrder(id) {
+        $('#TradeManagementEditBox').remove();
+        LoadAjaxContent2("/TradeManagement/Create/" + id, function (data) {
+            $('#editPanel').html(data);
+        });
+    }
+</script>

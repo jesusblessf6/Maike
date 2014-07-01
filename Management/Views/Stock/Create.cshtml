@@ -1,0 +1,425 @@
+﻿@using System.Web.Mvc.Html
+@using Management.Models
+@model StockCreateVM
+<div class="box" id="StockInfoBox">
+    <div class="box-header">
+        <div class="box-name">
+            <i class="fa fa-edit"></i>
+            <span>@ViewBag.Title</span>
+        </div>
+        <div class="box-icons">
+            <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+            </a>
+            <a class="expand-link">
+                <i class="fa fa-expand"></i>
+            </a>
+            <a class="close-link" id="aClose">
+                <i class="fa fa-times"></i>
+            </a>
+        </div>
+        <div class="no-move"></div>
+    </div>
+    <div class="box-content" style="position: relative">
+        <form class="form-horizontal" id="stockInfoForm">
+            <div class="form-group">
+                @Html.LabelFor(o => o.CompanyId, "内部公司", new { @class = "col-sm-3 control-label", @for = "companySelect_create" })
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-info-circle"></i>
+                        </span>
+                        @Html.DropDownListFor(o => o.CompanyId, new SelectList(ViewBag.AllCompany, "Id", "Name"), new { @id = "companySelect_create", @style = "padding-bottom: 0px;" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(o => o.CommotityId, "金属", new { @class = "col-sm-3 control-label", @for = "commoditySelect_create" })
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-info-circle"></i>
+                        </span>
+                        @Html.DropDownListFor(o => o.CommotityId, new SelectList(ViewBag.AllCommodities, "Id", "Name"), new { @id = "commoditySelect_create", @style = "padding-bottom: 0px;" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(o => o.CommodityTypeId, "类型", new { @class = "col-sm-3 control-label", @for = "commodityTypeSelect_create" })
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-info-circle"></i>
+                        </span>
+                        @Html.HiddenFor(o => o.CommodityTypeId, new { @id = "commodityTypeSelect_create", @style = "padding-bottom: 0px;" })
+                    </div>
+                    <small id="commodityTypeMsg" class="help-block"></small>
+                    <input type="hidden" value="@ViewBag.AllCommodityTypes" id="hiddenCommdityType"/>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(o => o.BrandId, "品牌", new { @class = "col-sm-3 control-label", @for = "brandSelect_create" })
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-info-circle"></i>
+                        </span>
+                        @Html.HiddenFor(o => o.BrandId, new { @id = "brandSelect_create", @style = "padding-bottom: 0px;" })
+                    </div>
+                    <small id="brandMsg" class="help-block"></small>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(o => o.WarehouseId, "仓库", new { @class = "col-sm-3 control-label", @for = "warsehouseSelect_create" })
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-info-circle"></i>
+                        </span>
+                        @Html.HiddenFor(o => o.WarehouseId, new { @id = "warsehouseSelect_create", @style = "padding-bottom: 0px;" })
+                    </div>
+                    <small id="warehouseMsg" class="help-block"></small>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(o => o.PricingType, "定价方式", new { @class = "col-sm-3 control-label", @for = "selectPriceType_create" })
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-info-circle"></i>
+                        </span>
+                        <select id="selectPriceType_create" name="PricingType" style="padding-bottom: 0px;">
+                            <option value="1" selected="selected">升贴水定价</option>
+                            <option value="2">固定价定价</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(o => o.Quantity, "数量", new { @class = "col-sm-3 control-label", @for = "txtQuantity" })
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-info-circle"></i>
+                        </span>
+                        @Html.TextBoxFor(o => o.Quantity, new { @class = "form-control", @id = "txtQuantity" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(o => o.BuyUnit, "购买单位", new { @class = "col-sm-3 control-label", @for = "userTel" })
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-info-circle"></i>
+                        </span>
+                        @Html.TextBoxFor(o => o.BuyUnit, new { @class = "form-control", @id = "txtBuyUnit" })
+                        <input type="hidden" value="@ViewBag.BuyUnit" id="hiddenBuyUnit" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" id="priceDiv" style="display: none;">
+                @Html.LabelFor(o => o.Price, "固定价", new { @class = "col-sm-3 control-label", @for = "txtPrice" })
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-info-circle"></i>
+                        </span>
+                        @Html.TextBoxFor(o => o.Price, new { @class = "form-control", @id = "txtPrice" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" id="premiumDiv">
+                @Html.LabelFor(o => o.Premium, "升贴水", new { @class = "col-sm-3 control-label", @for = "txtPremium" })
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-info-circle"></i>
+                        </span>
+                        @Html.TextBoxFor(o => o.Premium, new { @class = "form-control", @id = "txtPremium" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary btn-label-left" id="stockSaveBtn">
+                        <span><i class="fa fa-clock-o"></i></span>确定
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    var aCommodityType_create = [];
+    var aBrand_create = [];
+    var commodityId_create = 0;
+    var commodityTypeId_create = 0;
+    var brandId_create = 0;
+    var priceType_create = 1;
+    $(function () {
+        var commtype = $("#hiddenCommdityType").val();
+        var acommtype = commtype.split("||");
+        for (var i = 0; i < acommtype.length; i++) {
+            var type = acommtype[i];
+            var aType = type.split(",");
+            var obj = { id: aType[0], text: aType[1] };
+            aCommodityType_create.push(obj);
+        }
+
+        var selectCommodityType_create = $("#commodityTypeSelect_create").select2({ data: aCommodityType_create, allowClear: true, placeholder: "选择类型" });
+        var selectBrand_create = $("#brandSelect_create").select2({ data: aBrand_create, allowClear: true, placeholder: "选择品牌" });
+
+        $("#companySelect_create").select2();
+
+        $("#warsehouseSelect_create").select2({
+            placeholder: "选择仓库",
+            minimumInputLength: 0,
+            allowClear: true,
+            ajax: {
+                url: "/Warehouse/GetWarehouse",
+                type: "POST",
+                dataType: 'json',
+                quietMillis: 100,
+                data: function (term, page) {
+                    return {
+                        q: term,
+                        page_limit: 10,
+                        page: page
+                    };
+                },
+                results: function (data, page) {
+                    var more = (page * 10) < data.total;
+                    return { results: data.warehouse, more: more };
+                }
+            },
+            dropdownCssClass: "bigdrop",
+            escapeMarkup: function (m) { return m; }
+        });
+
+        var selectCommodity_create = $('#commoditySelect_create').select2();
+
+        $("#commoditySelect_create").on("select2-loaded", function (data) {
+
+            $("#commoditySelect_create").select2("val");
+        });
+
+        $("#commoditySelect_create").on("change", function (data) {
+            commodityId_create = data.val;
+            if (commodityId_create == "") {
+                commodityId_create = 0;
+                aCommodityType_create.length = 0;
+                aBrand_create.length = 0;
+                resetBrand_create();
+                resetCommodityType_create();
+            }
+            else {
+                onCommoditySelectChange_create();
+            }
+        });
+
+        $("#commodityTypeSelect_create").on("change", function (data) {
+            commodityTypeId_create = data.val;
+            if (commodityTypeId_create == "") {
+                commodityTypeId_create = 0;
+                aBrand_create.length = 0;
+                resetBrand_create();
+                var commodityTypeMsg = $("#commodityTypeMsg");
+                commodityTypeMsg.text("必须选择一个类型");
+                commodityTypeMsg.parent().addClass("has-error");
+            }
+            else {
+                var commodityTypeMsg = $("#commodityTypeMsg");
+                commodityTypeMsg.text("");
+                commodityTypeMsg.parent().removeClass("has-error");
+                onCommodityTypeSelectChange_create();
+            }
+        });
+
+        $("#brandSelect_create").on("change", function (data) {
+            brandId_create = data.val;
+            if (brandId_create == "") {
+                brandId_create = 0;
+                var brandMsg = $("#brandMsg");
+                brandMsg.text("必须选择一个品牌");
+                brandMsg.parent().addClass("has-error");
+            }
+            else {
+                var brandMsg = $("#brandMsg");
+                brandMsg.text("");
+                brandMsg.parent().removeClass("has-error");
+            }
+        });
+
+        $("#warsehouseSelect_create").on("change", function (data) {
+            if (data.val == "") {
+                var warehouseMsg = $("#warehouseMsg");
+                warehouseMsg.text("必须选择一个仓库");
+                warehouseMsg.parent().addClass("has-error");
+            }
+            else {
+                var warehouseMsg = $("#warehouseMsg");
+                warehouseMsg.text("");
+                warehouseMsg.parent().removeClass("has-error");
+            }
+        });
+
+        $("#selectPriceType_create").select2();
+
+        $("#selectPriceType_create").on("change", function (data) {
+            priceType_create = data.val;
+            if (priceType_create == "1") {
+                $("#premiumDiv").show();
+                $("#priceDiv").hide();
+                $("#txtPrice").val("");
+            }
+            else {
+                $("#premiumDiv").hide();
+                $("#priceDiv").show();
+                $("#txtPremium").val("");
+            }
+        });
+
+        $("#txtBuyUnit").val($("#hiddenBuyUnit").val());
+
+        $('#stockInfoForm').bootstrapValidator({
+            message: "输入有误",
+            live: 'enabled',
+            fields: {
+                Quantity: {
+                    trigger: "blur",
+                    validators: {
+                        notEmpty: {
+                            message: "数量不能为空"
+                        },
+                        regexp: {
+                            regexp: /^\d+(\.\d+)?$/,
+                            message: "请输入正确的数量"
+                        }
+                    }
+                },
+                BuyUnit: {
+                    trigger: "blur",
+                    validators: {
+                        notEmpty: {
+                            message: "购买单位不能为空"
+                        },
+                        regexp: {
+                            regexp: /^[1-9]\d*$/,
+                            message: "请输入正确的购买单位"
+                        }
+                    }
+                },
+                Price: {
+                    trigger: "blur",
+                    validators: {
+                        notEmpty: {
+                            message: "价格不能为空"
+                        },
+                        regexp: {
+                            regexp: /^\d+(\.\d+)?$/,
+                            message: "请输入正确的价格"
+                        }
+                    }
+                },
+                Premium: {
+                    trigger: "blur",
+                    validators: {
+                        notEmpty: {
+                            message: "升贴水不能为空"
+                        },
+                        regexp: {
+                            regexp: /^(\-)?\d+(\.\d+)?$/,
+                            message: "请输入正确的升贴水"
+                        }
+                    }
+                }
+            },
+            submitHandler: function (validator, form, submitButton) {
+                var commodityTypeMsg = $("#commodityTypeMsg");
+                var brandMsg = $("#brandMsg");
+                var warehouseMsg = $("#warehouseMsg");
+                commodityTypeMsg.text("");
+                commodityTypeMsg.parent().removeClass("has-error");
+                brandMsg.text("");
+                brandMsg.parent().removeClass("has-error");
+                warehouseMsg.text("");
+                warehouseMsg.parent().removeClass("has-error");
+                var commodityType = $("#commodityTypeSelect_create").val();
+                var brand = $("#brandSelect_create").val();
+                var warehouse = $("#warsehouseSelect_create").val();
+                var flag = true;
+                if (commodityType == "") {
+                    flag = false;
+                    commodityTypeMsg.text("必须选择一个类型");
+                    commodityTypeMsg.parent().addClass("has-error");
+                }
+                if (brand == "") {
+                    flag = false;
+                    brandMsg.text("必须选择一个品牌");
+                    brandMsg.parent().addClass("has-error");
+                }
+
+                if (warehouse == "") {
+                    flag = false;
+                    warehouseMsg.text("必须选择一个仓库");
+                    warehouseMsg.parent().addClass("has-error");
+                }
+                if (!flag) {
+                    $("#stockSaveBtn").removeAttr("disabled");
+                    return false;
+                }
+                $.ajax({
+                    url: "/Stock/Create",
+                    data: form.serialize(),
+                    dataType: 'json',
+                    type: 'POST',
+                    success: function (data) {
+                        $.procAjaxData(data, function () {
+                            $('#StockInfoBox').remove();
+                            var dt = $('#StockTable').DataTable();
+                            dt.ajax.reload();
+                        }, function () {
+                            return;
+                        });
+                    }
+                });
+            }
+        });
+
+        WinMove();
+    });
+
+    function resetBrand_create() {
+        selectBrand_create = $("#brandSelect_create").select2({ data: aBrand_create, allowClear: true, placeholder: "选择品牌" });
+    }
+
+    function resetCommodityType_create() {
+        selectCommodityType_create = $("#commodityTypeSelect_create").select2({ data: aCommodityType_create, allowClear: true, placeholder: "选择类型" });
+    }
+
+    function onCommoditySelectChange_create() {
+        //改变金属
+        $.post("/Brand/GetCommodityTypeByCommodityId", { commId: commodityId_create }, function (result) {
+            aCommodityType_create.length = 0;
+            $.each(result, function (i, data) {
+                var obj = { id: data.Id, text: data.Name };
+                aCommodityType_create.push(obj);
+            });
+            resetCommodityType_create();
+        });
+    };
+
+    function onCommodityTypeSelectChange_create() {
+        //改变类型
+        $.post("/Brand/GetBrandByCommodityIdAndCommodityTypeId", { commId: commodityId_create, commTypeId: commodityTypeId_create }, function (result) {
+            aBrand_create.length = 0;
+            $.each(result, function (i, data) {
+                var obj = { id: data.Id, text: data.Name };
+                aBrand_create.push(obj);
+            });
+            resetBrand_create();
+        });
+    };
+</script>

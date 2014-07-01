@@ -1,0 +1,153 @@
+﻿<div class="row">
+    <div id="breadcrumb" class="col-md-12" style="margin-bottom: 0px;">
+        <ol class="breadcrumb">
+            <li><a href="#">设置</a></li>
+            <li><a href="#">@ViewBag.Title</a></li>
+        </ol>
+    </div>
+</div>
+<input type="hidden" value="@ViewBag.Type" id="hideCustomerType"/>
+<div class="row" style="margin-top: 20px;">
+    <div class="col-xs-12 col-sm-12 col-md-8">
+        <div class="box">
+            <div class="box-header">
+                <div class="box-header">
+                    <div class="box-name">
+                        <i class="fa fa-tree"></i>
+                        <span>@ViewBag.Title</span>
+                    </div>
+                    <div class="box-icons">
+                        <a href="#" onclick="javascript:addCompany();">
+                            <i class="fa fa-plus"></i>
+                        </a>
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="expand-link">
+                            <i class="fa fa-expand"></i>
+                        </a>
+                    </div>
+                    <div class="no-move"></div>
+                </div>
+            </div>
+            <div class="box-content" style="position: relative">
+                <div class="container-fluid">
+                    <div id="companySearchForm" class="form-horizontal" role="form">
+                        <div class="form-group" style="margin-top: 0; margin-bottom: 0">
+                            <label class="col-sm-1 text-right control-label" style="padding-left: 0; padding-right: 0" for="customerSearchTxt">名称</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="customerSearchTxt" />
+                            </div>
+                            <button class="btn btn-primary btn-sm" id="customerSearchBtn"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-condensed table-hover table-striped table-heading table-datatable" id="CompanyTable">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>公司简称</th>
+                            <th>公司全称</th>
+                            <th>地址</th>
+                            <th>邮编</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-4" id="editPanel">
+    </div>
+</div>
+<script>
+    var dt;
+    $(document).ready(function () {
+        WinMove();
+        initTable();
+        $("#customerSearchBtn").click(function () {
+            dt.ajax.reload();
+            return false;
+        });
+    });
+
+    function initTable() {
+        dt= $('#CompanyTable').DataTable({
+            info: false,
+            lengthChange: false,
+            paging: true,
+            ordering: false,
+            filter: false,
+
+            paginationType: "bootstrap",
+            iDisplayLength: 10,
+
+            serverSide: true,
+            ajax: {
+                url: "/Company/GetCompanys",
+                data: function (d) {
+                    d.key = $("#customerSearchTxt").val();
+                    d.customerType = $("#hideCustomerType").val();
+                },
+                type: "POST",
+                dataType: "json"
+            },
+
+            processing: true,
+
+            columns: [
+              {
+                  render: function (data, type, row, meta) {
+                      var dt = $('#CompanyTable').DataTable();
+                      var page = dt.page();
+                      var len = dt.page.len();
+                      return page * len + meta.row + 1;
+                  }
+              },
+              { data: "Name" },
+              { data: "FullName" },
+              { data: "Address" },
+              { data: "Zip" },
+              {
+                  data: "Id",
+                  render: function (data, type, row) {
+                      return "<a href='#' style='text-decoration:none;white-space: nowrap;' onclick='javascript:editCompany(" + data + ");'>" +
+                        "<i class='fa fa-edit fa-lg'></i></a><a href='#' style='text-decoration:none;white-space: nowrap;margin-left:10px' onclick='javascript:deleteCompany(" + data + ")'><i class='fa fa-trash-o fa-lg'></i></a>";
+                  }
+              }
+            ],
+            language: chineseLang,
+            fnInitComplete: function () {
+
+            }
+        });
+    }
+
+    function addCompany() {
+        //companyInfoBox
+        $('#companyInfoBox').remove();
+        LoadAjaxContent2("/Company/Create/" + $("#hideCustomerType").val(), function (data) {
+            $('#editPanel').html(data);
+        });
+    }
+    function editCompany(id) {
+        $('#companyInfoBox').remove();
+        LoadAjaxContent2("/Company/Edit/" + id, function (data) {
+            $('#editPanel').html(data);
+        });
+    }
+    function deleteCompany(id) {
+        $.ajax({
+            url: '/Company/Delete/' + id,
+            type: "DELETE",
+            success: function (data) {
+                $.procAjaxData(data, function () {
+                    var dt = $('#CompanyTable').DataTable();
+                    dt.ajax.reload();
+                }, function () {
+                    return;
+                });
+            }
+        });
+    }
+</script>

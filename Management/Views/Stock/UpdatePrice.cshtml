@@ -1,0 +1,92 @@
+﻿@using System.Web.Mvc.Html
+@using Management.Models
+@model StockUpdatePriceVM
+<div class="box" id="StockInfoBox">
+    <div class="box-header">
+        <div class="box-name">
+            <i class="fa fa-edit"></i>
+            <span>修改价格</span>
+        </div>
+        <div class="box-icons">
+            <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+            </a>
+            <a class="expand-link">
+                <i class="fa fa-expand"></i>
+            </a>
+            <a class="close-link" id="aClose">
+                <i class="fa fa-times"></i>
+            </a>
+        </div>
+        <div class="no-move"></div>
+    </div>
+    <div class="box-content" style="position: relative">
+        <form class="form-horizontal" id="stockUpdatePriceForm">
+            <div class="form-group">
+                @Html.HiddenFor(o => o.Id, new { @id = "hiddenId" })
+                <input type="hidden" id="hiddenOldPrice" />
+                @Html.LabelFor(o => o.Price, "价格", new { @class = "col-sm-3 control-label", @for = "txtPrice" })
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-info-circle"></i>
+                        </span>
+                        @Html.TextBoxFor(o => o.Price, new { @class = "form-control", @id = "txtPrice" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary btn-label-left" id="stockUpdatePriceBtn">
+                        <span><i class="fa fa-clock-o"></i></span>确定
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    $(function () {
+        $("#hiddenOldPrice").val($("#txtPrice").val());
+
+        $('#stockUpdatePriceForm').bootstrapValidator({
+            message: "输入有误",
+            live: 'enabled',
+            fields: {
+                Price: {
+                    trigger: "blur",
+                    validators: {
+                        notEmpty: {
+                            message: "价格不能为空"
+                        },
+                        regexp: {
+                            regexp: /^\d+(\.\d+)?$/,
+                            message: "请输入正确的价格"
+                        }
+                    }
+                }
+            },
+            submitHandler: function (validator, form, submitButton) {
+                $.ajax({
+                    url: "/Stock/UpdatePrice",
+                    data: form.serialize(),
+                    dataType: 'json',
+                    type: 'POST',
+                    success: function (data) {
+                        $.procAjaxData(data, function () {
+                            var oldPrice = $("#hiddenOldPrice").val();
+                            demo.server.backend_UpdatePrice($("#hiddenId").val(), $("#txtPrice").val(), oldPrice);
+                            $('#StockInfoBox').remove();
+                            //var dt = $('#StockTable').DataTable();
+                            //dt.ajax.reload();
+                        }, function () {
+                            return;
+                        });
+                    }
+                });
+            }
+        });
+
+        WinMove();
+    });
+</script>

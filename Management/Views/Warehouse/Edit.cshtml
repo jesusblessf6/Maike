@@ -1,0 +1,161 @@
+﻿@using Management.Models
+
+@model WarehouseEditVM
+
+<div class="box" id="WarehouseEditBox">
+    <div class="box-header">
+        <div class="box-name">
+            <i class="fa fa-edit"></i>
+            <span>@ViewBag.Title</span>
+        </div>
+        <div class="box-icons">
+            <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+            </a>
+            <a class="expand-link">
+                <i class="fa fa-expand"></i>
+            </a>
+            <a class="close-link">
+                <i class="fa fa-times"></i>
+            </a>
+        </div>
+        <div class="no-move"></div>
+    </div>
+    <div class="box-content" style="position: relative">
+        <form class="form-horizontal" id="newWarehouseForm">
+            <div class="form-group">
+                @Html.LabelFor(o => o.Name, "仓库", new { @class = "col-sm-3 control-label", @for = "warehouseName" })
+                <div class="col-sm-7">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-info-circle"></i>
+                        </span>
+                        @Html.TextBoxFor(o => o.Name, new { @class = "form-control", @id = "warehouseName", @name = "Name" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(o => o.Contact, "联系人", new { @class = "col-sm-3 control-label", @for = "warehouseContact" })
+                <div class="col-sm-7">
+                        @Html.TextBoxFor(o => o.Contact, new { @class = "form-control", @id = "warehouseContact", @name = "Contact" })
+                    
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(o => o.Address, "地址", new { @class = "col-sm-3 control-label", @for = "warehouseAddress" })
+                <div class="col-sm-7">
+                        @Html.TextBoxFor(o => o.Address, new { @class = "form-control", @id = "warehouseAddress", @name = "Address"})
+                   
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(o => o.Fax, "传真", new { @class = "col-sm-3 control-label", @for = "warehouseFax" })
+                <div class="col-sm-7">
+                        @Html.TextBoxFor(o => o.Fax, new { @class = "form-control", @id = "warehouseFax", @name = "Fax" })
+                   
+                </div>
+                </div>
+            <div class="form-group">
+                @Html.LabelFor(o => o.Tel, "电话", new { @class = "col-sm-3 control-label", @for = "warehouseTel" })
+                <div class="col-sm-7">
+                        @Html.TextBoxFor(o => o.Tel, new { @class = "form-control", @id = "warehouseTel", @name = "Tel" })
+                    
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(o => o.Description, "备注", new { @class = "control-label col-sm-3", @for = "warehouseComment" })
+                <div class="col-sm-7">
+                    @Html.TextAreaFor(o => o.Description, new { @class = "form-control", @name = "Description", @id = "warehouseComment", @style = "resize:none;" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="text-center">
+                    <button class="btn btn-primary btn-label-left" type="submit" id="addWarehouseBtn">
+                        <span>
+                            <i class="fa fa-clock-o"></i>
+                        </span>确定
+                    </button>
+                    @Html.HiddenFor(o => o.Id, new { @id = "hiddenIdField" })
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        var warehouseId = $("#hiddenIdField").val();
+
+        $('#newWarehouseForm').bootstrapValidator({
+
+            message: "输入有误",
+            live: 'enabled',
+            trigger: null,
+
+            fields: {
+                Name: {
+                    trigger: "blur",
+                    validators: {
+                        notEmpty: {
+                            message: "仓库名称不能为空"
+                        },
+                        remote: {
+                            url: '/Warehouse/ValidateName',
+                            message: "名称已存在",
+                            data: {
+                                id: warehouseId
+                            }
+                        }
+                    }
+                },
+                Tel: {
+                    trigger: "blur",
+                    validators: {
+                        remote: {
+                            url: '/Warehouse/ValidateTel',
+                            message:"电话号码输入格式不正确"
+                        }
+                    }
+                },
+                Fax: {
+                    trigger: "blur",
+                    validators: {
+                        remote: {
+                            url: '/Warehouse/ValidateFax',
+                            message:"传真输入格式不正确"
+                        }
+                    }
+                }
+            },
+
+            //submitButtons: "addWarehouseBtn",
+            submitHandler: function (validator, form, submitButton) {
+
+                var brandId = $('#hiddenIdField').val();
+                var url;
+                if (!brandId || brandId == "0") {
+                    url = "/Warehouse/Create";
+                } else {
+                    url = "/Warehouse/Update";
+                }
+
+                $.ajax({
+                    url: url,
+                    data: form.serialize(),
+                    dataType: 'json',
+                    type: 'POST',
+                    success: function (data) {
+                        $.procAjaxData(data, function () {
+                            $('#WarehouseEditBox').remove();
+                            var dt = $('#warehouseTable').DataTable();
+                            dt.ajax.reload();
+                        }, function () {
+                            return;
+                        });
+                    }
+                });
+            }
+        });
+
+        WinMove();
+    });
+</script>

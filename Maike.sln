@@ -1,0 +1,156 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Front", "Front\Front.csproj", "{0593A3C1-690C-45B4-BEA7-F23E9795FB53}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Management", "Management\Management.csproj", "{A8671724-4ABF-412E-82DA-88AC39191079}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Util", "Util\Util.csproj", "{33C72821-D0FF-4392-AEB2-B8CACB6C3CAC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{0A41297B-C94F-4647-B00E-FC60CAB00D8C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Front.Services", "Front.Services\Front.Services.csproj", "{73FD0A75-EB08-4FC5-B498-232240DE644B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Management.Services", "Management.Services\Management.Services.csproj", "{49E8E475-7C77-405C-90BD-94E87630FE2E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{29951828-20E8-489C-91E1-C7E01330252D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Front.Models", "Front.Models\Front.Models.csproj", "{9DFBCEA8-6BA7-4F57-B650-AF550544F577}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Management.Models", "Management.Models\Management.Models.csproj", "{AE559E87-7109-4328-A15E-F1CAA45B5F68}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AOP", "AOP\AOP.csproj", "{B31C076F-B851-49B7-B092-4F7C83EE1010}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PriceDistributor", "PriceDistributor\PriceDistributor.csproj", "{9FDC73CA-E390-43D0-B56B-2A9FFB35A04E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{F27299F3-8422-4552-B6F8-D805CA3C33D1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{7144C7C9-5A3D-4703-B236-8BD0E2676B53}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{5F822285-B774-40A4-806A-6B28542C98A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enums", "Enums\Enums.csproj", "{288660BD-A672-4CF8-85B5-C85B4FB0B4F6}"
+EndProject
+Global
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 13
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = DAL\\DAL.csproj
+		SccProjectTopLevelParentUniqueName1 = Maike.sln
+		SccLocalPath1 = .
+		SccProjectFilePathRelativizedFromConnection1 = DAL\\
+		SccProjectUniqueName2 = Entities\\Entities.csproj
+		SccProjectTopLevelParentUniqueName2 = Maike.sln
+		SccLocalPath2 = .
+		SccProjectFilePathRelativizedFromConnection2 = Entities\\
+		SccProjectUniqueName3 = Front.Models\\Front.Models.csproj
+		SccProjectTopLevelParentUniqueName3 = Maike.sln
+		SccLocalPath3 = .
+		SccProjectFilePathRelativizedFromConnection3 = Front.Models\\
+		SccProjectUniqueName4 = Front.Services\\Front.Services.csproj
+		SccProjectTopLevelParentUniqueName4 = Maike.sln
+		SccLocalPath4 = .
+		SccProjectFilePathRelativizedFromConnection4 = Front.Services\\
+		SccProjectUniqueName5 = Front\\Front.csproj
+		SccProjectTopLevelParentUniqueName5 = Maike.sln
+		SccLocalPath5 = .
+		SccProjectFilePathRelativizedFromConnection5 = Front\\
+		SccProjectUniqueName6 = Management.Models\\Management.Models.csproj
+		SccProjectTopLevelParentUniqueName6 = Maike.sln
+		SccLocalPath6 = .
+		SccProjectFilePathRelativizedFromConnection6 = Management.Models\\
+		SccProjectUniqueName7 = Management.Services\\Management.Services.csproj
+		SccProjectTopLevelParentUniqueName7 = Maike.sln
+		SccLocalPath7 = .
+		SccProjectFilePathRelativizedFromConnection7 = Management.Services\\
+		SccProjectUniqueName8 = Management\\Management.csproj
+		SccProjectTopLevelParentUniqueName8 = Maike.sln
+		SccLocalPath8 = .
+		SccProjectFilePathRelativizedFromConnection8 = Management\\
+		SccProjectUniqueName9 = Util\\Util.csproj
+		SccProjectTopLevelParentUniqueName9 = Maike.sln
+		SccLocalPath9 = .
+		SccProjectFilePathRelativizedFromConnection9 = Util\\
+		SccProjectUniqueName10 = AOP\\AOP.csproj
+		SccProjectTopLevelParentUniqueName10 = Maike.sln
+		SccLocalPath10 = .
+		SccProjectFilePathRelativizedFromConnection10 = AOP\\
+		SccProjectUniqueName11 = PriceDistributor\\PriceDistributor.csproj
+		SccLocalPath11 = .
+		SccProjectFilePathRelativizedFromConnection11 = PriceDistributor\\
+		SccProjectUniqueName12 = Enums\\Enums.csproj
+		SccProjectTopLevelParentUniqueName12 = Maike.sln
+		SccLocalPath12 = .
+		SccProjectFilePathRelativizedFromConnection12 = Enums\\
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0593A3C1-690C-45B4-BEA7-F23E9795FB53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0593A3C1-690C-45B4-BEA7-F23E9795FB53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0593A3C1-690C-45B4-BEA7-F23E9795FB53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0593A3C1-690C-45B4-BEA7-F23E9795FB53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8671724-4ABF-412E-82DA-88AC39191079}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8671724-4ABF-412E-82DA-88AC39191079}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8671724-4ABF-412E-82DA-88AC39191079}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8671724-4ABF-412E-82DA-88AC39191079}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33C72821-D0FF-4392-AEB2-B8CACB6C3CAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33C72821-D0FF-4392-AEB2-B8CACB6C3CAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33C72821-D0FF-4392-AEB2-B8CACB6C3CAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33C72821-D0FF-4392-AEB2-B8CACB6C3CAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A41297B-C94F-4647-B00E-FC60CAB00D8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A41297B-C94F-4647-B00E-FC60CAB00D8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A41297B-C94F-4647-B00E-FC60CAB00D8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A41297B-C94F-4647-B00E-FC60CAB00D8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73FD0A75-EB08-4FC5-B498-232240DE644B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73FD0A75-EB08-4FC5-B498-232240DE644B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73FD0A75-EB08-4FC5-B498-232240DE644B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73FD0A75-EB08-4FC5-B498-232240DE644B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49E8E475-7C77-405C-90BD-94E87630FE2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49E8E475-7C77-405C-90BD-94E87630FE2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49E8E475-7C77-405C-90BD-94E87630FE2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49E8E475-7C77-405C-90BD-94E87630FE2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29951828-20E8-489C-91E1-C7E01330252D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29951828-20E8-489C-91E1-C7E01330252D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29951828-20E8-489C-91E1-C7E01330252D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29951828-20E8-489C-91E1-C7E01330252D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DFBCEA8-6BA7-4F57-B650-AF550544F577}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DFBCEA8-6BA7-4F57-B650-AF550544F577}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DFBCEA8-6BA7-4F57-B650-AF550544F577}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DFBCEA8-6BA7-4F57-B650-AF550544F577}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE559E87-7109-4328-A15E-F1CAA45B5F68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE559E87-7109-4328-A15E-F1CAA45B5F68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE559E87-7109-4328-A15E-F1CAA45B5F68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE559E87-7109-4328-A15E-F1CAA45B5F68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B31C076F-B851-49B7-B092-4F7C83EE1010}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B31C076F-B851-49B7-B092-4F7C83EE1010}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B31C076F-B851-49B7-B092-4F7C83EE1010}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B31C076F-B851-49B7-B092-4F7C83EE1010}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FDC73CA-E390-43D0-B56B-2A9FFB35A04E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FDC73CA-E390-43D0-B56B-2A9FFB35A04E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FDC73CA-E390-43D0-B56B-2A9FFB35A04E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FDC73CA-E390-43D0-B56B-2A9FFB35A04E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{288660BD-A672-4CF8-85B5-C85B4FB0B4F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{288660BD-A672-4CF8-85B5-C85B4FB0B4F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{288660BD-A672-4CF8-85B5-C85B4FB0B4F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{288660BD-A672-4CF8-85B5-C85B4FB0B4F6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{73FD0A75-EB08-4FC5-B498-232240DE644B} = {F27299F3-8422-4552-B6F8-D805CA3C33D1}
+		{9DFBCEA8-6BA7-4F57-B650-AF550544F577} = {F27299F3-8422-4552-B6F8-D805CA3C33D1}
+		{0593A3C1-690C-45B4-BEA7-F23E9795FB53} = {F27299F3-8422-4552-B6F8-D805CA3C33D1}
+		{49E8E475-7C77-405C-90BD-94E87630FE2E} = {7144C7C9-5A3D-4703-B236-8BD0E2676B53}
+		{AE559E87-7109-4328-A15E-F1CAA45B5F68} = {7144C7C9-5A3D-4703-B236-8BD0E2676B53}
+		{A8671724-4ABF-412E-82DA-88AC39191079} = {7144C7C9-5A3D-4703-B236-8BD0E2676B53}
+		{0A41297B-C94F-4647-B00E-FC60CAB00D8C} = {5F822285-B774-40A4-806A-6B28542C98A6}
+		{29951828-20E8-489C-91E1-C7E01330252D} = {5F822285-B774-40A4-806A-6B28542C98A6}
+		{B31C076F-B851-49B7-B092-4F7C83EE1010} = {5F822285-B774-40A4-806A-6B28542C98A6}
+		{33C72821-D0FF-4392-AEB2-B8CACB6C3CAC} = {5F822285-B774-40A4-806A-6B28542C98A6}
+		{288660BD-A672-4CF8-85B5-C85B4FB0B4F6} = {5F822285-B774-40A4-806A-6B28542C98A6}
+	EndGlobalSection
+EndGlobal

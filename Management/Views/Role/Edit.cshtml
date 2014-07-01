@@ -1,0 +1,111 @@
+﻿@model Management.Models.RoleVM
+
+<div class="box" id="roleEditBox">
+  <div class="box-header">
+    <div class="box-name">
+      <i class="fa fa-star"></i>
+      <span>@ViewBag.Title</span>
+    </div>
+    <div class="box-icons">
+      <a class="collapse-link">
+        <i class="fa fa-chevron-up"></i>
+      </a>
+      <a class="expand-link">
+        <i class="fa fa-expand"></i>
+      </a>
+      <a class="close-link">
+        <i class="fa fa-times"></i>
+      </a>
+    </div>
+    <div class="no-move"></div>
+  </div>
+  <div class="box-content" style="position: relative">
+    <form class="form-horizontal" id="roleEditForm">
+      <div class="form-group">
+        @Html.LabelFor(o => o.Name, "名称", new {@for = "", @class = "col-sm-3 control-label"})
+        <div class="col-sm-7">
+          <div class="input-group">
+            <span class="input-group-addon"> 
+              <i class="fa fa-info-circle"></i>
+            </span>
+            @Html.TextBoxFor(o => o.Name, new {@class = "form-control", @name = "Name", @id = "roleName"})
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        @Html.LabelFor(o => o.Description, "描述", new {@class = "col-sm-3 control-label"})
+        <div class="col-sm-7">  
+          @Html.TextAreaFor(o => o.Description, new {@class = "form-control", @name = "Description", @id = "roleComment"})
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-12 text-center">
+          <button type="submit" class="btn btn-primary btn-label-left" id="addRoleSubmit">
+            <span><i class="fa fa-clock-o"></i></span>确定
+          </button>
+          @Html.HiddenFor(o => o.Id, new { @id = "hiddenIdField" })
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function () {
+    var roleId = $('#hiddenIdField').val();
+    $('#roleEditForm').bootstrapValidator({
+      message: "输入有误",
+      live: 'enabled',
+      trigger: null,
+      feedbackIcons: {
+        valid: 'fa fa-check',
+        invalid: 'fa fa-times',
+        validating: 'fa fa-spinner'
+      },
+      
+      fields: {
+        Name: {
+          trigger: "blur",
+          validators: {
+            notEmpty: {
+              message: "角色名称不能为空"
+            },
+            remote: {
+              url: "/Role/NameValidate",
+              message: "名称已存在",
+              data: {
+                roleId : roleId
+              }
+            }
+          }
+        }
+      },
+      
+      submitHandler: function (validator, form, submitButton) {
+        var url;
+        if (!roleId || roleId == "0") {
+          url = "/Role/Create";
+        } else {
+          url = "/Role/Update";
+        }
+        $.ajax({
+          url: url,
+          data: form.serialize(),
+          dataType: 'json',
+          type: 'POST',
+          success: function (data) {
+            $.procAjaxData(data, function () {
+              $('#roleEditBox').remove();
+              var dt = $('#roleTable').DataTable();
+              dt.ajax.reload();
+            }, function () {
+              return;
+            });
+          }
+        });
+      }
+    });
+
+    WinMove();
+  });
+</script>

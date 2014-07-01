@@ -1,0 +1,155 @@
+﻿<div class="row">
+    <div id="breadcrumb" class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="#">设置</a></li>
+            <li><a href="#">仓库</a></li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-7">
+        <div class="box">
+        <div class="box-header">
+            <div class="box-name">
+                <i class="fa fa-truck"></i>
+                <span>仓库列表</span>
+            </div>
+            <div class="box-icons">
+                <a href="#" onclick="javascript:addWarehouse();">
+                    <i class="fa fa-plus"></i>
+                </a>
+                <a class="collapse-link">
+                    <i class="fa fa-chevron-up"></i>
+                </a>
+                <a class="expand-link">
+                    <i class="fa fa-expand"></i>
+                </a>
+                <a class="close-link">
+                    <i class="fa fa-times"></i>
+                </a>
+            </div>
+            <div class="no-move"></div>
+        </div>
+        <div class="box-content" style="position: relative; overflow: auto; max-height: 475px;">
+            <div class="container-fluid">
+                <div id="warehouseSearchForm" class="form-horizontal" role="form">
+                    <div class="form-group" style="margin-top: 0; margin-bottom: 0">
+                        <label class="col-sm-2 text-right control-label" style="padding-left: 0; padding-right: 0;" for="warehouseNameFilter">仓库名称</label>
+                        <div class="col-sm-4">
+                        <input type="text" class="form-control" id="warehouseNameFilter"/>
+                    </div>
+                    <button class="btn btn-primary btn-sm" onclick="javascript:searchWarehouses();"><i class="fa fa-search"></i></button>
+                    <input type="hidden" id="warehouseNameFilterValue" />
+                    </div>
+                </div>
+            </div>
+            <table class="table table-condensed table-hover table-striped table-heading table-datatable" id="warehouseTable">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>仓库</th>
+                        <th>地址</th>
+                        <th>联系人</th>
+                        <th>电话</th>
+                        <th>传真</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+
+            </table>
+        </div>
+    </div>
+        </div>
+    <div class="col-xs-12 col-sm-5" id="editPanel">
+    </div>
+</div>
+<script>
+    function searchWarehouses() {
+        var warehouseName = $("#warehouseNameFilter").val();
+        $("#warehouseNameFilterValue").val(warehouseName);
+
+        dt.ajax.reload();
+    }
+
+    function addWarehouse() {
+        $('#WarehouseEditBox').remove();
+        LoadAjaxContent2("/Warehouse/Create", function (data) {
+            $('#editPanel').html(data);
+        });
+    }
+
+    function deleteWarehouse(id) {
+        $('#WarehouseEditBox').remove();
+        $.ajax({
+            url: '/Warehouse/Delete/' + id,
+            type: "DELETE",
+            success: function (data) {
+                $.procAjaxData(data, function () {
+                    dt.ajax.reload();
+                }, function () {
+                    return;
+                });
+            }
+        });
+    }
+
+    function editWarehouse(id) {
+        $('#WarehouseEditBox').remove();
+        LoadAjaxContent2("/Warehouse/Update/" + id, function (data) {
+            $('#editPanel').html(data);
+        });
+    }
+    var dt;
+    $(document).ready(function () {
+        //debugger
+        dt = $("#warehouseTable").DataTable({
+            info: false,
+            lengthChange: false,
+            paging: true,
+            ordering: false,
+            filter: false,
+
+            paginationType: "bootstrap",
+            iDisplayLength: 10,
+
+            serverSide: true,
+            ajax: {
+                url: "/Warehouse/GetWarehouses",
+                type: "POST",
+                dataType: "json",
+                data: function (d) {
+                    d.warehouseName = $('#warehouseNameFilterValue').val();
+                }
+            },
+
+            processing: true,
+
+            columns: [
+                {
+                    render: function (data, type, row, meta) {
+                        var dt = $('#warehouseTable').DataTable();
+                        var page = dt.page();
+                        var len = dt.page.len();
+                        return page * len + meta.row + 1;
+                    }
+                },
+             { data: "Name" },
+             { data: "Address" },
+             { data: "Contact" },
+             { data: "Tel" },
+             { data: "Fax" },
+            {
+                data: "Id",
+                render: function (data, type, row) {
+                    return "<a href='#' style='text-decoration:none' onclick='javascript:editWarehouse(" + data + ");'>" +
+             "<i class='fa fa-edit fa-lg'></i></a><a href='#' style='text-decoration:none; margin-left:10px' onclick='javascript:deleteWarehouse(" + data + ")'><i class='fa fa-trash-o fa-lg'></i></a>";
+                }
+            }
+            ],
+
+            language: chineseLang,
+        });
+
+        WinMove();
+    });
+</script>

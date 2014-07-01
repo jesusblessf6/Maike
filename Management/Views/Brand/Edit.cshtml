@@ -1,0 +1,186 @@
+﻿@using Management.Models
+
+@model BrandEditVM
+
+<div class="box" id="BrandEditBox">
+    <div class="box-header">
+        <div class="box-name">
+            <i class="fa fa-edit"></i>
+            <span>@ViewBag.Title</span>
+        </div>
+        <div class="box-icons">
+            <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+            </a>
+            <a class="expand-link">
+                <i class="fa fa-expand"></i>
+            </a>
+            <a class="close-link">
+                <i class="fa fa-times"></i>
+            </a>
+        </div>
+        <div class="no-move"></div>
+    </div>
+    <div class="box-content" style="position: relative">
+        <form class="form-horizontal" id="newBrandForm">
+            <div class="form-group">
+                @Html.LabelFor(o => o.CommodityId, "金属", new { @class = "col-sm-3 control-label", @for = "brandCommodityId" })
+                <div class="col-sm-7">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-info-circle"></i>
+                        </span>
+                        @Html.DropDownListFor(o => o.CommodityId, new SelectList(ViewBag.AllCommodities, "Id", "Name"), new { @id = "brandCommodityId", @name = "CommodityId", @style = "padding-bottom: 0px;" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(o => o.CommodityTypeId, "金属类型", new { @class = "col-sm-3 control-label", @for = "brandCommodityTypeId" })
+                <div class="col-sm-7">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-info-circle"></i>
+                        </span>
+                        @Html.DropDownListFor(o => o.CommodityTypeId, new SelectList(ViewBag.AllCommodityTypes, "Id", "Name"), new { @id = "brandCommodityTypeId", @name = "CommodityTypeId", @style = "padding-bottom: 0px;" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(o => o.Name, "品牌", new { @class = "col-sm-3 control-label", @for = "brandName" })
+                <div class="col-sm-7">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-info-circle"></i>
+                        </span>
+                        @Html.TextBoxFor(o => o.Name, new { @class = "form-control", @id = "brandName", @name = "Name" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(o => o.Description, "备注", new { @class = "control-label col-sm-3", @for = "brandComment" })
+                <div class="col-sm-7">
+                    @Html.TextAreaFor(o => o.Description, new { @class = "form-control", @name = "Description", @id = "brandComment", @style = "resize:none;" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="text-center">
+                     <button type="submit" class="btn btn-primary btn-label-left" id="addBrandBtn">
+                    <span><i class="fa fa-clock-o"></i></span>确定
+                     </button>
+                    @Html.HiddenFor(o => o.Id, new { @id = "hiddenIdField" })
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    function getOptions() {
+        var id = document.getElementById("brandCommodityId").value;
+
+        $.ajax({
+            url: "/Brand/GetCommodityTypeByCommodityId",
+            data: { commId: id },
+            dataType: 'json',
+            type: "POST",
+            success: function (data) {
+                $("#brandCommodityTypeId").empty();
+                var objs = eval(data);
+                for (var i = 0; i < objs.length; i ++)
+                {
+                    var jsonObj = objs[i];
+                    var optionstring = "<option value=\"" + jsonObj.Id + "\" >" + jsonObj.Name + "</option>";
+                    $("#brandCommodityTypeId").append(optionstring);   //为Select追加一个Option(下拉项) 
+                }
+                
+                if (typeof (objs[0]) != "undefined" || objs.length > 0) {
+                    $("#brandCommodityTypeId").select2("data", { id: objs[0].Id, text: objs[0].Name });
+                }
+            }
+        });
+    }
+
+    $(document).ready(function () {
+       
+        $('#brandCommodityId').select2();
+        $("#brandCommodityTypeId").select2();
+        var addBrandId = $('#hiddenIdField').val();
+        if (!addBrandId || addBrandId == "0") {
+            getOptions();
+        }
+        $('#brandCommodityId').click(function () {
+            $("#brandCommodityTypeId").select2("val", "");
+            getOptions();
+        });
+
+        $('#newBrandForm').bootstrapValidator({
+
+            message: "输入有误",
+            live: 'enabled',
+            trigger: null,
+
+            fields: {
+                Name: {
+                    trigger: "blur",
+                    validators: {
+                        notEmpty: {
+                            message: "金属品牌名称不能为空"
+                        },
+                        remote: {
+                            url: '/Brand/ValidateName',
+                            message: "名称已存在",
+                            data: function (validator) {
+                                return {
+                                    id: addBrandId,
+                                    commodityTypeId: validator.getFieldElements('CommodityTypeId').val()
+                                };
+                                
+                            }
+                        }
+                    }
+                },
+        CommodityTypeId: {
+
+                    validators: {
+                        notEmpty: {
+                            message: "请选择金属类型"
+                        }
+                    }
+                },
+                CommodityId: {
+                    validators: {
+                        notEmpty: {
+                            message: "请选择金属"
+                        }
+                    }
+                }
+            },
+
+            submitHandler: function (validator, form, submitButton) {
+                var brandId = $('#hiddenIdField').val();
+                var url;
+                if (!brandId || brandId == "0") {
+                    url = "/Brand/Create";
+                } else {
+                    url = "/Brand/Update";
+                }
+
+                $.ajax({
+                    url: url,
+                    data: form.serialize(),
+                    dataType: 'json',
+                    type: 'POST',
+                    success: function (data) {
+                        $.procAjaxData(data, function () {
+                            $('#BrandEditBox').remove();
+                            var dt = $('#brandTable').DataTable();
+                            dt.ajax.reload();
+                        }, function () {
+                            return;
+                        });
+                    }
+                });
+            }
+        });
+        WinMove();
+    });
+</script>

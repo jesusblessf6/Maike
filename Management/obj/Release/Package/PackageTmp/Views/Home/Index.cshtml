@@ -1,0 +1,372 @@
+﻿@{
+    ViewBag.Title = "主页";
+}
+<style>
+  .ajax-link {
+    
+  }
+</style>
+
+<div id="screensaver">
+  <canvas id="canvas"></canvas>
+  <i class="fa fa-lock" id="screen_unlock"></i>
+</div>
+
+<!--header-->
+<header class="navbar">
+  <div class="container-fluid expanded-panel">
+    <div class="row">
+      <div id="logo" class="col-xs-12 col-sm-2">
+        <a href="/Home">迈科在线交易</a>
+      </div>
+      
+      <div id="top-panel" class="col-xs-12 col-sm-10">
+        <div class="row">
+          <div class="col-xs-1 col-sm-1">
+            <a href="#" class="show-sidebar" id="sideBarToggle">
+              <i class="fa fa-bars"></i>
+            </a>
+          </div>
+
+          <!--价格-->
+          <div class="col-sm-8">
+            <div class="row">
+              <div class="col-sm-2 " style="padding: 1px; ">
+                <div class="bg-info" style="height: 48px">
+                  <div class="pull-left text-right" style="width: 50%">
+                    <div style="margin: 0; padding: 0; height: 25px; line-height: 25px" class="text-center" >
+                      <strong id="copperName" style="font-size: 12px">沪铜12月</strong>
+                    </div>
+                    <div style="margin: 0; padding: 0; height: 25px; line-height: 25px" class="text-center" >
+                      <span id="copperLatest" style="font-size: 12px">1000</span>
+                    </div>
+                  </div>
+                  <div class="pull-right text-center" style="width: 50%">
+                    <div  style="margin: 0; padding: 0; height: 25px; line-height: 25px" class="text-center">
+                      <span id="copperDeltaAmount"  style="font-size: 12px">100</span>
+                    </div>
+                    <div style="margin: 0; padding: 0; height: 25px; line-height: 25px; " class="text-center">
+                      <span id="copperDeltaPercent"  style="font-size: 12px">10%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-2 " style="padding: 1px; ">
+                <div class="bg-info" style="height: 48px">
+                  <div class="pull-left text-right" style="width: 50%">
+                    <div style="margin: 0; padding: 0; height: 25px; line-height: 25px" class="text-center" >
+                      <strong id="alName" style="font-size: 12px">沪铝12月</strong>
+                    </div>
+                    <div style="margin: 0; padding: 0; height: 25px; line-height: 25px" class="text-center" >
+                      <span id="alLatest"  style="font-size: 12px">1000</span>
+                    </div>
+                  </div>
+                  <div class="pull-right text-center" style="width: 50%">
+                    <div  style="margin: 0; padding: 0; height: 25px; line-height: 25px" class="text-center">
+                      <span id="alDeltaAmount"  style="font-size: 12px">100</span>
+                    </div>
+                    <div style="margin: 0; padding: 0; height: 25px; line-height: 25px;" class="text-center">
+                      <span id="alDeltaPercent"  style="font-size: 12px">10%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-2 " style="padding: 1px; ">
+                <div class="bg-info" style="height: 48px">
+                  <div class="pull-left text-right" style="width: 50%">
+                    <div style="margin: 0; padding: 0; height: 25px; line-height: 25px" class="text-center" >
+                      <strong id="pbName" style="font-size: 12px">沪铅12月</strong>
+                    </div>
+                    <div style="margin: 0; padding: 0; height: 25px; line-height: 25px" class="text-center" >
+                      <span id="pbLatest"  style="font-size: 12px">1000</span>
+                    </div>
+                  </div>
+                  <div class="pull-right text-center" style="width: 50%">
+                    <div  style="margin: 0; padding: 0; height: 25px; line-height: 25px" class="text-center">
+                      <span id="pbDeltaAmount"  style="font-size: 12px">100</span>
+                    </div>
+                    <div style="margin: 0; padding: 0; height: 25px; line-height: 25px;" class="text-center">
+                      <span id="pbDeltaPercent"  style="font-size: 12px">10%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-2 " style="padding: 1px; ">
+                <div class="bg-info" style="height: 48px">
+                  <div class="pull-left text-right" style="width: 50%">
+                    <div style="margin: 0; padding: 0; height: 25px; line-height: 25px" class="text-center" >
+                      <strong id="znName" style="font-size: 12px">沪锌12月</strong>
+                    </div>
+                    <div style="margin: 0; padding: 0; height: 25px; line-height: 25px" class="text-center" >
+                      <span id="znLatest"  style="font-size: 12px">1000</span>
+                    </div>
+                  </div>
+                  <div  class="pull-right text-center" style="width: 50%">
+                    <div  style="margin: 0; padding: 0; height: 25px; line-height: 25px" class="text-center">
+                      <span id="znDeltaAmount"  style="font-size: 12px">100</span>
+                    </div>
+                    <div style="margin: 0; padding: 0; height: 25px; line-height: 25px;" class="text-center">
+                      <span id="znDeltaPercent"  style="font-size: 12px">10%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-sm-3 top-panel-right">
+            <ul class="nav navbar-nav pull-right panel-menu">
+              <li class="hidden-xs">
+                <a href="/Home" class="alert-link">
+                  <i class="fa fa-bell"></i>
+                  <span class="badge">7</span>
+                </a>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle account" data-toggle="dropdown">
+                  <div class="avatar">
+                    <i class="fa fa-user"></i>
+                  </div>
+                  <i class="fa fa-angle-down pull-right"></i>
+                  <div class="user-mini pull-right">
+                    <span class="welcome">欢迎,</span>
+                    <span>@ViewBag.CurrentUser.Name</span>
+                  </div>
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a href="#">
+                      <i class="fa fa-info"></i>
+                      <span class="hidden-sm">我的信息</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/Sign/Out">
+                      <i class="fa fa-power-off"></i>
+                      <span class="hidden-sm">退出</span>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!--main-->
+<div id="main" class="container-fluid">
+  <div class="row">
+    
+    <!--menu-->
+    <div id="sidebar-left" class="col-xs-2 col-sm-2">
+      <ul class="nav main-menu">
+        <li>
+          <a href="#" class="ajax-link" data-address="">
+            <i class="fa fa-dashboard"></i>
+            <span class="hidden-xs">Dashboard</span>
+          </a>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="chartsSubs" onclick="javascript:toggleMenuFolder(this);">
+            <i class="fa fa-bar-chart-o"></i>
+            <span class="hidden-xs">设置</span>
+          </a>
+          <ul class="dropdown-menu" id="chartsSubs">
+            <li><a class="ajax-link" href="#" data-address="/CommodityType/Index">金属类型</a></li>
+            <li><a class="ajax-link" href="#" data-address="/Brand/Index">金属品牌</a></li>
+            <li><a class="ajax-link" href="#" data-address="/Company/Index">公司</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    
+    <!--main content-->
+    <div id="content" class="col-xs-12 col-sm-10">
+      <div class="preloader">
+        <img src="/Content/devoops/img/devoops_getdata.gif" class="devoops-getdata" alt="preloader"/>
+      </div>
+      <div id="ajax-content"></div>
+    </div>
+  </div>
+</div>
+
+<script src="~/Scripts/jquery.signalR-2.0.3.min.js"></script>
+@*<script src="http://172.20.67.236/maike.price/signalr/hubs"></script>*@
+<script src="http://localhost:59222/signalr/hubs"></script>
+
+<script>
+  
+  $(document).ready(function() {
+    //side-bar toggle
+    $('#sideBarToggle').on('click', function () {
+      $('div#main').toggleClass('sidebar-show');
+    });
+    
+    //active menu
+    $(".main-menu").on("click", "a", function(e) {
+      var parents = $(this).parents('li');
+      var li = $(this).closest('li.dropdown');
+      //var otherItems = $('.main-menu li').not(parents);
+      
+    });
+    
+    //ajax-link
+    $('.ajax-link').on('click', function() {
+      if (!$(this).hasClass("active")) {
+        $(this).addClass("active");
+      }
+      $('.main-menu li a').not(this).removeClass("active");
+      LoadAjaxContent($(this).attr("data-address"));
+    });
+    
+    var height = window.innerHeight - 50;
+    $('#main').css('min-height', height)
+    .on('click', '.expand-link', function (e) {
+      var body = $('body');
+      e.preventDefault();
+      var box = $(this).closest('div.box');
+      var button = $(this).find('i');
+      button.toggleClass('fa-expand').toggleClass('fa-compress');
+      box.toggleClass('expanded');
+      body.toggleClass('body-expanded');
+      var timeout = 0;
+      if (body.hasClass('body-expanded')) {
+        timeout = 100;
+      }
+      setTimeout(function () {
+        box.toggleClass('expanded-padding');
+      }, timeout);
+      setTimeout(function () {
+        box.resize();
+        box.find('[id^=map-]').resize();
+      }, timeout + 50);
+    })
+    .on('click', '.collapse-link', function (e) {
+      e.preventDefault();
+      var box = $(this).closest('div.box');
+      var button = $(this).find('i');
+      var content = box.find('div.box-content');
+      content.slideToggle('fast');
+      button.toggleClass('fa-chevron-up').toggleClass('fa-chevron-down');
+      setTimeout(function () {
+        box.resize();
+        box.find('[id^=map-]').resize();
+      }, 50);
+    })
+    .on('click', '.close-link', function (e) {
+      e.preventDefault();
+      var content = $(this).closest('div.box');
+      content.remove();
+    });
+    $('#locked-screen').on('click', function (e) {
+      e.preventDefault();
+      $('body').addClass('body-screensaver');
+      $('#screensaver').addClass("show");
+      ScreenSaver();
+    });
+
+    //SignalR
+    //$.connection.hub.url = "http://172.20.67.236/maike.price/signalr";
+    $.connection.hub.url = "http://localhost:59222/signalr";
+    var demo = $.connection.distributorHub;
+
+    $.connection.hub.start().done(function () {
+
+    });
+    $.connection.hub.disconnected(function () {
+      setTimeout(function () {
+        if ($.connection.hub.state != $.signalR.connectionState.connected) {
+          $.connection.hub.start().done(function () { });
+        }
+      }, 10000);
+    });
+    demo.client.updatePrice = function(item) {
+      switch (item.CommodityName) {
+      case "铜":
+        updatePrice(item, "copper");
+        break;
+            
+      case "铝":
+        updatePrice(item, "al");
+        break;
+            
+      case "铅":
+        updatePrice(item, "pb");
+        break;
+            
+      case "锌":
+        updatePrice(item, "zn");
+        break;
+
+      default:
+      }
+    };
+  });
+  
+  function toggleMenuFolder(caller) {
+    var parents = $(caller).parents('li');
+    var otherItems = $('.main-menu li').not(parents);
+    if ($(caller).hasClass("active-parent")) {
+      var x = $(caller).attr("data-toggle");
+      $("#" + x).slideUp();
+      $(caller).removeClass("active-parent");
+    } else {
+      var x = $(caller).attr("data-toggle");
+      $("#" + x).slideDown();
+      $(caller).addClass("active-parent");
+      otherItems.find('a').removeClass("active");
+      otherItems.find('a').removeClass("active-parent");
+    }
+    
+  }
+    
+  function updatePrice(item, commodityCode) {
+    var nameField = $('#' + commodityCode + 'Name');
+    var priceField = $('#' + commodityCode + 'Latest');
+    var deltaAmountField = $('#' + commodityCode + 'DeltaAmount');
+    var deltaPercentField = $('#' + commodityCode + 'DeltaPercent');
+    if (item.Name) {
+      nameField.text(item.Name);
+    }
+    if (item.NewPrice) {
+      priceField.text(item.NewPrice);
+    }
+    if (item.ChangePercent) {
+      deltaPercentField.text(item.ChangePercent + "%");
+    }
+    if (item.ChangeAmount) {
+      deltaAmountField.text(item.ChangeAmount);
+      if (item.ChangeAmount > 0) {
+        nameField.removeClass();
+        priceField.removeClass();
+        deltaAmountField.removeClass();
+        deltaPercentField.removeClass();
+        nameField.addClass("text-danger");
+        priceField.addClass("text-danger");
+        deltaAmountField.addClass("text-danger");
+        deltaPercentField.addClass("text-danger");
+      }else if (item.ChangeAmount == 0) {
+        nameField.removeClass();
+        priceField.removeClass();
+        deltaAmountField.removeClass();
+        deltaPercentField.removeClass();
+        nameField.addClass("text-default");
+        priceField.addClass("text-default");
+        deltaAmountField.addClass("text-default");
+        deltaPercentField.addClass("text-default");
+      }else if (item.ChangeAmount < 0) {
+        nameField.removeClass();
+        priceField.removeClass();
+        deltaAmountField.removeClass();
+        deltaPercentField.removeClass();
+        nameField.addClass("text-success");
+        priceField.addClass("text-success");
+        deltaAmountField.addClass("text-success");
+        deltaPercentField.addClass("text-success");
+      }
+    }
+  }
+</script>

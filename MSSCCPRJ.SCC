@@ -1,0 +1,53 @@
+SCC = This is a source code control file
+
+[Entities.csproj]
+SCC_Aux_Path = "P4SCC#172.20.67.133:1666##Jing.Li##Jing.Li_wing-PC_6599"
+SCC_Project_Name = Perforce Project
+
+[PriceDistributor.csproj]
+SCC_Aux_Path = "P4SCC#172.20.67.133:1666##Jing.Li##Jing.Li_wing-PC_6599"
+SCC_Project_Name = Perforce Project
+
+[Maike.sln]
+SCC_Aux_Path = "P4SCC#172.20.67.133:1666##Jing.Li##Jing.Li_wing-PC_6599"
+SCC_Project_Name = Perforce Project
+
+[DAL.csproj]
+SCC_Aux_Path = "P4SCC#172.20.67.133:1666##Jing.Li##Jing.Li_wing-PC_6599"
+SCC_Project_Name = Perforce Project
+
+[Front.Services.csproj]
+SCC_Aux_Path = "P4SCC#172.20.67.133:1666##Jing.Li##Jing.Li_wing-PC_6599"
+SCC_Project_Name = Perforce Project
+
+[Util.csproj]
+SCC_Aux_Path = "P4SCC#172.20.67.133:1666##Jing.Li##Jing.Li_wing-PC_6599"
+SCC_Project_Name = Perforce Project
+
+[Front.Models.csproj]
+SCC_Aux_Path = "P4SCC#172.20.67.133:1666##Jing.Li##Jing.Li_wing-PC_6599"
+SCC_Project_Name = Perforce Project
+
+[AOP.csproj]
+SCC_Aux_Path = "P4SCC#172.20.67.133:1666##Jing.Li##Jing.Li_wing-PC_6599"
+SCC_Project_Name = Perforce Project
+
+[Front.csproj]
+SCC_Aux_Path = "P4SCC#172.20.67.133:1666##Jing.Li##Jing.Li_wing-PC_6599"
+SCC_Project_Name = Perforce Project
+
+[Management.Models.csproj]
+SCC_Aux_Path = "P4SCC#172.20.67.133:1666##Jing.Li##Jing.Li_wing-PC_6599"
+SCC_Project_Name = Perforce Project
+
+[Management.csproj]
+SCC_Aux_Path = "P4SCC#172.20.67.133:1666##Jing.Li##Jing.Li_wing-PC_6599"
+SCC_Project_Name = Perforce Project
+
+[Management.Services.csproj]
+SCC_Aux_Path = "P4SCC#172.20.67.133:1666##Jing.Li##Jing.Li_wing-PC_6599"
+SCC_Project_Name = Perforce Project
+
+[Enums.csproj]
+SCC_Aux_Path = "P4SCC#172.20.67.133:1666##Jing.Li##Jing.Li_wing-PC_6599"
+SCC_Project_Name = Perforce Project

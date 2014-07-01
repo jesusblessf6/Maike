@@ -1,0 +1,239 @@
+﻿@using Management.Models
+
+@model BrandViewVM
+<div class="row">
+  <div id="breadcrumb" class="col-md-12">
+    <ol class="breadcrumb">
+      <li><a href="#">设置</a></li>
+      <li><a href="#">金属品牌</a></li>
+    </ol>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12 col-sm-7">
+    
+    <div class="box">
+      <div class="box-header">
+        <div class="box-name">
+          <i class="fa fa-tag"></i>
+          <span>金属品牌</span>
+        </div>
+        <div class="box-icons">
+          <a href="#" onclick="javascript:addBrand();">
+            <i class="fa fa-plus"></i>
+          </a>
+          <a class="collapse-link">
+            <i class="fa fa-chevron-up"></i>
+          </a>
+          <a class="expand-link">
+            <i class="fa fa-expand"></i>
+          </a>
+          <a class="close-link">
+            <i class="fa fa-times"></i>
+          </a>
+        </div>
+        <div class="no-move"></div>
+      </div>
+      <div class="box-content" style="position: relative; overflow: auto; max-height:475px;">
+        <div class="container-fluid">
+          <div id="brandSearchForm" class="form-horizontal" role="form">
+            <div class="form-group" style="margin-top:0;margin-bottom: 0">
+              <label class="col-sm-1 text-right control-label" for="commodityIdFilter" style="padding-left: 0; padding-right: 0;width:40px;">金属</label>
+              <div class="col-sm-3">
+                <input type="hidden" id="commodityIdFilter" style="width:100px;"/>
+              </div>
+                <label class="col-sm-1 text-right control-label" style="padding-left: 0; padding-right: 0;width:60px" for="commodityTypeIdFilter">金属类型</label>
+              <div class="col-sm-3">
+                @Html.DropDownListFor(o => o.CommodityTypeId, new SelectList(new List<CommodityTypeEditVM>(), "Id", "Name"), new {@id = "commodityTypeIdFilter", @name = "CommodityTypeId",@style="width:100px;"})
+                  @*<input type="hidden" id="brandCommodityTypeId" style="width:100px;"/>*@
+              </div>
+              <label class="col-sm-1 text-right control-label" style="padding-left: 0; padding-right: 0;width:40px;" for="brandNameFilter">品牌</label>
+              <div class="col-sm-2">
+                <input type="text" class="form-control" id="brandNameFilter" style="width:100px;"/>
+              </div>
+ 
+              <button class="btn btn-primary btn-sm" onclick="javascript:searchBrands();" style="margin-left:20px;"><i class="fa fa-search"></i></button>
+              <input type="hidden" id="commodityIdFilterValue"/>
+                <input type="hidden" id="commodityTypeIdFilterValue"/>
+              <input type="hidden" id="brandNameFilterValue"/>
+           </div>
+          </div>
+        </div>
+        <table class="table table-condensed table-hover table-striped table-heading table-datatable" id="brandTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>金属</th>
+              <th>金属类型</th>
+              <th>品牌</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+         
+        </table>
+        
+       </div>
+      </div>
+    </div>
+     <div class="col-xs-12 col-sm-5" id="editPanel">
+  </div>
+ </div>
+<script>
+    var dt;
+    function searchBrands() {
+        //debugger
+        var commId = $('#commodityIdFilter').val();
+        var commTypeId = $("#commodityTypeIdFilter").val();
+        var brandName = $('#brandNameFilter').val();
+        $('#commodityIdFilterValue').val(commId);
+        $('#commodityTypeIdFilterValue').val(commTypeId);
+        $('#brandNameFilterValue').val(brandName);
+
+        dt.ajax.reload();
+    }
+
+    function addBrand() {
+        $('#BrandEditBox').remove();
+        LoadAjaxContent2("/Brand/Create", function (data) {
+            $('#editPanel').html(data);
+        });
+    }
+
+    function editBrand(id)
+    {
+        $('#BrandEditBox').remove();
+        LoadAjaxContent2("/Brand/Update/" + id, function (data) {
+            $('#editPanel').html(data);
+        });
+    }
+
+    function deleteBrand(id)
+    {
+        $('#BrandEditBox').remove();
+        $.ajax({
+            url: '/Brand/Delete/' + id,
+            type: "DELETE",
+            success: function (data) {
+                $.procAjaxData(data, function () {
+                    dt.ajax.reload();
+                }, function () {
+                    return;
+                });
+            }
+        });
+    }
+
+    function getOptions() {
+       
+        var id = document.getElementById("commodityIdFilter").value;
+
+        $.ajax({
+            url: "/Brand/GetCommodityTypeByCommodityId",
+            data: { commId: id },
+            dataType: 'json',
+            type: "POST",
+            success: function (data) {
+
+                $("#commodityTypeIdFilter").empty();
+                //$("#brandCommodityTypeId").append("<option value=''>&nbsp;</option>");
+                var objs = eval(data);
+                //for (var o in objs) {
+                //    var jsonObj = objs[o];
+                //    var optionstring = "<option value=\"" + jsonObj.Id + "\" >" + jsonObj.Name + "</option>";
+                //    $("#commodityTypeIdFilter").append(optionstring);   //为Select追加一个Option(下拉项)           
+                //}
+                for (var i = 0; i < objs.length; i++) {
+                    var jsonObj = objs[i];
+                    var optionstring = "<option value=\"" + jsonObj.Id + "\" >" + jsonObj.Name + "</option>";
+                    $("#commodityTypeIdFilter").append(optionstring);   //为Select追加一个Option(下拉项) 
+                }
+                
+                $("#commodityTypeIdFilter").select2("data", { id: "", text: "" });
+            }
+        });
+    }
+
+    $(document).ready(function ()
+    {
+        var commdityId = $('#commodityIdFilterValue').val();
+
+        $('#commodityIdFilter').click(function () {
+            //debugger
+            //$("#brandCommodityTypeId").select2("val", "");
+            getOptions();
+        });
+
+        var commId = document.getElementById("commodityIdFilter").value;
+        $("#commodityTypeIdFilter").select2();
+        
+        $('#commodityIdFilter').select2({
+            placeholder: "选择金属",
+            minimumInputLength: 0,
+            allowClear: true,
+            ajax: {
+                url: '/CommodityType/GetAllCommodities',
+                type: "POST",
+                dataType: 'json',
+                data: function (term) {
+                    return {
+                        q: term
+                    };
+                },
+                results: function (data) {
+                    return { results: data };
+                }
+            },
+            dropdownCssClass: "bigdrop",
+            escapeMarkup: function (m) { return m; }
+        });
+
+       dt = $("#brandTable").DataTable({
+            info: false,
+            lengthChange: false,
+            paging: true,
+            ordering: false,
+            filter: false,
+
+            paginationType: "bootstrap",
+            iDisplayLength: 10,
+           
+            serverSide: true,
+            ajax: {
+                url: "/Brand/GetBrands",
+                type: "POST",
+                dataType: "json",
+                data: function(d) {
+                    d.commodityIdFilterValue = $('#commodityIdFilterValue').val();
+                    d.commodityTypeIdFilterValue = $('#commodityTypeIdFilterValue').val();
+                    d.brandNameFilterValue = $('#brandNameFilterValue').val();
+                }
+            },
+
+            processing: true,
+
+            columns: [
+                {
+                    render: function (data, type, row, meta) {
+                        var dt = $('#brandTable').DataTable();
+                        var page = dt.page();
+                        var len = dt.page.len();
+                        return page * len + meta.row + 1;
+                    }
+                },
+             { data: "CommodityName" },
+             { data: "CommodityTypeName" },
+             { data: "Name" },
+            {
+                data: "Id",
+                render: function (data, type, row) {
+                    return "<a href='#' style='text-decoration:none' onclick='javascript:editBrand(" + data + ");'>" +
+             "<i class='fa fa-edit fa-lg'></i></a><a href='#' style='text-decoration:none; margin-left:10px' onclick='javascript:deleteBrand(" + data + ")'><i class='fa fa-trash-o fa-lg'></i></a>";
+                }
+            }
+            ],
+
+            language: chineseLang,
+        });
+        WinMove();
+    });
+</script>

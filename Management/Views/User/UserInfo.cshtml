@@ -1,0 +1,361 @@
+﻿@using System.Web.Mvc.Html
+@using Management.Models
+@model UserVM
+<div class="box" id="userInfoBox">
+    <div class="box-header">
+        <div class="box-name">
+            <i class="fa fa-edit"></i>
+            <span>@ViewBag.Title</span>
+        </div>
+        <div class="box-icons">
+            <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+            </a>
+            <a class="expand-link">
+                <i class="fa fa-expand"></i>
+            </a>
+            <a class="close-link" id="aClose">
+                <i class="fa fa-times"></i>
+            </a>
+        </div>
+        <div class="no-move"></div>
+    </div>
+    <div class="box-content" style="position: relative">
+        <form class="form-horizontal" id="userInfoForm">
+            <div class="form-group">
+                @Html.LabelFor(o => o.LoginName, "登录名", new { @class = "col-sm-3 control-label", @for = "userLoginName" })
+                <div class="col-sm-9">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-info-circle"></i>
+                        </span>
+                        @Html.TextBoxFor(o => o.LoginName, new { @class = "form-control", name = "LoginName", @id = "userLoginName" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(o => o.Name, "真实姓名", new { @class = "col-sm-3 control-label", @for = "userName" })
+                <div class="col-sm-9">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-info-circle"></i>
+                        </span>
+                        @Html.TextBoxFor(o => o.Name, new { @class = "form-control", name = "Name", @id = "userName" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(o => o.Mobile, "手机", new { @class = "col-sm-3 control-label", @for = "userMobile" })
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(o => o.Mobile, new { @class = "form-control", name = "Mobile", @id = "userMobile" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(o => o.Tel, "固话", new { @class = "col-sm-3 control-label", @for = "userTel" })
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(o => o.Tel, new { @class = "form-control", name = "Tel", @id = "userTel" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(o => o.Fax, "传真", new { @class = "col-sm-3 control-label", @for = "userFax" })
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(o => o.Fax, new { @class = "form-control", name = "Fax", @id = "userFax" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 control-label">所属公司</label>
+                <div class="col-sm-9">
+                    <select id="sltSrc" multiple="multiple" style="height: 150px; padding-left: 0px; padding-right: 0px;" class="col-sm-5">
+                        @{
+                            var companies = ViewBag.Company as List<CompanyVM>;
+                            foreach (var company in companies)
+                            {
+                                var companyId = "cp" + company.Id;
+                            <option value="@company.Id" id="@companyId">@company.Name</option>
+                            }
+                        }
+                    </select>
+                    <div class="col-sm-2 text-center" style="padding-left: 2px; padding-right: 2px;">
+                        <a href="javascript:void(0)" class="btn btn-success btn-sm" onclick="javascript: moveToLeft();" style="padding-left: 5px; padding-right: 5px; margin-left: 1px; margin-top: 20px"><i class="fa fa-angle-double-right fa-lg"></i></a>
+                        <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="javascript: moveToRight();" style="padding-left: 5px; padding-right: 5px; margin-left: 1px; margin-top: 50px;"><i class="fa fa-angle-double-left fa-lg"></i></a>
+                    </div>
+                    <select id="sltTarget" multiple="multiple" style="height: 150px; padding-left: 0px; padding-right: 0px;" class="col-sm-5">
+                    </select>
+                </div>
+
+            </div>
+            <div class="row col-sm-offset-3" style="color: red; display: none; padding-left: 5px;" id="errorCompany">请至少选择一个公司</div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">可交易金属</label>
+                <div class="col-sm-9">
+                    @{
+                        var commodities = ViewBag.Commodity as List<CommodityViewVM>;
+                    }
+                    <div class="row form-group" id="divCommodity">
+                        @for (int i = 0; i < commodities.Count; i++)
+                        {
+                            var id = "ck" + commodities[i].Id;
+                            <div class="col-sm-4">
+                                <div class="checkbox" style="padding-bottom: 5px;">
+                                    <label>
+                                        <input type="checkbox" id="@id" data-id="@commodities[i].Id">@commodities[i].Name
+                                        <i class="fa fa-square-o"></i>
+                                    </label>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="row" style="color: red; display: none; padding-left: 15px;" id="errorCommodity">请至少选择一种金属</div>
+                </div>
+            </div>
+
+            @{
+                if (ViewBag.UserType == 2)
+                {
+                    //内部客户
+                <div class="form-group">
+                    @Html.LabelFor(o => o.RoleId, "角色", new { @class = "col-sm-3 control-label", @for = "roleSelect" })
+                    <div class="col-sm-9">
+                        @Html.HiddenFor(o => o.RoleId, new { @id = "roleSelect", @style = "padding-bottom: 0px;" })
+                    </div>
+                </div>
+                }
+            }
+
+            <div class="form-group">
+                @Html.LabelFor(o => o.Description, "备注", new { @class = "col-sm-3 control-label", @for = "userDescription" })
+                <div class="col-sm-9">
+                    @Html.TextAreaFor(o => o.Description, new { @class = "form-control", name = "Description", @id = "userDescription" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary btn-label-left" id="userSaveBtn">
+                        <span><i class="fa fa-clock-o"></i></span>确定
+                    </button>
+                    @{
+                        if (ViewBag.Id != 0)
+                        {
+                        <button class="btn btn-primary btn-label-left" id="userResetPWDBtn">
+                            <span><i class="fa fa-unlock"></i></span>重置密码
+                        </button>
+                        }
+                    }
+                    <input type="hidden" value="@ViewBag.Id" id="hiddenIdField" name="UserId"/>
+                    @Html.HiddenFor(o => o.Type, new { @id = "hiddenTypeField" })
+                    @Html.HiddenFor(o => o.SelectCommodityIds, new { @id = "hiddenSelectCommodityIdsField", name = "SelectCommodityIds" })
+                    @Html.HiddenFor(o => o.SelectCompanyIds, new { @id = "hiddenSelectCompanyIdsField", name = "SelectCompanyIds" })
+                    <input type="hidden" value="@ViewBag.AllRoles" id="hiddenRoles" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    var selectCommodityIds;
+    var selectCompanyIds;
+    var customerType;
+    var aRoles = [];
+    function initPage() {
+        selectCommodityIds = $("#hiddenSelectCommodityIdsField").val();
+        selectCompanyIds = $("#hiddenSelectCompanyIdsField").val();
+        customerType = $("#hiddenTypeField").val();
+        var src = $("#sltSrc");
+        var target = $("#sltTarget");
+        if (selectCommodityIds != "") {
+            var aCommodity = selectCommodityIds.split(",");
+            for (var i = 0; i < aCommodity.length; i++) {
+                $("#ck" + aCommodity[i]).attr("checked", "checked");
+            }
+        }
+        if (selectCompanyIds != "") {
+
+            var aCompany = selectCompanyIds.split(",");
+            for (var i = 0; i < aCompany.length; i++) {
+                var option = src.find("#cp" + aCompany[i]);
+                option.remove();
+                target.append(option);
+            }
+        }
+        src.dblclick(function () {
+            moveToLeft();
+        });
+        target.dblclick(function () {
+            moveToRight();
+        });
+
+        $("#divCommodity input:checkbox").click(function () {
+            var checkbox = $(this);
+            if (checkbox.attr("checked")) {
+                checkbox.removeAttr("checked");
+            }
+            else {
+                checkbox.attr("checked", "checked");
+                $("#errorCommodity").hide();
+                $("#userSaveBtn").removeAttr("disabled");
+            }
+        });
+    }
+
+    function moveToRight() {
+        var option = $("#sltTarget option:selected");
+        option.remove();
+        $("#sltSrc").append(option);
+        return false;
+    }
+
+    function moveToLeft() {
+        var option = $("#sltSrc option:selected");
+        option.remove();
+        $("#sltTarget").append(option);
+        $("#errorCompany").hide();
+        $("#userSaveBtn").removeAttr("disabled");
+        return false;
+    }
+
+    $(function () {
+        var type = $("#hiddenTypeField").val();
+        if (type == "2") {
+            var roles = $("#hiddenRoles").val();
+            var aStrRole = roles.split("||");
+            aRoles.length = 0;
+            for (var i = 0; i < aStrRole.length; i++) {
+                debugger;
+                var aRole = aStrRole[i].split(",");
+                var obj = { id: aRole[0], text: aRole[1] };
+                aRoles.push(obj);
+            }
+            $('#roleSelect').select2({ data: aRoles, allowClear: true, placeholder: "选择角色" });
+            //debugger;
+            //$('#roleSelect').val($("#hiddenRoleId").val());
+            //$('#roleSelect').select2("val", $("#hiddenRoleId").val());
+            //hiddenRoleId
+        }
+        initPage();
+        $('#userInfoForm').bootstrapValidator({
+            message: "输入有误",
+            live: 'enabled',
+            trigger: blur,
+            fields: {
+                LoginName: {
+                    trigger: "blur",
+                    validators: {
+                        notEmpty: {
+                            message: "登录名不能为空"
+                        },
+                        remote: {
+                            url: '/User/ValidateLoginName',
+                            message: "登录名已存在",
+                            data: {
+                                id: $("#hiddenIdField").val()
+                            }
+                        }
+                    }
+                },
+                Name: {
+                    trigger: "blur",
+                    validators: {
+                        notEmpty: {
+                            message: "真实姓名不能为空"
+                        }
+                    }
+                },
+                Mobile: {
+                    trigger: "blur",
+                    validators: {
+                        regexp: {
+                            regexp: /^1[3|4|5|8][0-9]\d{8}$/,
+                            message: "请输入正确的手机号"
+                        }
+                    }
+                },
+                Tel: {
+                    trigger: "blur",
+                    validators: {
+                        regexp: {
+                            regexp: /^((\d{2,5}-)?\d{7,8}(-\d{1,})?)$/,
+                            message: "请输入正确的固话"
+                        }
+                    }
+                },
+                Fax: {
+                    trigger: "blur",
+                    validators: {
+                        regexp: {
+                            regexp: /^[+]{0,1}(\d){1,3}[ ]?([-]?((\d)|[ ]){1,12})+$/,
+                            message: "请输入正确的传真"
+                        }
+                    }
+                }
+            },
+            submitHandler: function (validator, form, submitButton) {
+                var id = $('#hiddenIdField').val();
+                var url;
+                if (!id || id == "0") {
+                    url = "/User/Create";
+                } else {
+                    url = "/User/Update";
+                }
+
+                var option = $("#sltTarget option");
+                var aCompany = [];
+                for (var i = 0; i < option.length; i++) {
+                    aCompany.push($(option[i]).attr("value"));
+                }
+                var error = false;
+                if (aCompany.length == 0) {
+                    $("#errorCompany").show();
+                    error = true;
+                }
+                $("#hiddenSelectCompanyIdsField").val(aCompany.join(","));
+                var aCommodity = [];
+                var checkedBox = $("#divCommodity input:checkbox:checked");
+                for (var j = 0; j < checkedBox.length; j++) {
+                    aCommodity.push($(checkedBox[j]).attr("data-id"));
+                }
+                if (aCommodity.length == 0) {
+                    $("#errorCommodity").show();
+                    error = true;
+                }
+                if (error)
+                    return false;
+                $("#hiddenSelectCommodityIdsField").val(aCommodity.join(","));
+
+                $.ajax({
+                    url: url,
+                    data: form.serialize(),
+                    dataType: 'json',
+                    type: 'POST',
+                    success: function (data) {
+                        $.procAjaxData(data, function () {
+                            $('#userInfoBox').remove();
+                            var dt = $('#UserTable').DataTable();
+                            dt.ajax.reload();
+                        }, function () {
+                            return;
+                        });
+                    }
+                });
+            }
+        });
+
+        WinMove();
+
+        $("#userResetPWDBtn").click(function () {
+            $("#userResetPWDBtn").attr("disabled", "disabled");
+            $.post("/User/ResetPWD/" + $("#hiddenIdField").val(), {}, function (data) {
+                $.procAjaxData(data, function () {
+                    //$('#userInfoBox').remove();
+                    //var dt = $('#UserTable').DataTable();
+                    //dt.ajax.reload();
+                }, function () {
+                    return;
+                });
+            }).complete(function () {
+                $("#userResetPWDBtn").removeAttr("disabled");
+            });
+            return false;
+        });
+
+    });
+</script>

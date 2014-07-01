@@ -1,0 +1,196 @@
+﻿<div class="row">
+    <div id="breadcrumb" class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="#">设置</a></li>
+            <li><a href="#">开闭市管理</a></li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-7">
+        <div class="box">
+            <div class="box-header">
+                <div class="box-name">
+                    <i class="fa fa-moon-o"></i>
+                    <span>开闭市管理</span>
+                </div>
+                <div class="box-icons">
+                    <a href="#" onclick="javascript:addOpenMarketTimeSlot();">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="expand-link">
+                        <i class="fa fa-expand"></i>
+                    </a>
+                </div>
+                <div class="no-move"></div>
+            </div>
+            <div class="box-content" style="position: relative">
+                <table class="table table-condensed table-hover table-striped table-heading table-datatable" id="OpenMarketTimeSlotTable">
+                    <thead>
+                        <tr>
+                            <th>开盘时间</th>
+                            <th>收盘时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-5" id="editPanel">
+    </div>
+</div>
+<br />
+<div class="col-xs-12 col-sm-7">
+    <div>
+        <table>
+            <tbody>
+                <tr>
+                    @{
+                        for (int i = 0; i < ViewBag.AllCommodities.Count; i++)
+                        {
+                            if (i < 4)
+                            {
+                        <td align="right">
+                            <span style="font-size: 16px; font-weight: bold;"><font color="#6AA6D6">
+                        @ViewBag.AllCommodities[i].Name
+                                </font>
+                            </span>
+                        </td>
+                        <td>&nbsp;</td>
+                        <td>
+                            <div class="cbClass" data-animated="false"  data-on-label="开市" data-off-label="闭市">
+                            <input id="notification + @i"  type="checkbox" value="@ViewBag.AllCommodities[i].Id" checked="@ViewBag.AllCommodities[i].IsOpen"/>
+                             </div>
+                                </td>
+                        <td>&nbsp;&nbsp;&nbsp;</td>
+                            }
+
+                        }   
+                    }
+                </tr>
+                <tr>
+                    <td colspan="4">&nbsp;</td>
+                </tr>
+                <tr>
+                    @{
+                        if (ViewBag.AllCommodities.Count > 4)
+                        {
+                            for (int j = 4; j < ViewBag.AllCommodities.Count; j++)
+                            {
+                        <td align="right">
+                            <span style="font-size: 16px; font-weight: bold;"><font color="#6AA6D6">
+                        @ViewBag.AllCommodities[j].Name
+                                </font>
+                            </span>
+                        </td>
+                        <td>&nbsp;</td>
+                        <td>
+                            <div class="cbClass" data-animated="false"  data-on-label="开市" data-off-label="闭市">
+                                <input id="notification + @j"  type="checkbox" value="@ViewBag.AllCommodities[j].Id" checked="@ViewBag.AllCommodities[j].IsOpen"/>
+                            </div>
+                        </td>
+                        <td>&nbsp;&nbsp;&nbsp;</td>
+                            }
+                        }   
+                    }
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+
+    function addOpenMarketTimeSlot() {
+        $('#OpenTimeEditBox').remove();
+        LoadAjaxContent2("/SwitchMarketManagement/Create", function (data) {
+            $('#editPanel').html(data);
+        });
+    }
+
+    function deleteOpenTime(id) {
+        $('#OpenTimeEditBox').remove();
+        $.ajax({
+            url: '/SwitchMarketManagement/Delete/' + id,
+            type: "DELETE",
+            success: function (data) {
+                $.procAjaxData(data, function () {
+                    var dt = $('#OpenMarketTimeSlotTable').DataTable();
+                    dt.ajax.reload();
+                }, function () {
+                    return;
+                });
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        $("#OpenMarketTimeSlotTable").DataTable(
+            {
+                info: false,
+                lengthChange: false,
+                paging: true,
+                ordering: false,
+                filter: false,
+
+                paginationType: "bootstrap",
+                iDisplayLength: 10,
+
+                serverSide: true,
+                ajax: {
+                    url: "/SwitchMarketManagement/GetOpenTimes",
+                    type: "POST",
+                    dataType: "json"
+                },
+
+                processing: true,
+
+                columns: [
+                 { data: "StartTime" },
+                 { data: "EndTime" },
+                {
+                    data: "Id",
+                    render: function (data, type, row) {
+                        return "<a href='#' style='text-decoration:none; margin-left:10px' onclick='javascript:deleteOpenTime(" + data + ")'><i class='fa fa-trash-o fa-lg'></i></a>";
+                    }
+                }
+                ],
+                language: chineseLang,
+            }
+            );
+        $('.cbClass').bootstrapSwitch();
+        $('.cbClass').on('switch-change', function (event, state) {
+
+            //debugger
+            var id;
+            var cbList = this.getElementsByTagName("input");
+            if (typeof (cbList) != "undefined" && cbList.length > 0) {
+                id = cbList[0].value;
+            }
+            else {
+                id = 0;
+            }
+            $.ajax({
+                url: "/SwitchMarketManagement/UpdateCommodityIsOpen",
+                data: { comId: id, isOpen: state.value },
+                dataType: 'json',
+                type: 'POST',
+                success: function (data) {
+                    $.procAjaxData(data, function () {
+
+                    }, function () {
+
+                    });
+                }
+            });
+        });
+
+        WinMove();
+
+    }
+        );
+</script>
