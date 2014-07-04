@@ -30,7 +30,7 @@ namespace Management.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult Save(SysSettingVM sysSetting)
+		public ActionResult Update(SysSettingVM sysSetting)
 		{
 			if (ModelState.IsValid)
 			{

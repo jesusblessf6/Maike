@@ -7,5 +7,6 @@
 		public string Name { get; set; }
 		public string Description { get; set; }
 		public string SHFECodes { get; set; }
+		public bool IsSuper { get; set; }
 	}
 }

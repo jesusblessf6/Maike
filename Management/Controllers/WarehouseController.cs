@@ -89,6 +89,8 @@ namespace Management.Controllers
 			return Json(result);
 		}
 
+
+
 		[HttpPost]
 		public ActionResult GetWarehouse(string q, int page_limit, int page)
 		{

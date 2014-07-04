@@ -220,16 +220,11 @@
             var aStrRole = roles.split("||");
             aRoles.length = 0;
             for (var i = 0; i < aStrRole.length; i++) {
-                debugger;
                 var aRole = aStrRole[i].split(",");
                 var obj = { id: aRole[0], text: aRole[1] };
                 aRoles.push(obj);
             }
             $('#roleSelect').select2({ data: aRoles, allowClear: true, placeholder: "选择角色" });
-            //debugger;
-            //$('#roleSelect').val($("#hiddenRoleId").val());
-            //$('#roleSelect').select2("val", $("#hiddenRoleId").val());
-            //hiddenRoleId
         }
         initPage();
         $('#userInfoForm').bootstrapValidator({

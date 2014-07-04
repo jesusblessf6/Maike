@@ -41,6 +41,20 @@ namespace Front.Controllers
             return View("Edit", tradeManagementEditVM);
         }
 
+        [HttpPost]
+        public JsonResult GetAllCompanyList()
+        {
+            int currentUserId = Convert.ToInt32(Session["CurrentUserId"].ToString());
+            var companySvc = new CompanyService();
+            var companyList = companySvc.GetCompanyByRelUserId(currentUserId);//初始化购买订单页面
+            var result = companyList.Select(o => new Dictionary<string, object>
+				                                   {
+					                                   {"id", o.Id},
+													   {"text", o.Name}
+				                                   }).ToList();
+            return Json(result);
+        }
+
         [HttpGet]
         public ActionResult CancelAction(string stockId, string companyId, string qty)
         {
@@ -165,7 +179,7 @@ namespace Front.Controllers
             int from = start;
             int to = from + length - 1;
 
-            var data = StockSvc.GetStockByRange(companyId, warehouseId, commodityId, commodityTypeId, brandId, start, length, currentUserId);
+            var data = StockSvc.GetStockByRange(companyId, warehouseId, commodityId, commodityTypeId, brandId, from, to, currentUserId);
             var allCount = StockSvc.GetStockCount(companyId, warehouseId, commodityId, commodityTypeId, brandId, currentUserId);
             var result = new Dictionary<string, object>
 							 {
@@ -190,7 +204,12 @@ namespace Front.Controllers
             result["valid"] = TradeManagementSvc.GetQtyValidate(Quantity);
             return Json(result);
         }
-
+        public JsonResult ValidatePrice(string Price)
+        {
+            var result = new Dictionary<string, object> { {"valid", false}};
+            result["valid"] = TradeManagementSvc.GetPriceValidate(Price);
+            return Json(result);
+        }
         #endregion
     }
 }

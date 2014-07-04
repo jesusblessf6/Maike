@@ -86,7 +86,7 @@
             ajax: {
                 url: "/Company/GetCompanys",
                 data: function (d) {
-                    d.key = $("#customerSearchTxt").val();
+                    d.key = $.trim($("#customerSearchTxt").val());
                     d.customerType = $("#hideCustomerType").val();
                 },
                 type: "POST",
@@ -116,6 +116,10 @@
                   }
               }
             ],
+            columnDefs: [
+                { "width": "55px", "targets": 1 },
+                { "width": "40px", "targets": 5 }
+            ],
             language: chineseLang,
             fnInitComplete: function () {
 
@@ -124,7 +128,6 @@
     }
 
     function addCompany() {
-        //companyInfoBox
         $('#companyInfoBox').remove();
         LoadAjaxContent2("/Company/Create/" + $("#hideCustomerType").val(), function (data) {
             $('#editPanel').html(data);
@@ -132,7 +135,7 @@
     }
     function editCompany(id) {
         $('#companyInfoBox').remove();
-        LoadAjaxContent2("/Company/Edit/" + id, function (data) {
+        LoadAjaxContent2("/Company/Update/" + id, function (data) {
             $('#editPanel').html(data);
         });
     }

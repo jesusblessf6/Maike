@@ -16,7 +16,18 @@ namespace Management.Controllers
 		public BrandService BrandSvc
 		{
 			get { return _brandSvc ?? (_brandSvc = new BrandService()); }
-			set { _brandSvc = value; }
+		}
+
+		private CommodityTypeService _commodityTypeSvc;
+		public CommodityTypeService CommodityTypeSvc
+		{
+			get { return _commodityTypeSvc ?? (_commodityTypeSvc = new CommodityTypeService()); }
+		}
+
+		private CommodityService _commoditySvc;
+		public CommodityService CommoditySvc
+		{
+			get { return _commoditySvc ?? (_commoditySvc = new CommodityService()); }
 		}
 		#endregion
 
@@ -34,10 +45,8 @@ namespace Management.Controllers
 		public ActionResult Create()
 		{
 			ViewBag.Title = "新增品牌";
-			var commSvc = new CommodityService();
-			ViewBag.AllCommodities = commSvc.GetAllCommodities();
-			var commdityTypeSvc = new CommodityTypeService();
-			ViewBag.AllCommodityTypes = commdityTypeSvc.GetAllCommodityTypes();
+			ViewBag.AllCommodities = CommoditySvc.GetAllCommodities();
+			ViewBag.AllCommodityTypes = CommodityTypeSvc.GetAllCommodityTypes();
 			return View("Edit", new BrandEditVM());
 		}
 
@@ -59,10 +68,8 @@ namespace Management.Controllers
 		{
 			var model = BrandSvc.GetById(id);
 			ViewBag.Title = "修改金属品牌";
-			var commSvc = new CommodityService();
-			ViewBag.AllCommodities = commSvc.GetAllCommodities();
-			var commdityTypeSvc = new CommodityTypeService();
-			ViewBag.AllCommodityTypes = commdityTypeSvc.GetCommodityTypeByCommodityId(model.CommodityId);
+			ViewBag.AllCommodities = CommoditySvc.GetAllCommodities();
+			ViewBag.AllCommodityTypes = CommodityTypeSvc.GetCommodityTypeByCommodityId(model.CommodityId);
 			return View("Edit", model);
 		}
 
@@ -89,13 +96,12 @@ namespace Management.Controllers
 		[HttpPost]
 		public JsonResult GetCommodityTypeByCommodityId(string commId)
 		{
-			var commodityTypeSvc = new CommodityTypeService();
 			if (string.IsNullOrEmpty(commId))
 			{
 				return Json(new List<CommodityTypeViewVM>());
 			}
 			int id = Convert.ToInt32(commId);
-			var result = commodityTypeSvc.GetCommodityTypeByCommodityId(id);
+			var result = CommodityTypeSvc.GetCommodityTypeByCommodityId(id);
 
 			return Json(result);
 		}

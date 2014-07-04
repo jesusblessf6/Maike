@@ -60,6 +60,7 @@
     <Compile Include="RelUserCommodityDAL.cs" />
     <Compile Include="RelUserCompanyDAL.cs" />
     <Compile Include="RoleDAL.cs" />
+    <Compile Include="SalesOrderDAL.cs" />
     <Compile Include="StockDAL.cs" />
     <Compile Include="SwitchMarketManagementDAL.cs" />
     <Compile Include="SysSettingDAL.cs" />

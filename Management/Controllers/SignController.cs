@@ -25,10 +25,10 @@ namespace Management.Controllers
 		[HttpGet]
 		public ActionResult Index()
 		{
-			if (!SignSvc.SuperUserExisted())
-			{
-				return View("Super");
-			}
+			//if (!SignSvc.SuperUserExisted())
+			//{
+			//	return View("Super");
+			//}
 
 			return View();
 		}

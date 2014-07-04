@@ -54,15 +54,10 @@ namespace Management.Services
 
 		public List<CommodityTypeViewVM> GetCommodityTypeByRange(int from, int to, int? commodityId, string commodityTypeName)
 		{
-			if (commodityId == null && string.IsNullOrWhiteSpace(commodityTypeName))
-			{
-				return GetCommodityTypeByRange(from, to);
-			}
-
 			var func1 = GetQueryExp(commodityId, commodityTypeName);
-
 			var sorts = new List<SortCol> {new SortCol {ColName = "Id", IsDescending = false}};
 			var result =CommodityTypeDal.Query(func1, sorts, from, to, new List<string> {"Commodity"});
+
 			return result.Select(o => new CommodityTypeViewVM
 										  {
 											  Id = o.Id,
@@ -93,11 +88,6 @@ namespace Management.Services
 
 		public int GetCount(int? commodityId, string commodityTypeName)
 		{
-			if (commodityId == null && string.IsNullOrWhiteSpace(commodityTypeName))
-			{
-				return GetAllCount();
-			}
-
 			var func = GetQueryExp(commodityId, commodityTypeName);
 			return CommodityTypeDal.GetCount(func);
 		}
@@ -116,19 +106,20 @@ namespace Management.Services
 
 		public ErrorCode Create(CommodityTypeEditVM ct)
 		{
-			var commType = new CommodityType
-			{
-				Name = ct.Name,
-				Description = ct.Description,
-				CommodityId = ct.CommodityId
-			};
-
 			try
 			{
 				if (CommodityTypeDal.GetExisted(o => o.CommodityId == ct.CommodityId && o.Name == ct.Name))
 				{
 					return ErrorCode.CommodityTypeExisted;
 				}
+
+				var commType = new CommodityType
+				{
+					Name = ct.Name,
+					Description = ct.Description,
+					CommodityId = ct.CommodityId
+				};
+
 				CommodityTypeDal.Create(commType);
 				return ErrorCode.NoError;
 			}
@@ -140,22 +131,23 @@ namespace Management.Services
 
 		public ErrorCode Update(CommodityTypeEditVM vm)
 		{
-			var commType = new CommodityType
-							   {
-								   Id = vm.Id,
-								   Name = vm.Name,
-								   Description = vm.Description,
-								   CommodityId = vm.CommodityId
-							   };
-
 			try
 			{
 				if (
 					CommodityTypeDal.GetExisted(
-						o => o.Id != commType.Id && o.CommodityId == commType.CommodityId && o.Name == commType.Name))
+						o => o.Id != vm.Id && o.CommodityId == vm.CommodityId && o.Name == vm.Name))
 				{
 					return ErrorCode.CommodityTypeExisted;
 				}
+
+				var commType = new CommodityType
+				{
+					Id = vm.Id,
+					Name = vm.Name,
+					Description = vm.Description,
+					CommodityId = vm.CommodityId
+				};
+
 				CommodityTypeDal.Update(commType);
 				return ErrorCode.NoError;
 			}
@@ -169,7 +161,7 @@ namespace Management.Services
 		{
 			try
 			{
-				var commodityType = CommodityTypeDal.GetById(id, new List<string> { "Brand"});
+				var commodityType = CommodityTypeDal.GetById(id, new List<string> { "Brands"});
 				if (commodityType.Brands != null && commodityType.Brands.Count > 0)
 				{
 					if(commodityType.Brands.Any(c => !c.IsDeleted))

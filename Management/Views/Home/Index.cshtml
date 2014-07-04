@@ -84,7 +84,7 @@
 
     /*datatable内容不换行*/
     /*th, td {
-        white-space: nowrap;
+        white-space: normal;
     }*/
 
     /*修复加横向滚动条的datatable表格体不居中*/
@@ -173,8 +173,15 @@
                         <span class="hidden-xs" style="font-weight: bolder; font-size: 16px;">&nbsp; 交易管理</span>
                     </a>
                     <ul class="dropdown-menu" id="businessSubs">
-                        <li><a class="ajax-link" href="#" data-address="/Stock/Index"><i class="fa fa-database fa-lg" id="homeLink"></i>&nbsp; 库存管理</a></li>
-                        <li><a class="ajax-link" href="#" data-address="/SalesOrder/Index"><i class="fa fa-file-text-o fa-lg"></i>&nbsp; 订单管理</a></li>
+                        @if (ViewBag.IsCurrentUserSuper || ViewBag.ControllerNames.Contains("Stock"))
+                        {
+                            <li><a class="ajax-link" href="#" data-address="/Stock/Index"><i class="fa fa-database fa-lg" id="homeLink"></i>&nbsp; 库存管理</a></li>
+                        }
+                        @if (ViewBag.IsCurrentUserSuper || ViewBag.ControllerNames.Contains("SalesOrder"))
+                        {
+                            <li><a class="ajax-link" href="#" data-address="/SalesOrder/Index"><i class="fa fa-file-text-o fa-lg"></i>&nbsp; 订单管理</a></li>
+                        }
+
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -183,18 +190,66 @@
                         <span class="hidden-xs" style="font-weight: bolder; font-size: 16px;">&nbsp; 设置</span>
                     </a>
                     <ul class="dropdown-menu" id="chartsSubs">
-                        <li><a class="ajax-link" href="#" data-address="/CommodityType/Index"><i class="fa fa-cube fa-lg"></i>&nbsp; 金属类型</a></li>
-                        <li><a class="ajax-link" href="#" data-address="/Brand/Index"><i class="fa fa-tag fa-lg"></i>&nbsp; 金属品牌</a></li>
-                        <li><a class="ajax-link" href="#" data-address="/Warehouse/Index"><i class="fa fa-truck fa-lg"></i>&nbsp; 仓库管理</a></li>
-                        <li><a class="ajax-link" href="#" data-address="/Company/Index"><i class="fa fa-tree fa-lg"></i>&nbsp; 客户公司</a></li>
-                        <li><a class="ajax-link" href="#" data-address="/User/Index"><i class="fa fa-user fa-lg"></i>&nbsp; 客户管理</a></li>
-                        <li><a class="ajax-link" href="#" data-address="/Company/Internal"><i class="fa fa-tree fa-lg"></i>&nbsp; 内部公司</a></li>
-                        <li><a class="ajax-link" href="#" data-address="/User/Internal"><i class="fa fa-user fa-lg"></i>&nbsp; 用户管理</a></li>
-                        <li><a class="ajax-link" href="#" data-address="/MarketManagement/Index"><i class="fa fa-refresh fa-lg"></i>&nbsp; 行情管理</a></li>
-                        <li><a class="ajax-link" href="#" data-address="/SysSetting/Index"><i class="fa fa-wrench fa-lg"></i>&nbsp; 系统参数</a></li>
-                        <li><a class="ajax-link" href="#" data-address="/SwitchMarketManagement/Index"><i class="fa fa-moon-o fa-lg"></i>&nbsp; 开闭市管理</a></li>
-                        <li><a class="ajax-link" href="#" data-address="/ControllerAction/Index"><i class="fa fa-arrows fa-lg"></i>&nbsp; 控制器/操作管理</a></li>
-                        <li><a class="ajax-link" href="#" data-address="/Role/Index"><i class="fa fa-star fa-lg"></i>&nbsp; 角色管理</a></li>
+                        @if (ViewBag.IsCurrentUserSuper || ViewBag.ControllerNames.Contains("CommodityType"))
+                        {
+                            <li><a class="ajax-link" href="#" data-address="/CommodityType/Index"><i class="fa fa-cube fa-lg"></i>&nbsp; 金属类型</a></li>
+                        }
+
+                        @if (ViewBag.IsCurrentUserSuper || ViewBag.ControllerNames.Contains("Brand"))
+                        {
+                            <li><a class="ajax-link" href="#" data-address="/Brand/Index"><i class="fa fa-tag fa-lg"></i>&nbsp; 金属品牌</a></li>
+                        }
+
+                        @if (ViewBag.IsCurrentUserSuper || ViewBag.ControllerNames.Contains("Warehouse"))
+                        {
+                            <li><a class="ajax-link" href="#" data-address="/Warehouse/Index"><i class="fa fa-truck fa-lg"></i>&nbsp; 仓库管理</a></li>
+                        }
+
+                        @if (ViewBag.IsCurrentUserSuper || ViewBag.ControllerNames.Contains("Company"))
+                        {
+                            <li><a class="ajax-link" href="#" data-address="/Company/Index"><i class="fa fa-tree fa-lg"></i>&nbsp; 客户公司</a></li>
+                        }
+
+                        @if (ViewBag.IsCurrentUserSuper || ViewBag.ControllerNames.Contains("User"))
+                        {
+                            <li><a class="ajax-link" href="#" data-address="/User/Index"><i class="fa fa-user fa-lg"></i>&nbsp; 客户管理</a></li>
+                        }
+
+                        @if (ViewBag.IsCurrentUserSuper || ViewBag.ControllerNames.Contains("Company"))
+                        {
+                            <li><a class="ajax-link" href="#" data-address="/Company/Internal"><i class="fa fa-tree fa-lg"></i>&nbsp; 内部公司</a></li>
+                        }
+
+                        @if (ViewBag.IsCurrentUserSuper || ViewBag.ControllerNames.Contains("User"))
+                        {
+                            <li><a class="ajax-link" href="#" data-address="/User/Internal"><i class="fa fa-user fa-lg"></i>&nbsp; 用户管理</a></li>
+                        }
+
+                        @if (ViewBag.IsCurrentUserSuper || ViewBag.ControllerNames.Contains("MarketManagement"))
+                        {
+                            <li><a class="ajax-link" href="#" data-address="/MarketManagement/Index"><i class="fa fa-refresh fa-lg"></i>&nbsp; 行情管理</a></li>
+                        }
+
+                        @if (ViewBag.IsCurrentUserSuper || ViewBag.ControllerNames.Contains("SysSetting"))
+                        {
+                            <li><a class="ajax-link" href="#" data-address="/SysSetting/Index"><i class="fa fa-wrench fa-lg"></i>&nbsp; 系统参数</a></li>
+                        }
+
+                        @if (ViewBag.IsCurrentUserSuper || ViewBag.ControllerNames.Contains("SwitchMarketManagement"))
+                        {
+                            <li><a class="ajax-link" href="#" data-address="/SwitchMarketManagement/Index"><i class="fa fa-moon-o fa-lg"></i>&nbsp; 开闭市管理</a></li>
+                        }
+
+                        @if (ViewBag.IsCurrentUserSuper || ViewBag.ControllerNames.Contains("ControllerAction"))
+                        {
+                            <li><a class="ajax-link" href="#" data-address="/ControllerAction/Index"><i class="fa fa-arrows fa-lg"></i>&nbsp; 控制器/操作管理</a></li>
+                        }
+
+                        @if (ViewBag.IsCurrentUserSuper || ViewBag.ControllerNames.Contains("Role"))
+                        {
+                            <li><a class="ajax-link" href="#" data-address="/Role/Index"><i class="fa fa-star fa-lg"></i>&nbsp; 角色管理</a></li>
+                        }
+
                     </ul>
                 </li>
             </ul>
@@ -418,7 +473,7 @@
         demo = $.connection.distributorHub;
 
         $.connection.hub.start().done(function () {
-            demo.server.requireAllPrices();
+            //demo.server.requireAllPrices();
         });
         $.connection.hub.disconnected(function () {
             setTimeout(function () {
@@ -435,35 +490,83 @@
         };
         demo.client.backendAddAlert = function (msg) {
             addMsg(msg);
+            //var table = $("#StockTable");
+            //if (table.length > 0) {
+            //    table.DataTable().ajax.reload();
+            //}
         };
         demo.client.updateSHFECodes = function (commodityCode, shfeCode, shfeName) {
             if (shfeCodeCollection[commodityCode]) {
                 shfeCodeCollection[commodityCode] = shfeCode;
                 var obj = $("#price" + commodityCode);
-                //var shfeCode = obj.find(".priceShfecode");
-                //changeData(shfeCode, shfeName);
                 resetPrice(obj, shfeName);
             }
         };
 
         demo.client.updatePremium = function (id, newPremium) {
-            updatePremiumCallBack.fire(id,newPremium);
+            updatePremiumCallBack.fire(id, newPremium);
         };
         demo.client.updateStockPrice = function (id, newPrice) {
             updatePriceCallBack.fire(id, newPrice);
         };
-        demo.client.updateStock = function (id, delta) {
+        demo.client.updateBackendStock = function (id, delta) {
             updateQtyCallBack.fire(id, delta);
         };
         demo.client.clearStock = function (id) {
             ClearQtyCallBack.fire(id);
         };
+        demo.client.updateFrontendStock = function (id, delta) {
+            var table = $("#StockTable");
+            if (table.length > 0) {
+                var aQty = $("#stockAQty" + id);
+                var sQty = $("#stockSaleQty" + id);
+                var calcaQty = parseFloat(aQty.text()) - parseFloat(delta);
+                var calcsQty = parseFloat(sQty.text()) + parseFloat(delta);
+                if (calcaQty <= 0) {
+                    table.DataTable().ajax.reload();
+                }
+                else {
+                    reciveChange(aQty, calcaQty);
+                    reciveChange(sQty, calcsQty);
+                }
+            }
+        };
+
+        demo.client.backendAddStock = function () {
+            var table = $("#StockTable");
+            if (table.length > 0) {
+                table.DataTable().ajax.reload();
+            }
+        };
+
+        demo.client.cancelSalesOrder = function (id, des) {
+            var table = $("#SalesOrderTable");
+            if (table.length > 0) {
+                $("#salesOrderList" + id).text(des);
+                $("#salesOrderListBtn" + id).siblings().remove();
+                $("#salesOrderListBtn" + id).remove();
+            }
+        };
+
+        demo.client.onSalesOrderStatusChanged = function (id, status, btn) {
+            var table = $("#SalesOrderTable");
+            if (table.length > 0) {
+                $("#salesOrderList" + id).text(status);
+                if (btn != "") {
+                    var button = $("#salesOrderListBtn" + id);
+                    button.text(btn);
+                    button.siblings().remove();
+                    button.attr("onclick", "javascript:StatusChange(" + id + ",'" + btn + "')");
+                }
+                else {
+                    $("#salesOrderListBtn" + id).siblings().remove();
+                    $("#salesOrderListBtn" + id).remove();
+                }
+            }
+        };
 
         $("#homeLink").eq(0).click();
     });
-
-
-
 
     function checkSHFECodeExist(commodityCode, shfeCode) {
         var isExist = false;
@@ -524,7 +627,6 @@
             }
         }
     }
-
 
     //构造显示的价格
     function initPriceCompent(commodityCode) {
@@ -710,42 +812,80 @@
     }
 
     //库存修改推送
-    function backUpdatePrice(id, newPrice)
-    {
+    function backUpdatePrice(id, newPrice) {
         var table = $("#StockTable");
-        if (table.length > 0)
-        {
+        if (table.length > 0) {
             var price = $("#stockPrice" + id);
-            price.text(newPrice);
-            var label = $("<label class=\"label label-success pull-right\">update</label>");
-            price.append(label);
+            reciveChange(price, newPrice);
         }
     }
     function backUpdatePremium(id, newPremium) {
         var table = $("#StockTable");
         if (table.length > 0) {
             var premium = $("#stockPreminum" + id);
-            premium.text(newPremium);
-            var label = $("<label class=\"label label-success pull-right\">update</label>");
-            premium.append(label);
+            reciveChange(premium, newPremium);
         }
     }
     function backUpdateQty(id, newQty) {
         var table = $("#StockTable");
         if (table.length > 0) {
             var qty = $("#stockAQty" + id);
-            var calcQty = parseFloat(qty.text())+ parseFloat(newQty);
-            qty.text(calcQty);
-            var label = $("<label class=\"label label-success pull-right\">update</label>");
-            qty.append(label);
+            var calcQty = parseFloat(qty.text()) + parseFloat(newQty);
+            reciveChange(qty, calcQty);
         }
     }
-    function backClearQty(id)
-    {
+    function backClearQty(id) {
         var table = $("#StockTable");
-        if (table.length > 0)
-        {
+        if (table.length > 0) {
             table.DataTable().ajax.reload();
         }
     }
+    function reciveChange(obj, newData) {
+        if (newData != null && newData != "") {
+            if (obj.is(":animated")) {
+                obj.finish();
+            }
+            if (obj.text() != newData) {
+                obj.animate({ marginTop: "-25px" }, 500, function () {
+                    obj.text(newData);
+                    obj.css({ marginTop: "0px", color: "#9A0009", fontWeight: "bolder" });
+                });
+            }
+        }
+    }
+
+
+    $.datepicker.regional['zh-CN'] = {
+        clearText: '清除',
+        clearStatus: '清除已选日期',
+        closeText: '关闭',
+        closeStatus: '不改变当前选择',
+        prevText: '<上月',
+        prevStatus: '显示上月',
+        prevBigText: '<<',
+        prevBigStatus: '显示上一年',
+        nextText: '下月>',
+        nextStatus: '显示下月',
+        nextBigText: '>>',
+        nextBigStatus: '显示下一年',
+        currentText: '今天',
+        currentStatus: '显示本月',
+        monthNames: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+        monthNamesShort: ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二'],
+        monthStatus: '选择月份',
+        yearStatus: '选择年份',
+        weekHeader: '周',
+        weekStatus: '年内周次',
+        dayNames: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
+        dayNamesShort: ['周日', '周一', '周二', '周三', '周四', '周五', '周六'],
+        dayNamesMin: ['日', '一', '二', '三', '四', '五', '六'],
+        dayStatus: '设置 DD 为一周起始',
+        dateStatus: '选择 m月 d日, DD',
+        dateFormat: 'yy-mm-dd',
+        firstDay: 1,
+        initStatus: '请选择日期',
+        isRTL: false
+    };
+    $.datepicker.setDefaults($.datepicker.regional['zh-CN']);
+
 </script>

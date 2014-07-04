@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Transactions;
 using DAL;
 using Entities;
 using Enums;
@@ -18,6 +19,20 @@ namespace Management.Services
 		{
 			get { return _roleDal ?? (_roleDal = new RoleDAL()); }
 			set { _roleDal = value; }
+		}
+
+		private UserDAL _userDal;
+		public UserDAL UserDal
+		{
+			get { return _userDal ?? (_userDal = new UserDAL()); }
+			set { _userDal = value; }
+		}
+
+		private PrevilegeDAL _previlegeDal;
+		public PrevilegeDAL PrevilegeDal
+		{
+			get { return _previlegeDal ?? (_previlegeDal = new PrevilegeDAL()); }
+			set { _previlegeDal = value; }
 		}
 
 		#endregion
@@ -108,15 +123,36 @@ namespace Management.Services
 
 		public ErrorCode Delete(int id)
 		{
-			try
+			using (var ts = new TransactionScope())
 			{
-				RoleDal.Delete(id);
-				return ErrorCode.NoError;
+				try
+				{
+					if (UserDal.GetExisted(o => o.RoleId == id))
+					{
+						return ErrorCode.RoleHasAssigned;
+					}
+
+					var previleges = PrevilegeDal.Query(o => o.RoleId == id);
+					foreach (var previlege in previleges)
+					{
+						PrevilegeDal.Delete(previlege.Id);
+					}
+
+					RoleDal.Delete(id);
+
+					ts.Complete();
+					return ErrorCode.NoError;
+				}
+				catch (Exception)
+				{
+					return ErrorCode.ServerError;
+				}
+				finally
+				{
+					ts.Dispose();
+				}
 			}
-			catch (Exception)
-			{
-				return ErrorCode.ServerError;
-			}
+			
 		}
 
 		public List<Dictionary<string, object>> GetControllersWithPermInfo(int id)

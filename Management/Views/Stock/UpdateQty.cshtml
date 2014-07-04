@@ -5,7 +5,7 @@
     <div class="box-header">
         <div class="box-name">
             <i class="fa fa-edit"></i>
-            <span>修改价格</span>
+            <span>修改数量</span>
         </div>
         <div class="box-icons">
             <a class="collapse-link">
@@ -24,7 +24,7 @@
         <form class="form-horizontal" id="stockUpdateQtyForm">
             <div class="form-group">
                 @Html.HiddenFor(o => o.Id, new { @id = "hiddenId" })
-                @Html.LabelFor(o => o.Qty, "数量", new { @class = "col-sm-3 control-label", @for = "txtQty" })
+                @Html.LabelFor(o => o.Qty, "数量(增量)", new { @class = "col-sm-3 control-label", @for = "txtQty" })
                 <div class="col-sm-8">
                     <div class="input-group">
                         <span class="input-group-addon">
@@ -77,6 +77,7 @@
                             //var dt = $('#StockTable').DataTable();
                             //dt.ajax.reload();
                         }, function () {
+                            $("#stockUpdateQtyBtn").removeAttr("disabled");
                             return;
                         });
                     }

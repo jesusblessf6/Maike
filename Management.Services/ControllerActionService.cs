@@ -31,6 +31,13 @@ namespace Management.Services
 			set { _actionDal = value; }
 		}
 
+		private PrevilegeDAL _previlegeDal;
+		public PrevilegeDAL PrevilegeDal
+		{
+			get { return _previlegeDal ?? (_previlegeDal = new PrevilegeDAL()); }
+			set { _previlegeDal = value; }
+		}
+
 		#endregion
 
 		#region Methods
@@ -190,6 +197,21 @@ namespace Management.Services
 		{
 			try
 			{
+				if (!ControllerDal.GetExisted(o => o.Id == id))
+				{
+					return ErrorCode.ControllerNotExisted;
+				}
+
+				if (ActionDal.GetExisted(o => o.ControllerId == id))
+				{
+					return ErrorCode.ControllerHasActions;
+				}
+
+				if (PrevilegeDal.GetExisted(o => o.ControllerId == id))
+				{
+					return ErrorCode.ControllerHasPrevileges;
+				}
+				
 				ControllerDal.Delete(id);
 			}
 			catch (Exception)
@@ -247,6 +269,16 @@ namespace Management.Services
 		{
 			try
 			{
+				if (!ActionDal.GetExisted(o => o.Id == id))
+				{
+					return ErrorCode.ActionNotExisted;
+				}
+
+				if (PrevilegeDal.GetExisted(o => o.ActionId == id))
+				{
+					return ErrorCode.ActionHasPrevilege;
+				}
+
 				ActionDal.Delete(id);
 			}
 			catch (Exception)

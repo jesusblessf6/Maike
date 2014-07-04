@@ -27,5 +27,15 @@ namespace Util.Ajax
 				message = EnumHelper.GetDescription(result);
 			return RedirectAjax(status, message, null, targetAction);
 		}
+
+        public static ActionResult RedirectAjaxWithData(ErrorCode result, string successUrl, string failUrl = "", bool showMsg = true,object obj = null)
+        {
+            AjaxStatusCode status = result == ErrorCode.NoError ? AjaxStatusCode.Success : AjaxStatusCode.Error;
+            string targetAction = result == ErrorCode.NoError ? successUrl : failUrl;
+            string message = string.Empty;
+            if (showMsg)
+                message = EnumHelper.GetDescription(result);
+            return RedirectAjax(status, message, obj, targetAction);
+        }
 	}
 }

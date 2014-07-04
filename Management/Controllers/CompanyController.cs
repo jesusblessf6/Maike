@@ -63,7 +63,7 @@ namespace Management.Controllers
 			return MyAjaxHelper.RedirectAjax(AjaxStatusCode.Error, error, null, "");
 		}
 
-		public ActionResult Edit(int id)
+		public ActionResult Update(int id)
 		{
 			CompanyVM res = CompanySvc.GetById(id);
 			if (res != null)
@@ -108,7 +108,7 @@ namespace Management.Controllers
 			int from = start;
 			int to = from + length - 1;
 
-			var data = CompanySvc.GetCompanyByRange(from, to, key, type);
+			var data = CompanySvc.GetCompanyByRange(from, to, key.Trim(), type);
 			var allCount = CompanySvc.GetAllCount(type, key);
 			var result = new Dictionary<string, object>
 							 {

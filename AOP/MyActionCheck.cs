@@ -39,7 +39,8 @@ namespace AOP
 				var c = cd.Query(o => o.Name == controllerName).Single();
 				if (c == null)
 				{
-					throw new HttpException(403, "Forbidden Access. controller: " + controllerName + ", action: " + actionName + ".");
+					//throw new HttpException(403, "Forbidden Access. controller: " + controllerName + ", action: " + actionName + ".");
+					filterContext.HttpContext.Response.Redirect("/Error/NoAuthor");
 				}
 				if (c.ForAll)
 				{
@@ -53,7 +54,8 @@ namespace AOP
 
 				if (a == null)
 				{
-					throw new HttpException(403, "Forbidden Access. controller: " + controllerName + ", action: " + actionName + ".");
+					//throw new HttpException(403, "Forbidden Access. controller: " + controllerName + ", action: " + actionName + ".");
+					filterContext.HttpContext.Response.Redirect("/Error/NoAuthor");
 				}
 				if (a.ForAll)
 				{
@@ -63,13 +65,14 @@ namespace AOP
 				//user level
 				if (user.RoleId == null)
 				{
-					throw new HttpException(403, "Forbidden Access. controller: " + controllerName + ", action: " + actionName + ". 当前用户未分配角色！");
+					//throw new HttpException(403, "Forbidden Access. controller: " + controllerName + ", action: " + actionName + ". 当前用户未分配角色！");
+					filterContext.HttpContext.Response.Redirect("/Error/NoAuthor");
 				}
 
 				var pl =
 					ud.GetById(userId,
 					           new List<string> {"Role", "Role.Previleges", "Role.Previleges.Controller", "Role.Previleges.Action"})
-					  .Role.Previleges.ToList();
+					  .Role.Previleges.Where(o => !o.IsDeleted).ToList();
 
 				if (pl.Any(o => o.Controller.Name == controllerName && o.PrevilegeLevel == (int)PrevilegeLevel.ControllerLevel))
 				{
@@ -85,7 +88,8 @@ namespace AOP
 					return;
 				}
 
-				throw new HttpException(403, "Forbidden Access. controller: " + controllerName + ", action: " + actionName + ".");
+				//throw new HttpException(403, "Forbidden Access. controller: " + controllerName + ", action: " + actionName + ".");
+				filterContext.HttpContext.Response.Redirect("/Error/NoAuthor");
 			}
 		}
 	}

@@ -1,3 +1,4 @@
+F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\Front\obj\Debug\Front.csprojResolveAssemblyReference.cache
 F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\Front\bin\Front.dll
 F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\Front\bin\Front.pdb
 F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\Front\bin\AOP.dll
@@ -49,6 +50,5 @@ F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\Front\bin\zh-Hans
 F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\Front\bin\zh-Hans\System.Web.WebPages.resources.dll
 F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\Front\bin\zh-Hans\System.Web.WebPages.Deployment.resources.dll
 F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\Front\bin\zh-Hans\System.Web.WebPages.Razor.resources.dll
-F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\Front\obj\Debug\Front.csprojResolveAssemblyReference.cache
 F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\Front\obj\Debug\Front.dll
 F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\Front\obj\Debug\Front.pdb

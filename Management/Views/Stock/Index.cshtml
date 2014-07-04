@@ -7,7 +7,7 @@
     </div>
 </div>
 <div class="row" style="margin-top: 20px;">
-    <div class="col-xs-12 col-sm-12 col-md-8">
+    <div class="col-xs-12 col-sm-12 col-md-9">
         <div class="box">
             <div class="box-header">
                 <div class="box-header">
@@ -85,12 +85,10 @@
             </div>
         </div>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-4" id="editPanel">
+    <div class="col-xs-12 col-sm-12 col-md-3" id="editPanel">
     </div>
 </div>
 
-<div id="updatePremium" class="layer_pageContent" style="display: none; margin: 0 auto; width: 400px;"></div>
-<div id="updateQty" class="layer_pageContent" style="display: none; margin: 0 auto; width: 600px;"></div>
 <script>
     var aCommodityType = [];
     var aBrand = [];
@@ -98,7 +96,6 @@
     var commodityTypeId = 0;
     var brandId = 0;
     var dt;
-    var index;
     $(function () {
         var selectCommodityType = $("#commodityTypeSelect").select2({ data: aCommodityType, allowClear: true, placeholder: "选择类型" });
         var selectBrand = $("#brandSelect").select2({ data: aBrand, allowClear: true, placeholder: "选择品牌" });
@@ -238,7 +235,7 @@
             paging: true,
             ordering: false,
             filter: false,
-            scrollX: true,
+            //scrollX: true,
             paginationType: "bootstrap",
             iDisplayLength: 10,
             serverSide: true,
@@ -276,7 +273,12 @@
                       return "<div id='stockAQty" + row.Id + "'>" + (data || 0) + "</div>";
                   }
               },
-              { data: "SaleQty" },
+              {
+                  data: "SaleQty",
+                  render: function (data, type, row) {
+                      return "<div id='stockSaleQty" + row.Id + "'>" + (data || 0) + "</div>";
+                  }
+              },
               {
                   data: "Premium",
                   render: function (data, type, row) {
@@ -292,12 +294,17 @@
               {
                   data: "Id",
                   render: function (data, type, row) {
-                      return "<div id='stock" + data + "'><input type='hidden' id='stockCommodity" + row.CommodityCode + "' value='" + row.PriceType + "' /><a href='#' style='text-decoration:none;white-space: nowrap;' onclick='javascript:StockUpdatePrice(" + data + ");'>修改价格</a><br />" +
-                        "<a href='#' style='text-decoration:none;white-space: nowrap;' onclick='javascript:StockUpdateQty(" + data + ")'>修改数量</a><br />" +
-                          "<a href='#' style='text-decoration:none;white-space: nowrap;' onclick='javascript:StockClearQty(" + data + ")'>数量清零</a></div>";
+                      return "<div id='stock" + data + "'><input type='hidden' id='stockCommodity" + row.CommodityCode + "' value='" + row.PriceType + "' /><a href='#' style='text-decoration:none;padding-right:5px;' onclick='javascript:StockUpdatePrice(" + data + ");'><i class='fa fa-cny fa-lg' title='修改价格'></i></a>" +
+                        "<a href='#' style='text-decoration:none;padding-right:5px;' onclick='javascript:StockUpdateQty(" + data + ")'><i class='fa fa-pencil fa-lg' title='修改数量'></i></a>" +
+                          "<a href='#' style='text-decoration:none;' onclick='javascript:StockClearQty(" + data + ")'><i class='fa fa-times fa-lg' title='数量清零'></i></a></div>";
                   }
               }
             ],
+            columnDefs: [
+                { "width": "55px", "targets": 1 },
+                { "width": "60px", "targets": 10 }
+            ],
+
             language: chineseLang,
             fnInitComplete: function () {
                 //debugger;
@@ -352,7 +359,7 @@
     }
 
     function StockUpdatePrice(id) {
-        var url = "/Stock/UpdatePrice/"+id;
+        var url = "/Stock/UpdatePrice/" + id;
 
         $('#StockInfoBox').remove();
         LoadAjaxContent2(url, function (data) {
@@ -362,7 +369,7 @@
     }
 
     function StockUpdateQty(id) {
-        var url = "/Stock/UpdateQty/"+id;
+        var url = "/Stock/UpdateQty/" + id;
 
         $('#StockInfoBox').remove();
         LoadAjaxContent2(url, function (data) {
@@ -378,7 +385,7 @@
                     if (demo) {
                         demo.server.backend_ClearStock(id);
                     }
-                    dt.ajax.reload();
+                    //dt.ajax.reload();
                 }, function () {
                     return;
                 });

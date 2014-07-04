@@ -23,7 +23,7 @@
     <div class="box-content" style="position: relative">
         <form class="form-horizontal" id="stockInfoForm">
             <div class="form-group">
-                @Html.LabelFor(o => o.CompanyId, "内部公司", new { @class = "col-sm-3 control-label", @for = "companySelect_create" })
+                @Html.LabelFor(o => o.CompanyId, "内部公司", new { @class = "col-sm-4 control-label", @for = "companySelect_create" })
                 <div class="col-sm-8">
                     <div class="input-group">
                         <span class="input-group-addon">
@@ -34,7 +34,7 @@
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(o => o.CommotityId, "金属", new { @class = "col-sm-3 control-label", @for = "commoditySelect_create" })
+                @Html.LabelFor(o => o.CommotityId, "金属", new { @class = "col-sm-4 control-label", @for = "commoditySelect_create" })
                 <div class="col-sm-8">
                     <div class="input-group">
                         <span class="input-group-addon">
@@ -45,7 +45,7 @@
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(o => o.CommodityTypeId, "类型", new { @class = "col-sm-3 control-label", @for = "commodityTypeSelect_create" })
+                @Html.LabelFor(o => o.CommodityTypeId, "类型", new { @class = "col-sm-4 control-label", @for = "commodityTypeSelect_create" })
                 <div class="col-sm-8">
                     <div class="input-group">
                         <span class="input-group-addon">
@@ -58,7 +58,7 @@
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(o => o.BrandId, "品牌", new { @class = "col-sm-3 control-label", @for = "brandSelect_create" })
+                @Html.LabelFor(o => o.BrandId, "品牌", new { @class = "col-sm-4 control-label", @for = "brandSelect_create" })
                 <div class="col-sm-8">
                     <div class="input-group">
                         <span class="input-group-addon">
@@ -70,7 +70,7 @@
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(o => o.WarehouseId, "仓库", new { @class = "col-sm-3 control-label", @for = "warsehouseSelect_create" })
+                @Html.LabelFor(o => o.WarehouseId, "仓库", new { @class = "col-sm-4 control-label", @for = "warsehouseSelect_create" })
                 <div class="col-sm-8">
                     <div class="input-group">
                         <span class="input-group-addon">
@@ -82,7 +82,7 @@
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(o => o.PricingType, "定价方式", new { @class = "col-sm-3 control-label", @for = "selectPriceType_create" })
+                @Html.LabelFor(o => o.PricingType, "定价方式", new { @class = "col-sm-4 control-label", @for = "selectPriceType_create" })
                 <div class="col-sm-8">
                     <div class="input-group">
                         <span class="input-group-addon">
@@ -96,7 +96,7 @@
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(o => o.Quantity, "数量", new { @class = "col-sm-3 control-label", @for = "txtQuantity" })
+                @Html.LabelFor(o => o.Quantity, "数量", new { @class = "col-sm-4 control-label", @for = "txtQuantity" })
                 <div class="col-sm-8">
                     <div class="input-group">
                         <span class="input-group-addon">
@@ -108,7 +108,7 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(o => o.BuyUnit, "购买单位", new { @class = "col-sm-3 control-label", @for = "userTel" })
+                @Html.LabelFor(o => o.BuyUnit, "购买单位", new { @class = "col-sm-4 control-label", @for = "userTel" })
                 <div class="col-sm-8">
                     <div class="input-group">
                         <span class="input-group-addon">
@@ -120,7 +120,7 @@
                 </div>
             </div>
             <div class="form-group" id="priceDiv" style="display: none;">
-                @Html.LabelFor(o => o.Price, "固定价", new { @class = "col-sm-3 control-label", @for = "txtPrice" })
+                @Html.LabelFor(o => o.Price, "固定价", new { @class = "col-sm-4 control-label", @for = "txtPrice" })
                 <div class="col-sm-8">
                     <div class="input-group">
                         <span class="input-group-addon">
@@ -131,7 +131,7 @@
                 </div>
             </div>
             <div class="form-group" id="premiumDiv">
-                @Html.LabelFor(o => o.Premium, "升贴水", new { @class = "col-sm-3 control-label", @for = "txtPremium" })
+                @Html.LabelFor(o => o.Premium, "升贴水", new { @class = "col-sm-4 control-label", @for = "txtPremium" })
                 <div class="col-sm-8">
                     <div class="input-group">
                         <span class="input-group-addon">
@@ -378,8 +378,11 @@
                     success: function (data) {
                         $.procAjaxData(data, function () {
                             $('#StockInfoBox').remove();
-                            var dt = $('#StockTable').DataTable();
-                            dt.ajax.reload();
+                            //var dt = $('#StockTable').DataTable();
+                            //dt.ajax.reload();
+                            if (demo) {
+                                demo.server.backend_AddStock();
+                            }
                         }, function () {
                             return;
                         });

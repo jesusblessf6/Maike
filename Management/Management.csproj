@@ -133,6 +133,7 @@
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\ControllerActionController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\SalesOrderController.cs" />
     <Compile Include="Controllers\StockController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
@@ -1636,8 +1637,8 @@
     <Content Include="Views\Role\AssignPerm.cshtml" />
     <Content Include="Views\Role\AssignPermCore.cshtml" />
     <Content Include="Views\Stock\UpdatePrice.cshtml" />
-    <Content Include="Views\Stock\UpdatePremium.cshtml" />
     <Content Include="Views\Stock\UpdateQty.cshtml" />
+    <Content Include="Views\SalesOrder\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

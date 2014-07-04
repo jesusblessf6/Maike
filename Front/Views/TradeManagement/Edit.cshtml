@@ -24,7 +24,8 @@
             <div class="form-group">
                 @Html.LabelFor(o => o.CompanyId, "购买方", new { @class = "col-sm-3 control-label", @for = "tradeCompanyId" })
                 <div class="col-sm-9">
-                    @Html.DropDownListFor(o => o.CompanyId, new SelectList(ViewBag.AllCompanyList, "Id", "Name"), new { @id = "tradeCompanyId", @name = "CompanyId", @style = "padding-bottom: 0px;" })
+                    @Html.DropDownListFor(o => o.CompanyId, new SelectList(ViewBag.AllCompanyList, "Id", "Name"), new { @id = "tradeCompanyId", @name = "CompanyId"})
+                    @*<input type="hidden" id="tradeCompanyId" />*@
                 </div>
                  </div>
             <div class="form-group">
@@ -51,7 +52,12 @@
             <div class="form-group">
                     @Html.LabelFor(o => o.Price, "价格", new { @class = "col-sm-3 control-label", @for = "tradePrice" })
                     <div class="col-sm-9">
+                        <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-info-circle"></i>
+                        </span>
                         @Html.TextBoxFor(o => o.Price, new { @class = "form-control", @id = "tradePrice", @name = "Price", @readonly = "true" })
+                            </div>
                     </div>
                 </div>
                 }
@@ -59,7 +65,12 @@
             <div class="form-group">
                 @Html.LabelFor(o => o.Price, "最终价格", new { @class = "col-sm-3 control-label", @for = "tradeFinalPrice" })
                 <div class="col-sm-9">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-info-circle"></i>
+                        </span>
                     @Html.TextBoxFor(o => o.Price, new { @class = "form-control", @id = "tradeFinalPrice", @name = "FinalPrice", @readonly = "true", @visibly = "hidden" })
+                        </div>
                 </div>
             </div>
             <div class="form-group">
@@ -103,6 +114,8 @@
                     @Html.HiddenFor(o => o.SalerName, new { @id = "SalerNameField" })
                     @Html.HiddenFor(o => o.CountDown, new { @id = "CountDownField" })
                     @Html.HiddenFor(o => o.CommodityId, new { @id = "CommodityIdField" })
+                    @Html.HiddenFor(o => o.CommodityCode, new { @id = "CommodityCodeField" })
+                    @Html.HiddenFor(o => o.CommodityUnit, new { @id = "CommodityUnitField" })
                 </div>
             </div>
         </form>
@@ -114,9 +127,11 @@
     var bar;
     var countDown;
     var dropWidth;
+    var alertBox;
+    var totalWidth;
     //var strongBar;
     var obj = new SalesOrder();
-    function SalesOrder(buyerName, salerName, finalPrice, pricingType, txtP, qty, brand, commodityType, warehouse, premium, commodity, stockId, companyId, pricingType, commodityId) {
+    function SalesOrder(buyerName, salerName, finalPrice, pricingType, txtP, qty, brand, commodityType, warehouse, premium, commodity, stockId, companyId, pricingType, commodityId, commodityUnit) {
         this.buyerName = buyerName;
         this.salerName = salerName;
         this.finalPrice = finalPrice;
@@ -131,11 +146,14 @@
         this.companyId = companyId;
         this.premium = premium;
         this.pricingType = pricingType;
-        this.commodityId = commodityId
+        this.commodityId = commodityId;
+        this.commodityUnit = commodityUnit;
     }
 
     function showalert() {
-        var id = document.getElementById("tradeCompanyId").value;
+        //var id = document.getElementById("tradeCompanyId").value;
+        var id = $("#tradeCompanyId").val();
+
          $.ajax({
              url: "/TradeManagement/GetBuyerName/" + id,
             dataType: 'json',
@@ -147,6 +165,7 @@
                 obj.salerName = $("#SalerNameField").val();
                 obj.stockId = $("#StockIdField").val();
                 obj.commodityId = $("#CommodityIdField").val();
+                obj.commodityUnit = $("#CommodityUnitField").val();
                 obj.finalPrice = document.getElementById("tradeFinalPrice").value;
                 var pricingType = $("#PricingTypeField").val();
                 obj.pricingType = pricingType;
@@ -154,6 +173,7 @@
                 if (pricingType == 1) {
                     var permium =document.getElementById("tradePremium").value;
                     var price = document.getElementById("tradePrice").value;
+                    obj.premium = permium;
                     txt = "（升贴水" + permium + " + " + "即时卖价" + price + "）";
                 }
                 else { txt = ""; }
@@ -181,8 +201,16 @@
                         document.getElementById("brandSpan").innerHTML = obj.brand;
                         document.getElementById("warehouseSpan").innerHTML = obj.warehouse;
                         document.getElementById("mmSpan").innerHTML = countDown;
+                        document.getElementById("commUnit").innerHTML = obj.commodityUnit;
                         timer = setInterval("setTime()", 1000);
-                        changebar("#time_bar", countDown, "red");
+                        alertBox = document.getElementById("msgBoxDiv");
+                        var backBox = document.getElementById("time_back");
+                        var barBox = document.getElementById("time_bar");
+                        totalWidth = alertBox.offsetWidth * (100 / countDown);
+                        //backBox.style.width = alertBox.offsetWidth * countDown / 100 + "px";
+                        //barBox.style.width = alertBox.offsetWidth * countDown / 100 + "px";
+                        backBox.style.width = totalWidth * countDown / 100 + "px";
+                        barBox.style.width = totalWidth * countDown / 100 + "px";
                     },
                     close: function (index) {
                         clearInterval(timer);
@@ -200,13 +228,12 @@
         var time = document.getElementById("mmSpan").innerHTML;
         if (time > 0) {
             var resultTime = time - 1;
-            //var result;
             if (resultTime < 10)
             {
                 resultTime = "0" + resultTime;
             }
             document.getElementById("mmSpan").innerHTML = resultTime;
-            changebar("#time_bar", resultTime, "red");
+            changebar("#time_bar", resultTime);
         }
         else {
             clearInterval(timer);
@@ -215,18 +242,12 @@
         }
     }
 
-    //$("#mmSpan").change(function () {
-    //    var rate = $(this).attr("value");
-    //    changebar("#time_bar", rate, "red");
-    //});
 
-    function changebar(obj, rate, deadColor) {
-        if (undefined != deadColor && rate > 80) {
-            $(obj).css({ "background": deadColor })
-        }
-       var widthRate = rate % 100 + "%";
+    function changebar(obj, rate) {
+        //var widthRate = alertBox.offsetWidth * rate / 100 + "px";
+        var widthRate = totalWidth * rate / 100 + "px";
        $(obj).animate({ width: widthRate }, 1000);
-        $(obj).html(rate);
+       $(obj).html(rate);
     }
 
     function ClosePage()
@@ -234,10 +255,29 @@
         $('#TradeManagementEditBox').remove();            
     }
  
+    function getPriceInit()
+    {
+        if ($("#PricingTypeField").val() == 1) {
+            var commCode = $("#CommodityCodeField").val();
+            var divID = "price" + commCode;
+            var commDiv = document.getElementById(divID);
+            if (commDiv != null) {
+                var priceDiv = commDiv.getElementsByClassName("priceSaleP");
+                var priceTxt = document.getElementById("tradePrice");
+                var finalPriceTxt = document.getElementById("tradeFinalPrice");
+                var tradePremiumTxt = document.getElementById("tradePremium");
+                if (priceDiv != null) {
+                    //debugger
+                    priceTxt.value = priceDiv[0].innerHTML;
+                    finalPriceTxt.value = parseFloat(priceTxt.value) + parseFloat(tradePremiumTxt.value);
+                }
+            }
+        }
+    }
 
     $(document).ready(function () {
 
-        $("#tradeCompanyId").select2();
+        $("#tradeCompanyId").select2();       
    
         $('#newTradeManagementForm').bootstrapValidator({
             message: "输入有误",
@@ -256,6 +296,19 @@
                             message: "只能输入正整数",
                         }
                     }
+                },
+                Price: {
+                    trigger: "blur",
+                    validators: {
+                        notEmpty: {
+                            message: "价格不能为空"
+                        },
+                        remote:
+                            {
+                                url: '/TradeManagement/ValidatePrice',
+                                message:"请F5刷新当前页面或退出系统后重新登录" //价格格式不正确的提示信息 message
+                            }
+                    }
                 }
             },
             submitHandler: function (validator, form, submitButton) {
@@ -264,6 +317,8 @@
         });
         $("#divMakeSureOrderOK").unbind("click");
         $("#divMakeSureOrderOK").click(function () {
+            clearInterval(timer);
+            layer.close(index);
             $.ajax({
                 url: "/TradeManagement/Create",
                 data: { companyId: obj.companyId, qty: obj.qty, premium: obj.premium, price: obj.finalPrice, stockId: obj.stockId, commodityId: obj.commodityId, pricingType: obj.pricingType },
@@ -271,13 +326,13 @@
                 type: 'POST',
                 success: function (data) {
                     $.procAjaxData(data, function () {
-                        clearInterval(timer);
-                        layer.close(index);
+                        //clearInterval(timer);
+                        //layer.close(index);
                         $('#TradeManagementEditBox').remove();
-                        var dt = $('#StockTable').DataTable();
-                        dt.ajax.reload();
+                        demo.server.frontend_UpdateStock(obj.stockId, obj.qty);
+                        demo.server.backend_PlusSalesOrder(obj.buyerName, obj.salerName, obj.qty, obj.commodityType, obj.brand, obj.warehouse, obj.finalPrice); //todo
                     }, function () {
-                        return;
+                        document.getElementById("addBrandBtn").disabled = false;
                     });
                 }
             });
@@ -291,7 +346,7 @@
             document.getElementById("addBrandBtn").disabled = false;
         });
 
-
+        getPriceInit();
         WinMove();
     });
 </script>

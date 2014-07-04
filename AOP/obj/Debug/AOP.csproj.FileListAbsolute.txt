@@ -1,8 +1,6 @@
+F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\AOP\obj\Debug\AOP.csprojResolveAssemblyReference.cache
 F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\AOP\bin\Debug\AOP.dll
 F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\AOP\bin\Debug\AOP.pdb
-F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\AOP\obj\Debug\AOP.dll
-F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\AOP\obj\Debug\AOP.pdb
-F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\AOP\obj\Debug\AOP.csprojResolveAssemblyReference.cache
 F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\AOP\bin\Debug\DAL.dll
 F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\AOP\bin\Debug\Entities.dll
 F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\AOP\bin\Debug\Enums.dll
@@ -12,3 +10,5 @@ F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\AOP\bin\Debug\Ent
 F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\AOP\bin\Debug\Enums.pdb
 F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\AOP\bin\Debug\EntityFramework.xml
 F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\AOP\bin\Debug\zh-Hans\EntityFramework.resources.dll
+F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\AOP\obj\Debug\AOP.dll
+F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\AOP\obj\Debug\AOP.pdb

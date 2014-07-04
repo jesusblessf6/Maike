@@ -4,16 +4,124 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="MaikeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="MaikeModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="MaikeModelStoreContainer">
+          <EntitySet Name="Action" EntityType="MaikeModel.Store.Action" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Brand" EntityType="MaikeModel.Store.Brand" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Commodity" EntityType="MaikeModel.Store.Commodity" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CommodityType" EntityType="MaikeModel.Store.CommodityType" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Company" EntityType="MaikeModel.Store.Company" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Controller" EntityType="MaikeModel.Store.Controller" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="OpenTime" EntityType="MaikeModel.Store.OpenTime" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Previlege" EntityType="MaikeModel.Store.Previlege" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="RelCommoditySHFECode" EntityType="MaikeModel.Store.RelCommoditySHFECode" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="RelUserCommodity" EntityType="MaikeModel.Store.RelUserCommodity" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="RelUserCompany" EntityType="MaikeModel.Store.RelUserCompany" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Role" EntityType="MaikeModel.Store.Role" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SalesOrder" EntityType="MaikeModel.Store.SalesOrder" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SHFECode" EntityType="MaikeModel.Store.SHFECode" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Stock" EntityType="MaikeModel.Store.Stock" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SysSetting" EntityType="MaikeModel.Store.SysSetting" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="User" EntityType="MaikeModel.Store.User" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Warehouse" EntityType="MaikeModel.Store.Warehouse" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Action_Controller" Association="MaikeModel.Store.FK_Action_Controller">
+            <End Role="Controller" EntitySet="Controller" />
+            <End Role="Action" EntitySet="Action" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Brand_Commodity" Association="MaikeModel.Store.FK_Brand_Commodity">
+            <End Role="Commodity" EntitySet="Commodity" />
+            <End Role="Brand" EntitySet="Brand" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Brand_CommodityType" Association="MaikeModel.Store.FK_Brand_CommodityType">
+            <End Role="CommodityType" EntitySet="CommodityType" />
+            <End Role="Brand" EntitySet="Brand" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CommodityType_Commodity" Association="MaikeModel.Store.FK_CommodityType_Commodity">
+            <End Role="Commodity" EntitySet="Commodity" />
+            <End Role="CommodityType" EntitySet="CommodityType" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Previlege_Action" Association="MaikeModel.Store.FK_Previlege_Action">
+            <End Role="Action" EntitySet="Action" />
+            <End Role="Previlege" EntitySet="Previlege" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Previlege_Controller" Association="MaikeModel.Store.FK_Previlege_Controller">
+            <End Role="Controller" EntitySet="Controller" />
+            <End Role="Previlege" EntitySet="Previlege" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Previlege_Role" Association="MaikeModel.Store.FK_Previlege_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Previlege" EntitySet="Previlege" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelCommoditySHFECode_Commodity" Association="MaikeModel.Store.FK_RelCommoditySHFECode_Commodity">
+            <End Role="Commodity" EntitySet="Commodity" />
+            <End Role="RelCommoditySHFECode" EntitySet="RelCommoditySHFECode" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelCommoditySHFECode_SHFECode" Association="MaikeModel.Store.FK_RelCommoditySHFECode_SHFECode">
+            <End Role="SHFECode" EntitySet="SHFECode" />
+            <End Role="RelCommoditySHFECode" EntitySet="RelCommoditySHFECode" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelUserCommodity_Commodity" Association="MaikeModel.Store.FK_RelUserCommodity_Commodity">
+            <End Role="Commodity" EntitySet="Commodity" />
+            <End Role="RelUserCommodity" EntitySet="RelUserCommodity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelUserCommodity_User" Association="MaikeModel.Store.FK_RelUserCommodity_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="RelUserCommodity" EntitySet="RelUserCommodity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelUserCompany_Company" Association="MaikeModel.Store.FK_RelUserCompany_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="RelUserCompany" EntitySet="RelUserCompany" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelUserCompany_User" Association="MaikeModel.Store.FK_RelUserCompany_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="RelUserCompany" EntitySet="RelUserCompany" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalesOrder_Company" Association="MaikeModel.Store.FK_SalesOrder_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="SalesOrder" EntitySet="SalesOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalesOrder_Stock" Association="MaikeModel.Store.FK_SalesOrder_Stock">
+            <End Role="Stock" EntitySet="Stock" />
+            <End Role="SalesOrder" EntitySet="SalesOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SHFECode_Commodity" Association="MaikeModel.Store.FK_SHFECode_Commodity">
+            <End Role="Commodity" EntitySet="Commodity" />
+            <End Role="SHFECode" EntitySet="SHFECode" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stock_Brand" Association="MaikeModel.Store.FK_Stock_Brand">
+            <End Role="Brand" EntitySet="Brand" />
+            <End Role="Stock" EntitySet="Stock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stock_Commodity" Association="MaikeModel.Store.FK_Stock_Commodity">
+            <End Role="Commodity" EntitySet="Commodity" />
+            <End Role="Stock" EntitySet="Stock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stock_CommodityType" Association="MaikeModel.Store.FK_Stock_CommodityType">
+            <End Role="CommodityType" EntitySet="CommodityType" />
+            <End Role="Stock" EntitySet="Stock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stock_Company" Association="MaikeModel.Store.FK_Stock_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="Stock" EntitySet="Stock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stock_Warehouse" Association="MaikeModel.Store.FK_Stock_Warehouse">
+            <End Role="Warehouse" EntitySet="Warehouse" />
+            <End Role="Stock" EntitySet="Stock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="MaikeModel.Store.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Action">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
-          <Property Name="Ver" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="Ver" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
           <Property Name="ControllerId" Type="int" Nullable="false" />
           <Property Name="ForAll" Type="bit" Nullable="false" />
           <Property Name="ChineseName" Type="nvarchar" MaxLength="50" />
@@ -22,10 +130,10 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
-          <Property Name="Ver" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Ver" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="CommodityId" Type="int" Nullable="false" />
           <Property Name="CommodityTypeId" Type="int" Nullable="false" />
@@ -34,22 +142,23 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
-          <Property Name="Ver" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Ver" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="Code" Type="nvarchar" MaxLength="50" />
           <Property Name="IsOpen" Type="bit" Nullable="false" />
+          <Property Name="CommodityUnit" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="CommodityType">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Ver" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Ver" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="CommodityId" Type="int" Nullable="false" />
         </EntityType>
@@ -57,25 +166,25 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="Address" Type="nvarchar" MaxLength="250" />
           <Property Name="Comment" Type="ntext" />
-          <Property Name="Ver" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="Ver" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="Type" Type="int" Nullable="false" />
-          <Property Name="FullName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" Nullable="false" MaxLength="100" />
           <Property Name="Zip" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="Controller">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
-          <Property Name="Ver" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="Ver" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
           <Property Name="ForAll" Type="bit" Nullable="false" />
           <Property Name="ChineseName" Type="nvarchar" MaxLength="50" />
         </EntityType>
@@ -83,30 +192,30 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="StartTime" Type="time" Precision="7" Nullable="false" />
-          <Property Name="EndTime" Type="time" Precision="7" Nullable="false" />
-          <Property Name="Ver" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="StartTime" Type="time" Nullable="false" />
+          <Property Name="EndTime" Type="time" Nullable="false" />
+          <Property Name="Ver" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Previlege">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="RoleId" Type="int" Nullable="false" />
           <Property Name="ControllerId" Type="int" Nullable="false" />
           <Property Name="ActionId" Type="int" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
-          <Property Name="Ver" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="Ver" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
           <Property Name="PrevilegeLevel" Type="int" />
         </EntityType>
         <EntityType Name="RelCommoditySHFECode">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Ver" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Ver" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="CommodityId" Type="int" Nullable="false" />
           <Property Name="SHFECodeId" Type="int" Nullable="false" />
@@ -115,42 +224,42 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="CommodityId" Type="int" Nullable="false" />
-          <Property Name="Ver" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="Ver" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="RelUserCompany">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="CompanyId" Type="int" Nullable="false" />
-          <Property Name="Ver" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="Ver" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
-          <Property Name="Ver" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="Ver" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="SalesOrder">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Ver" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Ver" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="CompanyId" Type="int" Nullable="false" />
           <Property Name="Comment" Type="ntext" />
-          <Property Name="Quantity" Type="decimal" Precision="20" Scale="8" Nullable="false" />
+          <Property Name="Quantity" Type="decimal" Nullable="false" Precision="20" Scale="8" />
           <Property Name="StockId" Type="int" Nullable="false" />
           <Property Name="Status" Type="int" Nullable="false" />
           <Property Name="Date" Type="datetime" Nullable="false" />
@@ -162,10 +271,10 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Code" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Ver" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Ver" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="CommodityId" Type="int" />
           <Property Name="IsInUse" Type="bit" />
@@ -174,16 +283,16 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Ver" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Ver" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="CompanyId" Type="int" Nullable="false" />
           <Property Name="CommodityId" Type="int" Nullable="false" />
-          <Property Name="CommodityTypeId" Type="int" />
-          <Property Name="BrandId" Type="int" />
-          <Property Name="WarehouseId" Type="int" />
-          <Property Name="Quantity" Type="decimal" Precision="20" Scale="8" Nullable="false" />
-          <Property Name="AvailableQty" Type="decimal" Precision="20" Scale="8" Nullable="false" />
+          <Property Name="CommodityTypeId" Type="int" Nullable="false" />
+          <Property Name="BrandId" Type="int" Nullable="false" />
+          <Property Name="WarehouseId" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="decimal" Nullable="false" Precision="20" Scale="8" />
+          <Property Name="AvailableQty" Type="decimal" Nullable="false" Precision="20" Scale="8" />
           <Property Name="PricingType" Type="int" Nullable="false" />
           <Property Name="Premium" Type="decimal" Precision="20" Scale="8" />
           <Property Name="Price" Type="decimal" Precision="20" Scale="8" />
@@ -195,23 +304,23 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="BuyUnit" Type="int" Nullable="false" />
           <Property Name="CountDown" Type="int" Nullable="false" />
-          <Property Name="Ver" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="Ver" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Ver" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Ver" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
-          <Property Name="LoginName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LoginName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="Description" Type="nvarchar(max)" />
-          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="IsSuper" Type="bit" Nullable="false" />
           <Property Name="Type" Type="int" Nullable="false" />
           <Property Name="Mobile" Type="nvarchar" MaxLength="50" />
@@ -223,10 +332,10 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Ver" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Ver" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="Address" Type="nvarchar" MaxLength="250" />
           <Property Name="Contact" Type="nvarchar" MaxLength="250" />
@@ -234,8 +343,8 @@
           <Property Name="Fax" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <Association Name="FK_Action_Controller">
-          <End Role="Controller" Type="Self.Controller" Multiplicity="1" />
-          <End Role="Action" Type="Self.Action" Multiplicity="*" />
+          <End Role="Controller" Type="MaikeModel.Store.Controller" Multiplicity="1" />
+          <End Role="Action" Type="MaikeModel.Store.Action" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Controller">
               <PropertyRef Name="Id" />
@@ -246,8 +355,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Brand_Commodity">
-          <End Role="Commodity" Type="Self.Commodity" Multiplicity="1" />
-          <End Role="Brand" Type="Self.Brand" Multiplicity="*" />
+          <End Role="Commodity" Type="MaikeModel.Store.Commodity" Multiplicity="1" />
+          <End Role="Brand" Type="MaikeModel.Store.Brand" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Commodity">
               <PropertyRef Name="Id" />
@@ -258,8 +367,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Brand_CommodityType">
-          <End Role="CommodityType" Type="Self.CommodityType" Multiplicity="1" />
-          <End Role="Brand" Type="Self.Brand" Multiplicity="*" />
+          <End Role="CommodityType" Type="MaikeModel.Store.CommodityType" Multiplicity="1" />
+          <End Role="Brand" Type="MaikeModel.Store.Brand" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CommodityType">
               <PropertyRef Name="Id" />
@@ -270,8 +379,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CommodityType_Commodity">
-          <End Role="Commodity" Type="Self.Commodity" Multiplicity="1" />
-          <End Role="CommodityType" Type="Self.CommodityType" Multiplicity="*" />
+          <End Role="Commodity" Type="MaikeModel.Store.Commodity" Multiplicity="1" />
+          <End Role="CommodityType" Type="MaikeModel.Store.CommodityType" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Commodity">
               <PropertyRef Name="Id" />
@@ -282,8 +391,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Previlege_Action">
-          <End Role="Action" Type="Self.Action" Multiplicity="0..1" />
-          <End Role="Previlege" Type="Self.Previlege" Multiplicity="*" />
+          <End Role="Action" Type="MaikeModel.Store.Action" Multiplicity="0..1" />
+          <End Role="Previlege" Type="MaikeModel.Store.Previlege" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Action">
               <PropertyRef Name="Id" />
@@ -294,8 +403,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Previlege_Controller">
-          <End Role="Controller" Type="Self.Controller" Multiplicity="1" />
-          <End Role="Previlege" Type="Self.Previlege" Multiplicity="*" />
+          <End Role="Controller" Type="MaikeModel.Store.Controller" Multiplicity="1" />
+          <End Role="Previlege" Type="MaikeModel.Store.Previlege" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Controller">
               <PropertyRef Name="Id" />
@@ -306,8 +415,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Previlege_Role">
-          <End Role="Role" Type="Self.Role" Multiplicity="1" />
-          <End Role="Previlege" Type="Self.Previlege" Multiplicity="*" />
+          <End Role="Role" Type="MaikeModel.Store.Role" Multiplicity="1" />
+          <End Role="Previlege" Type="MaikeModel.Store.Previlege" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Role">
               <PropertyRef Name="Id" />
@@ -318,8 +427,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_RelCommoditySHFECode_Commodity">
-          <End Role="Commodity" Type="Self.Commodity" Multiplicity="1" />
-          <End Role="RelCommoditySHFECode" Type="Self.RelCommoditySHFECode" Multiplicity="*" />
+          <End Role="Commodity" Type="MaikeModel.Store.Commodity" Multiplicity="1" />
+          <End Role="RelCommoditySHFECode" Type="MaikeModel.Store.RelCommoditySHFECode" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Commodity">
               <PropertyRef Name="Id" />
@@ -330,8 +439,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_RelCommoditySHFECode_SHFECode">
-          <End Role="SHFECode" Type="Self.SHFECode" Multiplicity="1" />
-          <End Role="RelCommoditySHFECode" Type="Self.RelCommoditySHFECode" Multiplicity="*" />
+          <End Role="SHFECode" Type="MaikeModel.Store.SHFECode" Multiplicity="1" />
+          <End Role="RelCommoditySHFECode" Type="MaikeModel.Store.RelCommoditySHFECode" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SHFECode">
               <PropertyRef Name="Id" />
@@ -342,8 +451,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_RelUserCommodity_Commodity">
-          <End Role="Commodity" Type="Self.Commodity" Multiplicity="1" />
-          <End Role="RelUserCommodity" Type="Self.RelUserCommodity" Multiplicity="*" />
+          <End Role="Commodity" Type="MaikeModel.Store.Commodity" Multiplicity="1" />
+          <End Role="RelUserCommodity" Type="MaikeModel.Store.RelUserCommodity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Commodity">
               <PropertyRef Name="Id" />
@@ -354,8 +463,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_RelUserCommodity_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="RelUserCommodity" Type="Self.RelUserCommodity" Multiplicity="*" />
+          <End Role="User" Type="MaikeModel.Store.User" Multiplicity="1" />
+          <End Role="RelUserCommodity" Type="MaikeModel.Store.RelUserCommodity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="Id" />
@@ -366,8 +475,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_RelUserCompany_Company">
-          <End Role="Company" Type="Self.Company" Multiplicity="1" />
-          <End Role="RelUserCompany" Type="Self.RelUserCompany" Multiplicity="*" />
+          <End Role="Company" Type="MaikeModel.Store.Company" Multiplicity="1" />
+          <End Role="RelUserCompany" Type="MaikeModel.Store.RelUserCompany" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Company">
               <PropertyRef Name="Id" />
@@ -378,8 +487,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_RelUserCompany_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="RelUserCompany" Type="Self.RelUserCompany" Multiplicity="*" />
+          <End Role="User" Type="MaikeModel.Store.User" Multiplicity="1" />
+          <End Role="RelUserCompany" Type="MaikeModel.Store.RelUserCompany" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="Id" />
@@ -390,8 +499,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SalesOrder_Company">
-          <End Role="Company" Type="Self.Company" Multiplicity="1" />
-          <End Role="SalesOrder" Type="Self.SalesOrder" Multiplicity="*" />
+          <End Role="Company" Type="MaikeModel.Store.Company" Multiplicity="1" />
+          <End Role="SalesOrder" Type="MaikeModel.Store.SalesOrder" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Company">
               <PropertyRef Name="Id" />
@@ -402,8 +511,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SalesOrder_Stock">
-          <End Role="Stock" Type="Self.Stock" Multiplicity="1" />
-          <End Role="SalesOrder" Type="Self.SalesOrder" Multiplicity="*" />
+          <End Role="Stock" Type="MaikeModel.Store.Stock" Multiplicity="1" />
+          <End Role="SalesOrder" Type="MaikeModel.Store.SalesOrder" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Stock">
               <PropertyRef Name="Id" />
@@ -414,8 +523,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SHFECode_Commodity">
-          <End Role="Commodity" Type="Self.Commodity" Multiplicity="0..1" />
-          <End Role="SHFECode" Type="Self.SHFECode" Multiplicity="*" />
+          <End Role="Commodity" Type="MaikeModel.Store.Commodity" Multiplicity="0..1" />
+          <End Role="SHFECode" Type="MaikeModel.Store.SHFECode" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Commodity">
               <PropertyRef Name="Id" />
@@ -426,8 +535,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Stock_Brand">
-          <End Role="Brand" Type="Self.Brand" Multiplicity="0..1" />
-          <End Role="Stock" Type="Self.Stock" Multiplicity="*" />
+          <End Role="Brand" Type="MaikeModel.Store.Brand" Multiplicity="1" />
+          <End Role="Stock" Type="MaikeModel.Store.Stock" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Brand">
               <PropertyRef Name="Id" />
@@ -438,8 +547,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Stock_Commodity">
-          <End Role="Commodity" Type="Self.Commodity" Multiplicity="1" />
-          <End Role="Stock" Type="Self.Stock" Multiplicity="*" />
+          <End Role="Commodity" Type="MaikeModel.Store.Commodity" Multiplicity="1" />
+          <End Role="Stock" Type="MaikeModel.Store.Stock" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Commodity">
               <PropertyRef Name="Id" />
@@ -450,8 +559,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Stock_CommodityType">
-          <End Role="CommodityType" Type="Self.CommodityType" Multiplicity="0..1" />
-          <End Role="Stock" Type="Self.Stock" Multiplicity="*" />
+          <End Role="CommodityType" Type="MaikeModel.Store.CommodityType" Multiplicity="1" />
+          <End Role="Stock" Type="MaikeModel.Store.Stock" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CommodityType">
               <PropertyRef Name="Id" />
@@ -462,8 +571,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Stock_Company">
-          <End Role="Company" Type="Self.Company" Multiplicity="1" />
-          <End Role="Stock" Type="Self.Stock" Multiplicity="*" />
+          <End Role="Company" Type="MaikeModel.Store.Company" Multiplicity="1" />
+          <End Role="Stock" Type="MaikeModel.Store.Stock" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Company">
               <PropertyRef Name="Id" />
@@ -474,8 +583,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Stock_Warehouse">
-          <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="0..1" />
-          <End Role="Stock" Type="Self.Stock" Multiplicity="*" />
+          <End Role="Warehouse" Type="MaikeModel.Store.Warehouse" Multiplicity="1" />
+          <End Role="Stock" Type="MaikeModel.Store.Stock" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Warehouse">
               <PropertyRef Name="Id" />
@@ -486,8 +595,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_User_Role">
-          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
-          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <End Role="Role" Type="MaikeModel.Store.Role" Multiplicity="0..1" />
+          <End Role="User" Type="MaikeModel.Store.User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Role">
               <PropertyRef Name="Id" />
@@ -497,129 +606,37 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="MaikeModelStoreContainer">
-          <EntitySet Name="Action" EntityType="Self.Action" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Brand" EntityType="Self.Brand" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Commodity" EntityType="Self.Commodity" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CommodityType" EntityType="Self.CommodityType" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Controller" EntityType="Self.Controller" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="OpenTime" EntityType="Self.OpenTime" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Previlege" EntityType="Self.Previlege" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="RelCommoditySHFECode" EntityType="Self.RelCommoditySHFECode" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="RelUserCommodity" EntityType="Self.RelUserCommodity" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="RelUserCompany" EntityType="Self.RelUserCompany" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SalesOrder" EntityType="Self.SalesOrder" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SHFECode" EntityType="Self.SHFECode" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Stock" EntityType="Self.Stock" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SysSetting" EntityType="Self.SysSetting" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Warehouse" EntityType="Self.Warehouse" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Action_Controller" Association="Self.FK_Action_Controller">
-            <End Role="Controller" EntitySet="Controller" />
-            <End Role="Action" EntitySet="Action" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Brand_Commodity" Association="Self.FK_Brand_Commodity">
-            <End Role="Commodity" EntitySet="Commodity" />
-            <End Role="Brand" EntitySet="Brand" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Brand_CommodityType" Association="Self.FK_Brand_CommodityType">
-            <End Role="CommodityType" EntitySet="CommodityType" />
-            <End Role="Brand" EntitySet="Brand" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CommodityType_Commodity" Association="Self.FK_CommodityType_Commodity">
-            <End Role="Commodity" EntitySet="Commodity" />
-            <End Role="CommodityType" EntitySet="CommodityType" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Previlege_Action" Association="Self.FK_Previlege_Action">
-            <End Role="Action" EntitySet="Action" />
-            <End Role="Previlege" EntitySet="Previlege" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Previlege_Controller" Association="Self.FK_Previlege_Controller">
-            <End Role="Controller" EntitySet="Controller" />
-            <End Role="Previlege" EntitySet="Previlege" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Previlege_Role" Association="Self.FK_Previlege_Role">
-            <End Role="Role" EntitySet="Role" />
-            <End Role="Previlege" EntitySet="Previlege" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RelCommoditySHFECode_Commodity" Association="Self.FK_RelCommoditySHFECode_Commodity">
-            <End Role="Commodity" EntitySet="Commodity" />
-            <End Role="RelCommoditySHFECode" EntitySet="RelCommoditySHFECode" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RelCommoditySHFECode_SHFECode" Association="Self.FK_RelCommoditySHFECode_SHFECode">
-            <End Role="SHFECode" EntitySet="SHFECode" />
-            <End Role="RelCommoditySHFECode" EntitySet="RelCommoditySHFECode" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RelUserCommodity_Commodity" Association="Self.FK_RelUserCommodity_Commodity">
-            <End Role="Commodity" EntitySet="Commodity" />
-            <End Role="RelUserCommodity" EntitySet="RelUserCommodity" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RelUserCommodity_User" Association="Self.FK_RelUserCommodity_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="RelUserCommodity" EntitySet="RelUserCommodity" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RelUserCompany_Company" Association="Self.FK_RelUserCompany_Company">
-            <End Role="Company" EntitySet="Company" />
-            <End Role="RelUserCompany" EntitySet="RelUserCompany" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RelUserCompany_User" Association="Self.FK_RelUserCompany_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="RelUserCompany" EntitySet="RelUserCompany" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SalesOrder_Company" Association="Self.FK_SalesOrder_Company">
-            <End Role="Company" EntitySet="Company" />
-            <End Role="SalesOrder" EntitySet="SalesOrder" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SalesOrder_Stock" Association="Self.FK_SalesOrder_Stock">
-            <End Role="Stock" EntitySet="Stock" />
-            <End Role="SalesOrder" EntitySet="SalesOrder" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SHFECode_Commodity" Association="Self.FK_SHFECode_Commodity">
-            <End Role="Commodity" EntitySet="Commodity" />
-            <End Role="SHFECode" EntitySet="SHFECode" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Stock_Brand" Association="Self.FK_Stock_Brand">
-            <End Role="Brand" EntitySet="Brand" />
-            <End Role="Stock" EntitySet="Stock" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Stock_Commodity" Association="Self.FK_Stock_Commodity">
-            <End Role="Commodity" EntitySet="Commodity" />
-            <End Role="Stock" EntitySet="Stock" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Stock_CommodityType" Association="Self.FK_Stock_CommodityType">
-            <End Role="CommodityType" EntitySet="CommodityType" />
-            <End Role="Stock" EntitySet="Stock" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Stock_Company" Association="Self.FK_Stock_Company">
-            <End Role="Company" EntitySet="Company" />
-            <End Role="Stock" EntitySet="Stock" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Stock_Warehouse" Association="Self.FK_Stock_Warehouse">
-            <End Role="Warehouse" EntitySet="Warehouse" />
-            <End Role="Stock" EntitySet="Stock" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
-            <End Role="Role" EntitySet="Role" />
-            <End Role="User" EntitySet="User" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MaikeModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="MaikeEntities" p1:LazyLoadingEnabled="true">
-          <EntitySet Name="Users" EntityType="MaikeModel.User" />
-          <EntitySet Name="Commodities" EntityType="MaikeModel.Commodity" />
-          <EntitySet Name="Warehouses" EntityType="MaikeModel.Warehouse" />
+          <EntitySet Name="Actions" EntityType="MaikeModel.Action" />
           <EntitySet Name="Brands" EntityType="MaikeModel.Brand" />
-          <EntitySet Name="SHFECodes" EntityType="MaikeModel.SHFECode" />
-          <AssociationSet Name="FK_SHFECode_Commodity" Association="MaikeModel.FK_SHFECode_Commodity">
-            <End Role="Commodity" EntitySet="Commodities" />
-            <End Role="SHFECode" EntitySet="SHFECodes" />
-          </AssociationSet>
+          <EntitySet Name="Commodities" EntityType="MaikeModel.Commodity" />
           <EntitySet Name="CommodityTypes" EntityType="MaikeModel.CommodityType" />
+          <EntitySet Name="Companies" EntityType="MaikeModel.Company" />
+          <EntitySet Name="Controllers" EntityType="MaikeModel.Controller" />
+          <EntitySet Name="OpenTimes" EntityType="MaikeModel.OpenTime" />
+          <EntitySet Name="Previleges" EntityType="MaikeModel.Previlege" />
+          <EntitySet Name="RelCommoditySHFECodes" EntityType="MaikeModel.RelCommoditySHFECode" />
+          <EntitySet Name="RelUserCommodities" EntityType="MaikeModel.RelUserCommodity" />
+          <EntitySet Name="RelUserCompanies" EntityType="MaikeModel.RelUserCompany" />
+          <EntitySet Name="Roles" EntityType="MaikeModel.Role" />
+          <EntitySet Name="SalesOrders" EntityType="MaikeModel.SalesOrder" />
+          <EntitySet Name="SHFECodes" EntityType="MaikeModel.SHFECode" />
+          <EntitySet Name="Stocks" EntityType="MaikeModel.Stock" />
+          <EntitySet Name="SysSettings" EntityType="MaikeModel.SysSetting" />
+          <EntitySet Name="Users" EntityType="MaikeModel.User" />
+          <EntitySet Name="Warehouses" EntityType="MaikeModel.Warehouse" />
+          <AssociationSet Name="FK_Action_Controller" Association="MaikeModel.FK_Action_Controller">
+            <End Role="Controller" EntitySet="Controllers" />
+            <End Role="Action" EntitySet="Actions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Previlege_Action" Association="MaikeModel.FK_Previlege_Action">
+            <End Role="Action" EntitySet="Actions" />
+            <End Role="Previlege" EntitySet="Previleges" />
+          </AssociationSet>
           <AssociationSet Name="FK_Brand_Commodity" Association="MaikeModel.FK_Brand_Commodity">
             <End Role="Commodity" EntitySet="Commodities" />
             <End Role="Brand" EntitySet="Brands" />
@@ -628,13 +645,14 @@
             <End Role="CommodityType" EntitySet="CommodityTypes" />
             <End Role="Brand" EntitySet="Brands" />
           </AssociationSet>
+          <AssociationSet Name="FK_Stock_Brand" Association="MaikeModel.FK_Stock_Brand">
+            <End Role="Brand" EntitySet="Brands" />
+            <End Role="Stock" EntitySet="Stocks" />
+          </AssociationSet>
           <AssociationSet Name="FK_CommodityType_Commodity" Association="MaikeModel.FK_CommodityType_Commodity">
             <End Role="Commodity" EntitySet="Commodities" />
             <End Role="CommodityType" EntitySet="CommodityTypes" />
           </AssociationSet>
-          <EntitySet Name="Companies" EntityType="MaikeModel.Company" />
-          <EntitySet Name="RelCommoditySHFECodes" EntityType="MaikeModel.RelCommoditySHFECode" />
-          <EntitySet Name="RelUserCommodities" EntityType="MaikeModel.RelUserCommodity" />
           <AssociationSet Name="FK_RelCommoditySHFECode_Commodity" Association="MaikeModel.FK_RelCommoditySHFECode_Commodity">
             <End Role="Commodity" EntitySet="Commodities" />
             <End Role="RelCommoditySHFECode" EntitySet="RelCommoditySHFECodes" />
@@ -643,21 +661,9 @@
             <End Role="Commodity" EntitySet="Commodities" />
             <End Role="RelUserCommodity" EntitySet="RelUserCommodities" />
           </AssociationSet>
-          <AssociationSet Name="FK_RelCommoditySHFECode_SHFECode" Association="MaikeModel.FK_RelCommoditySHFECode_SHFECode">
+          <AssociationSet Name="FK_SHFECode_Commodity" Association="MaikeModel.FK_SHFECode_Commodity">
+            <End Role="Commodity" EntitySet="Commodities" />
             <End Role="SHFECode" EntitySet="SHFECodes" />
-            <End Role="RelCommoditySHFECode" EntitySet="RelCommoditySHFECodes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RelUserCommodity_User" Association="MaikeModel.FK_RelUserCommodity_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="RelUserCommodity" EntitySet="RelUserCommodities" />
-          </AssociationSet>
-          <EntitySet Name="OpenTimes" EntityType="MaikeModel.OpenTime" />
-          <EntitySet Name="SalesOrders" EntityType="MaikeModel.SalesOrder" />
-          <EntitySet Name="Stocks" EntityType="MaikeModel.Stock" />
-          <EntitySet Name="SysSettings" EntityType="MaikeModel.SysSetting" />
-          <AssociationSet Name="FK_Stock_Brand" Association="MaikeModel.FK_Stock_Brand">
-            <End Role="Brand" EntitySet="Brands" />
-            <End Role="Stock" EntitySet="Stocks" />
           </AssociationSet>
           <AssociationSet Name="FK_Stock_Commodity" Association="MaikeModel.FK_Stock_Commodity">
             <End Role="Commodity" EntitySet="Commodities" />
@@ -667,6 +673,10 @@
             <End Role="CommodityType" EntitySet="CommodityTypes" />
             <End Role="Stock" EntitySet="Stocks" />
           </AssociationSet>
+          <AssociationSet Name="FK_RelUserCompany_Company" Association="MaikeModel.FK_RelUserCompany_Company">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="RelUserCompany" EntitySet="RelUserCompanies" />
+          </AssociationSet>
           <AssociationSet Name="FK_SalesOrder_Company" Association="MaikeModel.FK_SalesOrder_Company">
             <End Role="Company" EntitySet="Companies" />
             <End Role="SalesOrder" EntitySet="SalesOrders" />
@@ -674,39 +684,6 @@
           <AssociationSet Name="FK_Stock_Company" Association="MaikeModel.FK_Stock_Company">
             <End Role="Company" EntitySet="Companies" />
             <End Role="Stock" EntitySet="Stocks" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SalesOrder_Stock" Association="MaikeModel.FK_SalesOrder_Stock">
-            <End Role="Stock" EntitySet="Stocks" />
-            <End Role="SalesOrder" EntitySet="SalesOrders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Stock_Warehouse" Association="MaikeModel.FK_Stock_Warehouse">
-            <End Role="Warehouse" EntitySet="Warehouses" />
-            <End Role="Stock" EntitySet="Stocks" />
-          </AssociationSet>
-          <EntitySet Name="RelUserCompanies" EntityType="MaikeModel.RelUserCompany" />
-          <AssociationSet Name="FK_RelUserCompany_Company" Association="MaikeModel.FK_RelUserCompany_Company">
-            <End Role="Company" EntitySet="Companies" />
-            <End Role="RelUserCompany" EntitySet="RelUserCompanies" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RelUserCompany_User" Association="MaikeModel.FK_RelUserCompany_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="RelUserCompany" EntitySet="RelUserCompanies" />
-          </AssociationSet>
-          <EntitySet Name="Roles" EntityType="MaikeModel.Role" />
-          <AssociationSet Name="FK_User_Role" Association="MaikeModel.FK_User_Role">
-            <End Role="Role" EntitySet="Roles" />
-            <End Role="User" EntitySet="Users" />
-          </AssociationSet>
-          <EntitySet Name="Actions" EntityType="MaikeModel.Action" />
-          <EntitySet Name="Controllers" EntityType="MaikeModel.Controller" />
-          <EntitySet Name="Previleges" EntityType="MaikeModel.Previlege" />
-          <AssociationSet Name="FK_Action_Controller" Association="MaikeModel.FK_Action_Controller">
-            <End Role="Controller" EntitySet="Controllers" />
-            <End Role="Action" EntitySet="Actions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Previlege_Action" Association="MaikeModel.FK_Previlege_Action">
-            <End Role="Action" EntitySet="Actions" />
-            <End Role="Previlege" EntitySet="Previleges" />
           </AssociationSet>
           <AssociationSet Name="FK_Previlege_Controller" Association="MaikeModel.FK_Previlege_Controller">
             <End Role="Controller" EntitySet="Controllers" />
@@ -716,175 +693,156 @@
             <End Role="Role" EntitySet="Roles" />
             <End Role="Previlege" EntitySet="Previleges" />
           </AssociationSet>
+          <AssociationSet Name="FK_RelCommoditySHFECode_SHFECode" Association="MaikeModel.FK_RelCommoditySHFECode_SHFECode">
+            <End Role="SHFECode" EntitySet="SHFECodes" />
+            <End Role="RelCommoditySHFECode" EntitySet="RelCommoditySHFECodes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelUserCommodity_User" Association="MaikeModel.FK_RelUserCommodity_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="RelUserCommodity" EntitySet="RelUserCommodities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelUserCompany_User" Association="MaikeModel.FK_RelUserCompany_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="RelUserCompany" EntitySet="RelUserCompanies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="MaikeModel.FK_User_Role">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalesOrder_Stock" Association="MaikeModel.FK_SalesOrder_Stock">
+            <End Role="Stock" EntitySet="Stocks" />
+            <End Role="SalesOrder" EntitySet="SalesOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stock_Warehouse" Association="MaikeModel.FK_Stock_Warehouse">
+            <End Role="Warehouse" EntitySet="Warehouses" />
+            <End Role="Stock" EntitySet="Stocks" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="User">
+        <EntityType Name="Action">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Ver" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <Property Name="LoginName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="IsSuper" Type="Boolean" Nullable="false" />
-          <Property Name="Type" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="RelUserCommodities" Relationship="MaikeModel.FK_RelUserCommodity_User" FromRole="User" ToRole="RelUserCommodity" />
-          <Property Name="Mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Tel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Fax" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="RelUserCompanies" Relationship="MaikeModel.FK_RelUserCompany_User" FromRole="User" ToRole="RelUserCompany" />
-          <Property Name="RoleId" Type="Int32" />
-          <NavigationProperty Name="Role" Relationship="MaikeModel.FK_User_Role" FromRole="User" ToRole="Role" />
-        </EntityType>
-        <EntityType Name="Commodity">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <Property Name="Ver" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="SHFECodes" Relationship="MaikeModel.FK_SHFECode_Commodity" FromRole="Commodity" ToRole="SHFECode" />
-          <NavigationProperty Name="Brands" Relationship="MaikeModel.FK_Brand_Commodity" FromRole="Commodity" ToRole="Brand" />
-          <NavigationProperty Name="CommodityTypes" Relationship="MaikeModel.FK_CommodityType_Commodity" FromRole="Commodity" ToRole="CommodityType" />
-          <NavigationProperty Name="RelCommoditySHFECodes" Relationship="MaikeModel.FK_RelCommoditySHFECode_Commodity" FromRole="Commodity" ToRole="RelCommoditySHFECode" />
-          <NavigationProperty Name="RelUserCommodities" Relationship="MaikeModel.FK_RelUserCommodity_Commodity" FromRole="Commodity" ToRole="RelUserCommodity" />
-          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IsOpen" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Stocks" Relationship="MaikeModel.FK_Stock_Commodity" FromRole="Commodity" ToRole="Stock" />
-        </EntityType>
-        <EntityType Name="Warehouse">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Ver" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Contact" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Tel" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Fax" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Stocks" Relationship="MaikeModel.FK_Stock_Warehouse" FromRole="Warehouse" ToRole="Stock" />
+          <Property Name="Ver" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" p1:StoreGeneratedPattern="Computed" />
+          <Property Name="ControllerId" Type="Int32" Nullable="false" />
+          <Property Name="ForAll" Type="Boolean" Nullable="false" />
+          <Property Name="ChineseName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Controller" Relationship="MaikeModel.FK_Action_Controller" FromRole="Action" ToRole="Controller" />
+          <NavigationProperty Name="Previleges" Relationship="MaikeModel.FK_Previlege_Action" FromRole="Action" ToRole="Previlege" />
         </EntityType>
         <EntityType Name="Brand">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <Property Name="Ver" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Ver" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" p1:StoreGeneratedPattern="Computed" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="CommodityId" Type="Int32" Nullable="false" />
           <Property Name="CommodityTypeId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Commodity" Relationship="MaikeModel.FK_Brand_Commodity" FromRole="Brand" ToRole="Commodity" />
           <NavigationProperty Name="CommodityType" Relationship="MaikeModel.FK_Brand_CommodityType" FromRole="Brand" ToRole="CommodityType" />
           <NavigationProperty Name="Stocks" Relationship="MaikeModel.FK_Stock_Brand" FromRole="Brand" ToRole="Stock" />
         </EntityType>
-        <EntityType Name="SHFECode">
+        <EntityType Name="Commodity">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Ver" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <Property Name="CommodityId" Type="Int32" />
-          <Property Name="IsInUse" Type="Boolean" />
-          <NavigationProperty Name="Commodity" Relationship="MaikeModel.FK_SHFECode_Commodity" FromRole="SHFECode" ToRole="Commodity" />
-          <NavigationProperty Name="RelCommoditySHFECodes" Relationship="MaikeModel.FK_RelCommoditySHFECode_SHFECode" FromRole="SHFECode" ToRole="RelCommoditySHFECode" />
+          <Property Name="Ver" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" p1:StoreGeneratedPattern="Computed" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Code" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="IsOpen" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Brands" Relationship="MaikeModel.FK_Brand_Commodity" FromRole="Commodity" ToRole="Brand" />
+          <NavigationProperty Name="CommodityTypes" Relationship="MaikeModel.FK_CommodityType_Commodity" FromRole="Commodity" ToRole="CommodityType" />
+          <NavigationProperty Name="RelCommoditySHFECodes" Relationship="MaikeModel.FK_RelCommoditySHFECode_Commodity" FromRole="Commodity" ToRole="RelCommoditySHFECode" />
+          <NavigationProperty Name="RelUserCommodities" Relationship="MaikeModel.FK_RelUserCommodity_Commodity" FromRole="Commodity" ToRole="RelUserCommodity" />
+          <NavigationProperty Name="SHFECodes" Relationship="MaikeModel.FK_SHFECode_Commodity" FromRole="Commodity" ToRole="SHFECode" />
+          <NavigationProperty Name="Stocks" Relationship="MaikeModel.FK_Stock_Commodity" FromRole="Commodity" ToRole="Stock" />
+          <Property Type="String" Name="CommodityUnit" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <Association Name="FK_SHFECode_Commodity">
-          <End Type="MaikeModel.Commodity" Role="Commodity" Multiplicity="0..1" />
-          <End Type="MaikeModel.SHFECode" Role="SHFECode" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Commodity">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="SHFECode">
-              <PropertyRef Name="CommodityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="CommodityType">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Ver" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Ver" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" p1:StoreGeneratedPattern="Computed" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="CommodityId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Brands" Relationship="MaikeModel.FK_Brand_CommodityType" FromRole="CommodityType" ToRole="Brand" />
           <NavigationProperty Name="Commodity" Relationship="MaikeModel.FK_CommodityType_Commodity" FromRole="CommodityType" ToRole="Commodity" />
           <NavigationProperty Name="Stocks" Relationship="MaikeModel.FK_Stock_CommodityType" FromRole="CommodityType" ToRole="Stock" />
         </EntityType>
-        <Association Name="FK_Brand_Commodity">
-          <End Type="MaikeModel.Commodity" Role="Commodity" Multiplicity="1" />
-          <End Type="MaikeModel.Brand" Role="Brand" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Commodity">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Brand">
-              <PropertyRef Name="CommodityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Brand_CommodityType">
-          <End Type="MaikeModel.CommodityType" Role="CommodityType" Multiplicity="1" />
-          <End Type="MaikeModel.Brand" Role="Brand" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CommodityType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Brand">
-              <PropertyRef Name="CommodityTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CommodityType_Commodity">
-          <End Type="MaikeModel.Commodity" Role="Commodity" Multiplicity="1" />
-          <End Type="MaikeModel.CommodityType" Role="CommodityType" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Commodity">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CommodityType">
-              <PropertyRef Name="CommodityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Company">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Ver" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Address" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="Comment" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Ver" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" p1:StoreGeneratedPattern="Computed" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <Property Name="Type" Type="Int32" Nullable="false" />
-          <Property Name="FullName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Zip" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Zip" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+          <NavigationProperty Name="RelUserCompanies" Relationship="MaikeModel.FK_RelUserCompany_Company" FromRole="Company" ToRole="RelUserCompany" />
           <NavigationProperty Name="SalesOrders" Relationship="MaikeModel.FK_SalesOrder_Company" FromRole="Company" ToRole="SalesOrder" />
           <NavigationProperty Name="Stocks" Relationship="MaikeModel.FK_Stock_Company" FromRole="Company" ToRole="Stock" />
-          <NavigationProperty Name="RelUserCompanies" Relationship="MaikeModel.FK_RelUserCompany_Company" FromRole="Company" ToRole="RelUserCompany" />
+        </EntityType>
+        <EntityType Name="Controller">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="Ver" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" p1:StoreGeneratedPattern="Computed" />
+          <Property Name="ForAll" Type="Boolean" Nullable="false" />
+          <Property Name="ChineseName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Actions" Relationship="MaikeModel.FK_Action_Controller" FromRole="Controller" ToRole="Action" />
+          <NavigationProperty Name="Previleges" Relationship="MaikeModel.FK_Previlege_Controller" FromRole="Controller" ToRole="Previlege" />
+        </EntityType>
+        <EntityType Name="OpenTime">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="StartTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="EndTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="Ver" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" p1:StoreGeneratedPattern="Computed" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Previlege">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="ControllerId" Type="Int32" Nullable="false" />
+          <Property Name="ActionId" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="Ver" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" p1:StoreGeneratedPattern="Computed" />
+          <Property Name="PrevilegeLevel" Type="Int32" />
+          <NavigationProperty Name="Action" Relationship="MaikeModel.FK_Previlege_Action" FromRole="Previlege" ToRole="Action" />
+          <NavigationProperty Name="Controller" Relationship="MaikeModel.FK_Previlege_Controller" FromRole="Previlege" ToRole="Controller" />
+          <NavigationProperty Name="Role" Relationship="MaikeModel.FK_Previlege_Role" FromRole="Previlege" ToRole="Role" />
         </EntityType>
         <EntityType Name="RelCommoditySHFECode">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Ver" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Ver" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" p1:StoreGeneratedPattern="Computed" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <Property Name="CommodityId" Type="Int32" Nullable="false" />
           <Property Name="SHFECodeId" Type="Int32" Nullable="false" />
@@ -895,109 +853,89 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="CommodityId" Type="Int32" Nullable="false" />
-          <Property Name="Ver" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Ver" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" p1:StoreGeneratedPattern="Computed" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Commodity" Relationship="MaikeModel.FK_RelUserCommodity_Commodity" FromRole="RelUserCommodity" ToRole="Commodity" />
           <NavigationProperty Name="User" Relationship="MaikeModel.FK_RelUserCommodity_User" FromRole="RelUserCommodity" ToRole="User" />
         </EntityType>
-        <Association Name="FK_RelCommoditySHFECode_Commodity">
-          <End Type="MaikeModel.Commodity" Role="Commodity" Multiplicity="1" />
-          <End Type="MaikeModel.RelCommoditySHFECode" Role="RelCommoditySHFECode" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Commodity">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="RelCommoditySHFECode">
-              <PropertyRef Name="CommodityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_RelUserCommodity_Commodity">
-          <End Type="MaikeModel.Commodity" Role="Commodity" Multiplicity="1" />
-          <End Type="MaikeModel.RelUserCommodity" Role="RelUserCommodity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Commodity">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="RelUserCommodity">
-              <PropertyRef Name="CommodityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_RelCommoditySHFECode_SHFECode">
-          <End Type="MaikeModel.SHFECode" Role="SHFECode" Multiplicity="1" />
-          <End Type="MaikeModel.RelCommoditySHFECode" Role="RelCommoditySHFECode" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SHFECode">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="RelCommoditySHFECode">
-              <PropertyRef Name="SHFECodeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_RelUserCommodity_User">
-          <End Type="MaikeModel.User" Role="User" Multiplicity="1" />
-          <End Type="MaikeModel.RelUserCommodity" Role="RelUserCommodity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="RelUserCommodity">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="OpenTime">
+        <EntityType Name="RelUserCompany">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StartTime" Type="Time" Nullable="false" Precision="7" />
-          <Property Name="EndTime" Type="Time" Nullable="false" Precision="7" />
-          <Property Name="Ver" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
+          <Property Name="Ver" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" p1:StoreGeneratedPattern="Computed" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Company" Relationship="MaikeModel.FK_RelUserCompany_Company" FromRole="RelUserCompany" ToRole="Company" />
+          <NavigationProperty Name="User" Relationship="MaikeModel.FK_RelUserCompany_User" FromRole="RelUserCompany" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="Ver" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" p1:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="Previleges" Relationship="MaikeModel.FK_Previlege_Role" FromRole="Role" ToRole="Previlege" />
+          <NavigationProperty Name="Users" Relationship="MaikeModel.FK_User_Role" FromRole="Role" ToRole="User" />
         </EntityType>
         <EntityType Name="SalesOrder">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Ver" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Ver" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" p1:StoreGeneratedPattern="Computed" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <Property Name="CompanyId" Type="Int32" Nullable="false" />
-          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Comment" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="Quantity" Type="Decimal" Nullable="false" Precision="20" Scale="8" />
           <Property Name="StockId" Type="Int32" Nullable="false" />
           <Property Name="Status" Type="Int32" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Company" Relationship="MaikeModel.FK_SalesOrder_Company" FromRole="SalesOrder" ToRole="Company" />
-          <NavigationProperty Name="Stock" Relationship="MaikeModel.FK_SalesOrder_Stock" FromRole="SalesOrder" ToRole="Stock" />
           <Property Name="PricingType" Type="Int32" Nullable="false" />
           <Property Name="Premium" Type="Decimal" Precision="20" Scale="8" />
           <Property Name="Price" Type="Decimal" Precision="20" Scale="8" />
+          <NavigationProperty Name="Company" Relationship="MaikeModel.FK_SalesOrder_Company" FromRole="SalesOrder" ToRole="Company" />
+          <NavigationProperty Name="Stock" Relationship="MaikeModel.FK_SalesOrder_Stock" FromRole="SalesOrder" ToRole="Stock" />
+        </EntityType>
+        <EntityType Name="SHFECode">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Ver" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" p1:StoreGeneratedPattern="Computed" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="CommodityId" Type="Int32" />
+          <Property Name="IsInUse" Type="Boolean" />
+          <NavigationProperty Name="Commodity" Relationship="MaikeModel.FK_SHFECode_Commodity" FromRole="SHFECode" ToRole="Commodity" />
+          <NavigationProperty Name="RelCommoditySHFECodes" Relationship="MaikeModel.FK_RelCommoditySHFECode_SHFECode" FromRole="SHFECode" ToRole="RelCommoditySHFECode" />
         </EntityType>
         <EntityType Name="Stock">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Ver" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Ver" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" p1:StoreGeneratedPattern="Computed" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <Property Name="CompanyId" Type="Int32" Nullable="false" />
           <Property Name="CommodityId" Type="Int32" Nullable="false" />
-          <Property Name="CommodityTypeId" Type="Int32" />
-          <Property Name="BrandId" Type="Int32" />
-          <Property Name="WarehouseId" Type="Int32" />
+          <Property Name="CommodityTypeId" Type="Int32" Nullable="false" />
+          <Property Name="BrandId" Type="Int32" Nullable="false" />
+          <Property Name="WarehouseId" Type="Int32" Nullable="false" />
           <Property Name="Quantity" Type="Decimal" Nullable="false" Precision="20" Scale="8" />
           <Property Name="AvailableQty" Type="Decimal" Nullable="false" Precision="20" Scale="8" />
           <Property Name="PricingType" Type="Int32" Nullable="false" />
           <Property Name="Premium" Type="Decimal" Precision="20" Scale="8" />
           <Property Name="Price" Type="Decimal" Precision="20" Scale="8" />
-          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Comment" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="BuyUnit" Type="Int32" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Brand" Relationship="MaikeModel.FK_Stock_Brand" FromRole="Stock" ToRole="Brand" />
@@ -1011,203 +949,51 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="BuyUnit" Type="Int32" Nullable="false" />
           <Property Name="CountDown" Type="Int32" Nullable="false" />
-          <Property Name="Ver" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Ver" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" p1:StoreGeneratedPattern="Computed" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
         </EntityType>
-        <Association Name="FK_Stock_Brand">
-          <End Type="MaikeModel.Brand" Role="Brand" Multiplicity="0..1" />
-          <End Type="MaikeModel.Stock" Role="Stock" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Brand">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Stock">
-              <PropertyRef Name="BrandId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Stock_Commodity">
-          <End Type="MaikeModel.Commodity" Role="Commodity" Multiplicity="1" />
-          <End Type="MaikeModel.Stock" Role="Stock" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Commodity">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Stock">
-              <PropertyRef Name="CommodityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Stock_CommodityType">
-          <End Type="MaikeModel.CommodityType" Role="CommodityType" Multiplicity="0..1" />
-          <End Type="MaikeModel.Stock" Role="Stock" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CommodityType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Stock">
-              <PropertyRef Name="CommodityTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SalesOrder_Company">
-          <End Type="MaikeModel.Company" Role="Company" Multiplicity="1" />
-          <End Type="MaikeModel.SalesOrder" Role="SalesOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Company">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="SalesOrder">
-              <PropertyRef Name="CompanyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Stock_Company">
-          <End Type="MaikeModel.Company" Role="Company" Multiplicity="1" />
-          <End Type="MaikeModel.Stock" Role="Stock" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Company">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Stock">
-              <PropertyRef Name="CompanyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SalesOrder_Stock">
-          <End Type="MaikeModel.Stock" Role="Stock" Multiplicity="1" />
-          <End Type="MaikeModel.SalesOrder" Role="SalesOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Stock">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="SalesOrder">
-              <PropertyRef Name="StockId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Stock_Warehouse">
-          <End Type="MaikeModel.Warehouse" Role="Warehouse" Multiplicity="0..1" />
-          <End Type="MaikeModel.Stock" Role="Stock" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Warehouse">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Stock">
-              <PropertyRef Name="WarehouseId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="RelUserCompany">
+        <EntityType Name="User">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="CompanyId" Type="Int32" Nullable="false" />
-          <Property Name="Ver" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Ver" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" p1:StoreGeneratedPattern="Computed" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Company" Relationship="MaikeModel.FK_RelUserCompany_Company" FromRole="RelUserCompany" ToRole="Company" />
-          <NavigationProperty Name="User" Relationship="MaikeModel.FK_RelUserCompany_User" FromRole="RelUserCompany" ToRole="User" />
+          <Property Name="LoginName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="IsSuper" Type="Boolean" Nullable="false" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="Mobile" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Tel" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Fax" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="RoleId" Type="Int32" />
+          <NavigationProperty Name="RelUserCommodities" Relationship="MaikeModel.FK_RelUserCommodity_User" FromRole="User" ToRole="RelUserCommodity" />
+          <NavigationProperty Name="RelUserCompanies" Relationship="MaikeModel.FK_RelUserCompany_User" FromRole="User" ToRole="RelUserCompany" />
+          <NavigationProperty Name="Role" Relationship="MaikeModel.FK_User_Role" FromRole="User" ToRole="Role" />
         </EntityType>
-        <Association Name="FK_RelUserCompany_Company">
-          <End Type="MaikeModel.Company" Role="Company" Multiplicity="1" />
-          <End Type="MaikeModel.RelUserCompany" Role="RelUserCompany" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Company">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="RelUserCompany">
-              <PropertyRef Name="CompanyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_RelUserCompany_User">
-          <End Type="MaikeModel.User" Role="User" Multiplicity="1" />
-          <End Type="MaikeModel.RelUserCompany" Role="RelUserCompany" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="RelUserCompany">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Role">
+        <EntityType Name="Warehouse">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Users" Relationship="MaikeModel.FK_User_Role" FromRole="Role" ToRole="User" />
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Ver" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" p1:StoreGeneratedPattern="Computed" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <Property Name="Ver" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <NavigationProperty Name="Previleges" Relationship="MaikeModel.FK_Previlege_Role" FromRole="Role" ToRole="Previlege" />
-        </EntityType>
-        <Association Name="FK_User_Role">
-          <End Type="MaikeModel.Role" Role="Role" Multiplicity="0..1" />
-          <End Type="MaikeModel.User" Role="User" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Role">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="User">
-              <PropertyRef Name="RoleId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Action">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <Property Name="Ver" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <Property Name="ControllerId" Type="Int32" Nullable="false" />
-          <Property Name="ForAll" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Controller" Relationship="MaikeModel.FK_Action_Controller" FromRole="Action" ToRole="Controller" />
-          <NavigationProperty Name="Previleges" Relationship="MaikeModel.FK_Previlege_Action" FromRole="Action" ToRole="Previlege" />
-          <Property Name="ChineseName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Controller">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <Property Name="Ver" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <Property Name="ForAll" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Actions" Relationship="MaikeModel.FK_Action_Controller" FromRole="Controller" ToRole="Action" />
-          <NavigationProperty Name="Previleges" Relationship="MaikeModel.FK_Previlege_Controller" FromRole="Controller" ToRole="Previlege" />
-          <Property Name="ChineseName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Previlege">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RoleId" Type="Int32" Nullable="false" />
-          <Property Name="ControllerId" Type="Int32" Nullable="false" />
-          <Property Name="ActionId" Type="Int32" />
-          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <Property Name="Ver" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <NavigationProperty Name="Action" Relationship="MaikeModel.FK_Previlege_Action" FromRole="Previlege" ToRole="Action" />
-          <NavigationProperty Name="Controller" Relationship="MaikeModel.FK_Previlege_Controller" FromRole="Previlege" ToRole="Controller" />
-          <NavigationProperty Name="Role" Relationship="MaikeModel.FK_Previlege_Role" FromRole="Previlege" ToRole="Role" />
-          <Property Name="PrevilegeLevel" Type="Int32" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Address" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="Contact" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="Tel" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="Fax" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Stocks" Relationship="MaikeModel.FK_Stock_Warehouse" FromRole="Warehouse" ToRole="Stock" />
         </EntityType>
         <Association Name="FK_Action_Controller">
-          <End Type="MaikeModel.Controller" Role="Controller" Multiplicity="1" />
-          <End Type="MaikeModel.Action" Role="Action" Multiplicity="*" />
+          <End Role="Controller" Type="MaikeModel.Controller" Multiplicity="1" />
+          <End Role="Action" Type="MaikeModel.Action" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Controller">
               <PropertyRef Name="Id" />
@@ -1218,8 +1004,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Previlege_Action">
-          <End Type="MaikeModel.Action" Role="Action" Multiplicity="0..1" />
-          <End Type="MaikeModel.Previlege" Role="Previlege" Multiplicity="*" />
+          <End Role="Action" Type="MaikeModel.Action" Multiplicity="0..1" />
+          <End Role="Previlege" Type="MaikeModel.Previlege" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Action">
               <PropertyRef Name="Id" />
@@ -1229,9 +1015,153 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Brand_Commodity">
+          <End Role="Commodity" Type="MaikeModel.Commodity" Multiplicity="1" />
+          <End Role="Brand" Type="MaikeModel.Brand" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Commodity">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Brand">
+              <PropertyRef Name="CommodityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Brand_CommodityType">
+          <End Role="CommodityType" Type="MaikeModel.CommodityType" Multiplicity="1" />
+          <End Role="Brand" Type="MaikeModel.Brand" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CommodityType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Brand">
+              <PropertyRef Name="CommodityTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stock_Brand">
+          <End Role="Brand" Type="MaikeModel.Brand" Multiplicity="1" />
+          <End Role="Stock" Type="MaikeModel.Stock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brand">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Stock">
+              <PropertyRef Name="BrandId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CommodityType_Commodity">
+          <End Role="Commodity" Type="MaikeModel.Commodity" Multiplicity="1" />
+          <End Role="CommodityType" Type="MaikeModel.CommodityType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Commodity">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CommodityType">
+              <PropertyRef Name="CommodityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RelCommoditySHFECode_Commodity">
+          <End Role="Commodity" Type="MaikeModel.Commodity" Multiplicity="1" />
+          <End Role="RelCommoditySHFECode" Type="MaikeModel.RelCommoditySHFECode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Commodity">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RelCommoditySHFECode">
+              <PropertyRef Name="CommodityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RelUserCommodity_Commodity">
+          <End Role="Commodity" Type="MaikeModel.Commodity" Multiplicity="1" />
+          <End Role="RelUserCommodity" Type="MaikeModel.RelUserCommodity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Commodity">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RelUserCommodity">
+              <PropertyRef Name="CommodityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SHFECode_Commodity">
+          <End Role="Commodity" Type="MaikeModel.Commodity" Multiplicity="0..1" />
+          <End Role="SHFECode" Type="MaikeModel.SHFECode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Commodity">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SHFECode">
+              <PropertyRef Name="CommodityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stock_Commodity">
+          <End Role="Commodity" Type="MaikeModel.Commodity" Multiplicity="1" />
+          <End Role="Stock" Type="MaikeModel.Stock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Commodity">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Stock">
+              <PropertyRef Name="CommodityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stock_CommodityType">
+          <End Role="CommodityType" Type="MaikeModel.CommodityType" Multiplicity="1" />
+          <End Role="Stock" Type="MaikeModel.Stock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CommodityType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Stock">
+              <PropertyRef Name="CommodityTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RelUserCompany_Company">
+          <End Role="Company" Type="MaikeModel.Company" Multiplicity="1" />
+          <End Role="RelUserCompany" Type="MaikeModel.RelUserCompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RelUserCompany">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalesOrder_Company">
+          <End Role="Company" Type="MaikeModel.Company" Multiplicity="1" />
+          <End Role="SalesOrder" Type="MaikeModel.SalesOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SalesOrder">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stock_Company">
+          <End Role="Company" Type="MaikeModel.Company" Multiplicity="1" />
+          <End Role="Stock" Type="MaikeModel.Stock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Stock">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Previlege_Controller">
-          <End Type="MaikeModel.Controller" Role="Controller" Multiplicity="1" />
-          <End Type="MaikeModel.Previlege" Role="Previlege" Multiplicity="*" />
+          <End Role="Controller" Type="MaikeModel.Controller" Multiplicity="1" />
+          <End Role="Previlege" Type="MaikeModel.Previlege" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Controller">
               <PropertyRef Name="Id" />
@@ -1242,8 +1172,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Previlege_Role">
-          <End Type="MaikeModel.Role" Role="Role" Multiplicity="1" />
-          <End Type="MaikeModel.Previlege" Role="Previlege" Multiplicity="*" />
+          <End Role="Role" Type="MaikeModel.Role" Multiplicity="1" />
+          <End Role="Previlege" Type="MaikeModel.Previlege" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Role">
               <PropertyRef Name="Id" />
@@ -1253,260 +1183,334 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        </Schema>
+        <Association Name="FK_RelCommoditySHFECode_SHFECode">
+          <End Role="SHFECode" Type="MaikeModel.SHFECode" Multiplicity="1" />
+          <End Role="RelCommoditySHFECode" Type="MaikeModel.RelCommoditySHFECode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SHFECode">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RelCommoditySHFECode">
+              <PropertyRef Name="SHFECodeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RelUserCommodity_User">
+          <End Role="User" Type="MaikeModel.User" Multiplicity="1" />
+          <End Role="RelUserCommodity" Type="MaikeModel.RelUserCommodity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RelUserCommodity">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RelUserCompany_User">
+          <End Role="User" Type="MaikeModel.User" Multiplicity="1" />
+          <End Role="RelUserCompany" Type="MaikeModel.RelUserCompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RelUserCompany">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="MaikeModel.Role" Multiplicity="0..1" />
+          <End Role="User" Type="MaikeModel.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalesOrder_Stock">
+          <End Role="Stock" Type="MaikeModel.Stock" Multiplicity="1" />
+          <End Role="SalesOrder" Type="MaikeModel.SalesOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stock">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SalesOrder">
+              <PropertyRef Name="StockId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stock_Warehouse">
+          <End Role="Warehouse" Type="MaikeModel.Warehouse" Multiplicity="1" />
+          <End Role="Stock" Type="MaikeModel.Stock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouse">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Stock">
+              <PropertyRef Name="WarehouseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="MaikeModelStoreContainer" CdmEntityContainer="MaikeEntities">
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="MaikeModel.User">
-              <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-                <ScalarProperty Name="Fax" ColumnName="Fax" />
-                <ScalarProperty Name="Tel" ColumnName="Tel" />
-                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="IsSuper" ColumnName="IsSuper" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MaikeModelStoreContainer" CdmEntityContainer="MaikeEntities">
+          <EntitySetMapping Name="Actions">
+            <EntityTypeMapping TypeName="MaikeModel.Action">
+              <MappingFragment StoreEntitySet="Action">
+                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="LoginName" ColumnName="LoginName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Ver" ColumnName="Ver" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Commodities">
-            <EntityTypeMapping TypeName="MaikeModel.Commodity">
-              <MappingFragment StoreEntitySet="Commodity">
-                <ScalarProperty Name="IsOpen" ColumnName="IsOpen" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Ver" ColumnName="Ver" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Warehouses">
-            <EntityTypeMapping TypeName="MaikeModel.Warehouse">
-              <MappingFragment StoreEntitySet="Warehouse">
-                <ScalarProperty Name="Fax" ColumnName="Fax" />
-                <ScalarProperty Name="Tel" ColumnName="Tel" />
-                <ScalarProperty Name="Contact" ColumnName="Contact" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="Ver" ColumnName="Ver" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ControllerId" ColumnName="ControllerId" />
+                <ScalarProperty Name="ForAll" ColumnName="ForAll" />
+                <ScalarProperty Name="ChineseName" ColumnName="ChineseName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Brands">
             <EntityTypeMapping TypeName="MaikeModel.Brand">
               <MappingFragment StoreEntitySet="Brand">
-                <ScalarProperty Name="CommodityTypeId" ColumnName="CommodityTypeId" />
-                <ScalarProperty Name="CommodityId" ColumnName="CommodityId" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Ver" ColumnName="Ver" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Ver" ColumnName="Ver" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CommodityId" ColumnName="CommodityId" />
+                <ScalarProperty Name="CommodityTypeId" ColumnName="CommodityTypeId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SHFECodes">
-            <EntityTypeMapping TypeName="MaikeModel.SHFECode">
-              <MappingFragment StoreEntitySet="SHFECode">
-                <ScalarProperty Name="IsInUse" ColumnName="IsInUse" />
-                <ScalarProperty Name="CommodityId" ColumnName="CommodityId" />
+          <EntitySetMapping Name="Commodities">
+            <EntityTypeMapping TypeName="MaikeModel.Commodity">
+              <MappingFragment StoreEntitySet="Commodity">
+                <ScalarProperty Name="CommodityUnit" ColumnName="CommodityUnit" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Ver" ColumnName="Ver" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IsOpen" ColumnName="IsOpen" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CommodityTypes">
             <EntityTypeMapping TypeName="MaikeModel.CommodityType">
               <MappingFragment StoreEntitySet="CommodityType">
-                <ScalarProperty Name="CommodityId" ColumnName="CommodityId" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="Ver" ColumnName="Ver" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Ver" ColumnName="Ver" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CommodityId" ColumnName="CommodityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Companies">
             <EntityTypeMapping TypeName="MaikeModel.Company">
               <MappingFragment StoreEntitySet="Company">
-                <ScalarProperty Name="Zip" ColumnName="Zip" />
-                <ScalarProperty Name="FullName" ColumnName="FullName" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="Ver" ColumnName="Ver" />
-                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="RelCommoditySHFECodes">
-            <EntityTypeMapping TypeName="MaikeModel.RelCommoditySHFECode">
-              <MappingFragment StoreEntitySet="RelCommoditySHFECode">
-                <ScalarProperty Name="SHFECodeId" ColumnName="SHFECodeId" />
-                <ScalarProperty Name="CommodityId" ColumnName="CommodityId" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="Ver" ColumnName="Ver" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="RelUserCommodities">
-            <EntityTypeMapping TypeName="MaikeModel.RelUserCommodity">
-              <MappingFragment StoreEntitySet="RelUserCommodity">
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="Ver" ColumnName="Ver" />
-                <ScalarProperty Name="CommodityId" ColumnName="CommodityId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="OpenTimes">
-            <EntityTypeMapping TypeName="MaikeModel.OpenTime">
-              <MappingFragment StoreEntitySet="OpenTime">
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="Ver" ColumnName="Ver" />
-                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
-                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SalesOrders">
-            <EntityTypeMapping TypeName="MaikeModel.SalesOrder">
-              <MappingFragment StoreEntitySet="SalesOrder">
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Premium" ColumnName="Premium" />
-                <ScalarProperty Name="PricingType" ColumnName="PricingType" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="StockId" ColumnName="StockId" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
-                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="Ver" ColumnName="Ver" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Stocks">
-            <EntityTypeMapping TypeName="MaikeModel.Stock">
-              <MappingFragment StoreEntitySet="Stock">
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="BuyUnit" ColumnName="BuyUnit" />
-                <ScalarProperty Name="Comment" ColumnName="Comment" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Premium" ColumnName="Premium" />
-                <ScalarProperty Name="PricingType" ColumnName="PricingType" />
-                <ScalarProperty Name="AvailableQty" ColumnName="AvailableQty" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="WarehouseId" ColumnName="WarehouseId" />
-                <ScalarProperty Name="BrandId" ColumnName="BrandId" />
-                <ScalarProperty Name="CommodityTypeId" ColumnName="CommodityTypeId" />
-                <ScalarProperty Name="CommodityId" ColumnName="CommodityId" />
-                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="Ver" ColumnName="Ver" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SysSettings">
-            <EntityTypeMapping TypeName="MaikeModel.SysSetting">
-              <MappingFragment StoreEntitySet="SysSetting">
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="Ver" ColumnName="Ver" />
-                <ScalarProperty Name="CountDown" ColumnName="CountDown" />
-                <ScalarProperty Name="BuyUnit" ColumnName="BuyUnit" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="RelUserCompanies">
-            <EntityTypeMapping TypeName="MaikeModel.RelUserCompany">
-              <MappingFragment StoreEntitySet="RelUserCompany">
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="Ver" ColumnName="Ver" />
-                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Roles">
-            <EntityTypeMapping TypeName="MaikeModel.Role">
-              <MappingFragment StoreEntitySet="Role">
                 <ScalarProperty Name="Ver" ColumnName="Ver" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Actions">
-            <EntityTypeMapping TypeName="MaikeModel.Action">
-              <MappingFragment StoreEntitySet="Action">
-                <ScalarProperty Name="ChineseName" ColumnName="ChineseName" />
-                <ScalarProperty Name="ForAll" ColumnName="ForAll" />
-                <ScalarProperty Name="ControllerId" ColumnName="ControllerId" />
-                <ScalarProperty Name="Ver" ColumnName="Ver" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Controllers">
             <EntityTypeMapping TypeName="MaikeModel.Controller">
               <MappingFragment StoreEntitySet="Controller">
-                <ScalarProperty Name="ChineseName" ColumnName="ChineseName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Ver" ColumnName="Ver" />
                 <ScalarProperty Name="ForAll" ColumnName="ForAll" />
+                <ScalarProperty Name="ChineseName" ColumnName="ChineseName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OpenTimes">
+            <EntityTypeMapping TypeName="MaikeModel.OpenTime">
+              <MappingFragment StoreEntitySet="OpenTime">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
                 <ScalarProperty Name="Ver" ColumnName="Ver" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Previleges">
             <EntityTypeMapping TypeName="MaikeModel.Previlege">
               <MappingFragment StoreEntitySet="Previlege">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="ControllerId" ColumnName="ControllerId" />
+                <ScalarProperty Name="ActionId" ColumnName="ActionId" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Ver" ColumnName="Ver" />
                 <ScalarProperty Name="PrevilegeLevel" ColumnName="PrevilegeLevel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RelCommoditySHFECodes">
+            <EntityTypeMapping TypeName="MaikeModel.RelCommoditySHFECode">
+              <MappingFragment StoreEntitySet="RelCommoditySHFECode">
+                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Ver" ColumnName="Ver" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="ActionId" ColumnName="ActionId" />
-                <ScalarProperty Name="ControllerId" ColumnName="ControllerId" />
-                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="CommodityId" ColumnName="CommodityId" />
+                <ScalarProperty Name="SHFECodeId" ColumnName="SHFECodeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RelUserCommodities">
+            <EntityTypeMapping TypeName="MaikeModel.RelUserCommodity">
+              <MappingFragment StoreEntitySet="RelUserCommodity">
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CommodityId" ColumnName="CommodityId" />
+                <ScalarProperty Name="Ver" ColumnName="Ver" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RelUserCompanies">
+            <EntityTypeMapping TypeName="MaikeModel.RelUserCompany">
+              <MappingFragment StoreEntitySet="RelUserCompany">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="Ver" ColumnName="Ver" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="MaikeModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Ver" ColumnName="Ver" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SalesOrders">
+            <EntityTypeMapping TypeName="MaikeModel.SalesOrder">
+              <MappingFragment StoreEntitySet="SalesOrder">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Ver" ColumnName="Ver" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="StockId" ColumnName="StockId" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="PricingType" ColumnName="PricingType" />
+                <ScalarProperty Name="Premium" ColumnName="Premium" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SHFECodes">
+            <EntityTypeMapping TypeName="MaikeModel.SHFECode">
+              <MappingFragment StoreEntitySet="SHFECode">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Ver" ColumnName="Ver" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="CommodityId" ColumnName="CommodityId" />
+                <ScalarProperty Name="IsInUse" ColumnName="IsInUse" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stocks">
+            <EntityTypeMapping TypeName="MaikeModel.Stock">
+              <MappingFragment StoreEntitySet="Stock">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Ver" ColumnName="Ver" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="CommodityId" ColumnName="CommodityId" />
+                <ScalarProperty Name="CommodityTypeId" ColumnName="CommodityTypeId" />
+                <ScalarProperty Name="BrandId" ColumnName="BrandId" />
+                <ScalarProperty Name="WarehouseId" ColumnName="WarehouseId" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="AvailableQty" ColumnName="AvailableQty" />
+                <ScalarProperty Name="PricingType" ColumnName="PricingType" />
+                <ScalarProperty Name="Premium" ColumnName="Premium" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="BuyUnit" ColumnName="BuyUnit" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SysSettings">
+            <EntityTypeMapping TypeName="MaikeModel.SysSetting">
+              <MappingFragment StoreEntitySet="SysSetting">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="BuyUnit" ColumnName="BuyUnit" />
+                <ScalarProperty Name="CountDown" ColumnName="CountDown" />
+                <ScalarProperty Name="Ver" ColumnName="Ver" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="MaikeModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Ver" ColumnName="Ver" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="LoginName" ColumnName="LoginName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="IsSuper" ColumnName="IsSuper" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Tel" ColumnName="Tel" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Warehouses">
+            <EntityTypeMapping TypeName="MaikeModel.Warehouse">
+              <MappingFragment StoreEntitySet="Warehouse">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Ver" ColumnName="Ver" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="Tel" ColumnName="Tel" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
         </EntityContainerMapping>
-</Mapping></edmx:Mappings>
+      </Mapping>
+    </edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -1518,10 +1522,9 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
-        <DesignerProperty Name="UseLegacyProvider" Value="True" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

@@ -1,16 +1,10 @@
-﻿using AOP;
-using Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Enums;
 using System.Web.Mvc;
 using Util;
 using Util.Ajax;
 
 namespace Front.Controllers.Base
 {
-    [MyActionCheck]
     public abstract class BaseController : Controller
     {
         public virtual ActionResult Index()

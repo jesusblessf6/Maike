@@ -28,5 +28,7 @@ namespace Front.Models
         public string Warehouse { get; set; }
         public int BuyUnit { get; set; }//最小购买数量
         public int CountDown { get; set; }//系统中设置的下单确定秒数
+        public string CommodityCode { get; set; }//金属Code
+        public string CommodityUnit { get; set; }//金属单位
     }
 }

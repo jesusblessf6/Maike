@@ -77,7 +77,7 @@ namespace Management.Controllers
 			return View("UserInfo", user);
 		}
 
-		public ActionResult Edit(int id)
+		public ActionResult Update(int id)
 		{
 			UserVM res = UserSvc.GetById(id);
 			if (res != null)
@@ -116,6 +116,7 @@ namespace Management.Controllers
 			return MyAjaxHelper.RedirectAjax(AjaxStatusCode.Error, error, null, "");
 		}
 
+		[HttpPost]
 		public ActionResult Update(UserVM vm)
 		{
 			if (ModelState.IsValid)

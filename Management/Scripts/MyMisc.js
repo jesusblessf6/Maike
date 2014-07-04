@@ -81,7 +81,6 @@
 
 function ajaxJump(jsonData) {
     $.procAjaxData(jsonData, function (data) {
-        debugger;
         if (data.BackUrl && data.BackUrl.length > 0) {
             location.href = data.BackUrl;
         }

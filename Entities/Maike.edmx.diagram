@@ -4,47 +4,47 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4c8163efece24301af69cff4d8badb77" Name="关系图1">
-        <EntityTypeShape EntityType="MaikeModel.User" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="MaikeModel.Commodity" Width="1.5" PointX="8.5" PointY="3.375" />
-        <EntityTypeShape EntityType="MaikeModel.Warehouse" Width="1.5" PointX="3.375" PointY="3.25" />
-        <EntityTypeShape EntityType="MaikeModel.Brand" Width="1.5" PointX="11.125" PointY="3" />
-        <EntityTypeShape EntityType="MaikeModel.SHFECode" Width="1.5" PointX="8.5" PointY="0.5" />
-        <AssociationConnector Association="MaikeModel.FK_SHFECode_Commodity" />
-        <EntityTypeShape EntityType="MaikeModel.CommodityType" Width="1.5" PointX="8.625" PointY="6.125" />
-        <AssociationConnector Association="MaikeModel.FK_Brand_Commodity" />
-        <AssociationConnector Association="MaikeModel.FK_Brand_CommodityType" />
-        <AssociationConnector Association="MaikeModel.FK_CommodityType_Commodity" />
-        <EntityTypeShape EntityType="MaikeModel.Company" Width="1.5" PointX="0.75" PointY="6.25" />
-        <EntityTypeShape EntityType="MaikeModel.RelCommoditySHFECode" Width="1.5" PointX="4.375" PointY="0.5" />
-        <EntityTypeShape EntityType="MaikeModel.RelUserCommodity" Width="1.5" PointX="14.125" PointY="3.875" />
-        <AssociationConnector Association="MaikeModel.FK_RelCommoditySHFECode_Commodity" />
-        <AssociationConnector Association="MaikeModel.FK_RelUserCommodity_Commodity" />
-        <AssociationConnector Association="MaikeModel.FK_RelCommoditySHFECode_SHFECode" />
-        <AssociationConnector Association="MaikeModel.FK_RelUserCommodity_User" />
-        <EntityTypeShape EntityType="MaikeModel.OpenTime" Width="1.5" PointX="5.375" PointY="3.75" />
-        <EntityTypeShape EntityType="MaikeModel.SalesOrder" Width="1.5" PointX="18.625" PointY="4.875" />
-        <EntityTypeShape EntityType="MaikeModel.Stock" Width="1.5" PointX="16.375" PointY="3.625" />
-        <EntityTypeShape EntityType="MaikeModel.SysSetting" Width="1.5" PointX="5.375" PointY="6.75" />
-        <AssociationConnector Association="MaikeModel.FK_Stock_Brand" />
-        <AssociationConnector Association="MaikeModel.FK_Stock_Commodity" />
-        <AssociationConnector Association="MaikeModel.FK_Stock_CommodityType" />
-        <AssociationConnector Association="MaikeModel.FK_SalesOrder_Company" />
-        <AssociationConnector Association="MaikeModel.FK_Stock_Company" />
-        <AssociationConnector Association="MaikeModel.FK_SalesOrder_Stock" />
-        <AssociationConnector Association="MaikeModel.FK_Stock_Warehouse" />
-        <EntityTypeShape EntityType="MaikeModel.RelUserCompany" Width="1.5" PointX="3" PointY="7" />
-        <AssociationConnector Association="MaikeModel.FK_RelUserCompany_Company" />
-        <AssociationConnector Association="MaikeModel.FK_RelUserCompany_User" />
-        <EntityTypeShape EntityType="MaikeModel.Role" Width="1.5" PointX="0.75" PointY="10.875" />
-        <AssociationConnector Association="MaikeModel.FK_User_Role" />
-        <EntityTypeShape EntityType="MaikeModel.Action" Width="1.5" PointX="7.625" PointY="10" />
-        <EntityTypeShape EntityType="MaikeModel.Controller" Width="1.5" PointX="5.375" PointY="10" />
-        <EntityTypeShape EntityType="MaikeModel.Previlege" Width="1.5" PointX="9.875" PointY="10.25" />
-        <AssociationConnector Association="MaikeModel.FK_Action_Controller" />
-        <AssociationConnector Association="MaikeModel.FK_Previlege_Action" />
-        <AssociationConnector Association="MaikeModel.FK_Previlege_Controller" />
-        <AssociationConnector Association="MaikeModel.FK_Previlege_Role" />
+      <Diagram DiagramId="2f4a5285d51841bdaedb7070e57c40f9" Name="关系图1">
+        <EntityTypeShape EntityType="MaikeModel.Action" Width="1.5" PointX="6" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MaikeModel.Brand" Width="1.5" PointX="5.25" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MaikeModel.Commodity" Width="1.5" PointX="0.75" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MaikeModel.CommodityType" Width="1.5" PointX="3" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MaikeModel.Company" Width="1.5" PointX="5.25" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MaikeModel.Controller" Width="1.5" PointX="3.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MaikeModel.OpenTime" Width="1.5" PointX="9.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MaikeModel.Previlege" Width="1.5" PointX="8.25" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MaikeModel.RelCommoditySHFECode" Width="1.5" PointX="5.25" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MaikeModel.RelUserCommodity" Width="1.5" PointX="3" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MaikeModel.RelUserCompany" Width="1.5" PointX="7.5" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MaikeModel.Role" Width="1.5" PointX="1.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MaikeModel.SalesOrder" Width="1.5" PointX="9.75" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MaikeModel.SHFECode" Width="1.5" PointX="3" PointY="21.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MaikeModel.Stock" Width="1.5" PointX="7.5" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MaikeModel.SysSetting" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MaikeModel.User" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MaikeModel.Warehouse" Width="1.5" PointX="5.25" PointY="19.25" IsExpanded="true" />
+        <AssociationConnector Association="MaikeModel.FK_Action_Controller" ManuallyRouted="false" />
+        <AssociationConnector Association="MaikeModel.FK_Previlege_Action" ManuallyRouted="false" />
+        <AssociationConnector Association="MaikeModel.FK_Brand_Commodity" ManuallyRouted="false" />
+        <AssociationConnector Association="MaikeModel.FK_Brand_CommodityType" ManuallyRouted="false" />
+        <AssociationConnector Association="MaikeModel.FK_Stock_Brand" ManuallyRouted="false" />
+        <AssociationConnector Association="MaikeModel.FK_CommodityType_Commodity" ManuallyRouted="false" />
+        <AssociationConnector Association="MaikeModel.FK_RelCommoditySHFECode_Commodity" ManuallyRouted="false" />
+        <AssociationConnector Association="MaikeModel.FK_RelUserCommodity_Commodity" ManuallyRouted="false" />
+        <AssociationConnector Association="MaikeModel.FK_SHFECode_Commodity" ManuallyRouted="false" />
+        <AssociationConnector Association="MaikeModel.FK_Stock_Commodity" ManuallyRouted="false" />
+        <AssociationConnector Association="MaikeModel.FK_Stock_CommodityType" ManuallyRouted="false" />
+        <AssociationConnector Association="MaikeModel.FK_RelUserCompany_Company" ManuallyRouted="false" />
+        <AssociationConnector Association="MaikeModel.FK_SalesOrder_Company" ManuallyRouted="false" />
+        <AssociationConnector Association="MaikeModel.FK_Stock_Company" ManuallyRouted="false" />
+        <AssociationConnector Association="MaikeModel.FK_Previlege_Controller" ManuallyRouted="false" />
+        <AssociationConnector Association="MaikeModel.FK_Previlege_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="MaikeModel.FK_RelCommoditySHFECode_SHFECode" ManuallyRouted="false" />
+        <AssociationConnector Association="MaikeModel.FK_RelUserCommodity_User" ManuallyRouted="false" />
+        <AssociationConnector Association="MaikeModel.FK_RelUserCompany_User" ManuallyRouted="false" />
+        <AssociationConnector Association="MaikeModel.FK_User_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="MaikeModel.FK_SalesOrder_Stock" ManuallyRouted="false" />
+        <AssociationConnector Association="MaikeModel.FK_Stock_Warehouse" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

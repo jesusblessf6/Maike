@@ -64,8 +64,8 @@
                             <th>类型</th>
                             <th>品牌</th>
                             <th>仓库</th>
-                            <th>可售吨数</th>
-                            <th>已售吨数</th>
+                            <th>可售数量</th>
+                            <th>已售数量</th>
                             <th>升贴水</th>
                             <th>固定价</th>
                             <th>最小购买单位</th>
@@ -266,7 +266,10 @@
                   }
               },
               {
-                  data: "SaleQty"
+                  data: "SaleQty",
+                  render: function (data, type, row) {
+                      return "<div id='stockSaleQty" + row.Id + "'>" + (data || 0) + "</div>";
+                  }
               },
               {
                   data: "Premium",

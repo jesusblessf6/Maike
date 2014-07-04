@@ -67,19 +67,40 @@ namespace Util
 		[Description("角色密码已存在")]
 		RoleNameExisted = 20,
 
-        [Description("公司与用户关联，不能删除！")]
+		[Description("公司有关联的用户，不能删除！")]
 		UserConnectCompany = 21,
 
-        [Description("库存不足！")]
-        QtyNotEnough = 22,
+		[Description("库存不足！")]
+		QtyNotEnough = 22,
 
-        [Description("购买的数量不是最小购买单位的整数倍！")]
-        NotInteger = 23,
+		[Description("购买的数量不是最小购买单位的整数倍！")]
+		NotInteger = 23,
 
-        [Description("该金属不是开市状态！")]
-        CommodityNotOpen = 24,
+		[Description("该金属不是开市状态！")]
+		CommodityNotOpen = 24,
 
-        [Description("该金属类型有关联的金属品牌，不能删除！")]
-        CommodityTypeConnectedBrand = 25,
+		[Description("该金属类型有关联的金属品牌，不能删除！")]
+		CommodityTypeConnectedBrand = 25,
+
+		[Description("库存数量不能小于0")]
+		StockQuantityNotEnough = 26,
+
+		[Description("控制器不存在")]
+		ControllerNotExisted = 27,
+
+		[Description("该控制器下存在操作！")]
+		ControllerHasActions = 28,
+
+		[Description("该控制器已分配权限！")]
+		ControllerHasPrevileges = 29,
+
+		[Description("该操作不存在！")]
+		ActionNotExisted = 30,
+
+		[Description("该操作已分配权限！")]
+		ActionHasPrevilege = 31,
+
+		[Description("该角色已经分配")]
+		RoleHasAssigned = 32,
 	}
 }

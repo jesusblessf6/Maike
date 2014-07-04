@@ -32,7 +32,7 @@ namespace Management.Services
 
 		public List<SwitchMarketManagementVM> GetOpenTimeByRange(int from, int to)
 		{
-			var sorts = new List<SortCol> {new SortCol {ColName = "Id", IsDescending = false}};
+            var sorts = new List<SortCol> { new SortCol { ColName = "StartTime", IsDescending = false } };
 			var res = SwitchManagementDal.Query(null, sorts, from, to);
 			return res.Select(c => new SwitchMarketManagementVM { Id = c.Id, StartTime = c.StartTime.ToString(), EndTime = c.EndTime.ToString()}).ToList();
 		}

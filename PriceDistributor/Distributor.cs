@@ -76,23 +76,33 @@ namespace PriceDistributor
         {
             const int buffSize = 113;
             var r = new TcpClient();
-            try
+            bool isSuccess = false;
+            while (isSuccess == false)
             {
-                if (r.Connected == false)
+                try
                 {
-                    r.Connect("172.20.70.172", 7101);
+                    while (!r.Connected)
+                    {
+                        r.Connect("172.20.70.172", 7101);
+                    }
                     NetworkStream write = r.GetStream();
-                    var bytes = new byte[buffSize];
-                    bytes[0] = Encoding.ASCII.GetBytes("C")[0];
-                    write.Write(bytes, 0, buffSize);
-                    write.Close();
+                    if (write.CanWrite)
+                    {
+                        var bytes = new byte[buffSize];
+                        bytes[0] = Encoding.ASCII.GetBytes("C")[0];
+                        write.Write(bytes, 0, buffSize);
+                        write.Close();
+                        r.Close();
+                        isSuccess = true;
+                    }
+                }
+                catch (Exception)
+                {
                     r.Close();
+                    r = new TcpClient(); 
                 }
             }
-            catch(Exception)
-            {
-                r.Close();
-            }
+            
         }
 
         public void GetPrice()

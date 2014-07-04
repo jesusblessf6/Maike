@@ -1,249 +1,249 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="MaikeModelStoreContainer" CdmEntityContainer="MaikeEntities">
-    <EntitySetMapping Name="Users">
-      <EntityTypeMapping TypeName="MaikeModel.User">
-        <MappingFragment StoreEntitySet="User">
-          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-          <ScalarProperty Name="Fax" ColumnName="Fax" />
-          <ScalarProperty Name="Tel" ColumnName="Tel" />
-          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-          <ScalarProperty Name="Type" ColumnName="Type" />
-          <ScalarProperty Name="IsSuper" ColumnName="IsSuper" />
-          <ScalarProperty Name="Password" ColumnName="Password" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
+    <EntitySetMapping Name="Actions">
+      <EntityTypeMapping TypeName="MaikeModel.Action">
+        <MappingFragment StoreEntitySet="Action">
+          <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="LoginName" ColumnName="LoginName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
           <ScalarProperty Name="Ver" ColumnName="Ver" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Commodities">
-      <EntityTypeMapping TypeName="MaikeModel.Commodity">
-        <MappingFragment StoreEntitySet="Commodity">
-          <ScalarProperty Name="IsOpen" ColumnName="IsOpen" />
-          <ScalarProperty Name="Code" ColumnName="Code" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Ver" ColumnName="Ver" />
-          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Warehouses">
-      <EntityTypeMapping TypeName="MaikeModel.Warehouse">
-        <MappingFragment StoreEntitySet="Warehouse">
-          <ScalarProperty Name="Fax" ColumnName="Fax" />
-          <ScalarProperty Name="Tel" ColumnName="Tel" />
-          <ScalarProperty Name="Contact" ColumnName="Contact" />
-          <ScalarProperty Name="Address" ColumnName="Address" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-          <ScalarProperty Name="Ver" ColumnName="Ver" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ControllerId" ColumnName="ControllerId" />
+          <ScalarProperty Name="ForAll" ColumnName="ForAll" />
+          <ScalarProperty Name="ChineseName" ColumnName="ChineseName" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Brands">
       <EntityTypeMapping TypeName="MaikeModel.Brand">
         <MappingFragment StoreEntitySet="Brand">
-          <ScalarProperty Name="CommodityTypeId" ColumnName="CommodityTypeId" />
-          <ScalarProperty Name="CommodityId" ColumnName="CommodityId" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Ver" ColumnName="Ver" />
-          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
           <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="Ver" ColumnName="Ver" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="CommodityId" ColumnName="CommodityId" />
+          <ScalarProperty Name="CommodityTypeId" ColumnName="CommodityTypeId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="SHFECodes">
-      <EntityTypeMapping TypeName="MaikeModel.SHFECode">
-        <MappingFragment StoreEntitySet="SHFECode">
-          <ScalarProperty Name="IsInUse" ColumnName="IsInUse" />
-          <ScalarProperty Name="CommodityId" ColumnName="CommodityId" />
+    <EntitySetMapping Name="Commodities">
+      <EntityTypeMapping TypeName="MaikeModel.Commodity">
+        <MappingFragment StoreEntitySet="Commodity">
+          <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
           <ScalarProperty Name="Ver" ColumnName="Ver" />
           <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="Code" ColumnName="Code" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="IsOpen" ColumnName="IsOpen" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="CommodityTypes">
       <EntityTypeMapping TypeName="MaikeModel.CommodityType">
         <MappingFragment StoreEntitySet="CommodityType">
-          <ScalarProperty Name="CommodityId" ColumnName="CommodityId" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-          <ScalarProperty Name="Ver" ColumnName="Ver" />
           <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Ver" ColumnName="Ver" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="CommodityId" ColumnName="CommodityId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Companies">
       <EntityTypeMapping TypeName="MaikeModel.Company">
         <MappingFragment StoreEntitySet="Company">
-          <ScalarProperty Name="Zip" ColumnName="Zip" />
-          <ScalarProperty Name="FullName" ColumnName="FullName" />
-          <ScalarProperty Name="Type" ColumnName="Type" />
-          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-          <ScalarProperty Name="Ver" ColumnName="Ver" />
-          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Address" ColumnName="Address" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="RelCommoditySHFECodes">
-      <EntityTypeMapping TypeName="MaikeModel.RelCommoditySHFECode">
-        <MappingFragment StoreEntitySet="RelCommoditySHFECode">
-          <ScalarProperty Name="SHFECodeId" ColumnName="SHFECodeId" />
-          <ScalarProperty Name="CommodityId" ColumnName="CommodityId" />
-          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-          <ScalarProperty Name="Ver" ColumnName="Ver" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="RelUserCommodities">
-      <EntityTypeMapping TypeName="MaikeModel.RelUserCommodity">
-        <MappingFragment StoreEntitySet="RelUserCommodity">
-          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-          <ScalarProperty Name="Ver" ColumnName="Ver" />
-          <ScalarProperty Name="CommodityId" ColumnName="CommodityId" />
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="OpenTimes">
-      <EntityTypeMapping TypeName="MaikeModel.OpenTime">
-        <MappingFragment StoreEntitySet="OpenTime">
-          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-          <ScalarProperty Name="Ver" ColumnName="Ver" />
-          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
-          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="SalesOrders">
-      <EntityTypeMapping TypeName="MaikeModel.SalesOrder">
-        <MappingFragment StoreEntitySet="SalesOrder">
-          <ScalarProperty Name="Price" ColumnName="Price" />
-          <ScalarProperty Name="Premium" ColumnName="Premium" />
-          <ScalarProperty Name="PricingType" ColumnName="PricingType" />
-          <ScalarProperty Name="Date" ColumnName="Date" />
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="StockId" ColumnName="StockId" />
-          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
           <ScalarProperty Name="Comment" ColumnName="Comment" />
-          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
-          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-          <ScalarProperty Name="Ver" ColumnName="Ver" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Stocks">
-      <EntityTypeMapping TypeName="MaikeModel.Stock">
-        <MappingFragment StoreEntitySet="Stock">
-          <ScalarProperty Name="Date" ColumnName="Date" />
-          <ScalarProperty Name="BuyUnit" ColumnName="BuyUnit" />
-          <ScalarProperty Name="Comment" ColumnName="Comment" />
-          <ScalarProperty Name="Price" ColumnName="Price" />
-          <ScalarProperty Name="Premium" ColumnName="Premium" />
-          <ScalarProperty Name="PricingType" ColumnName="PricingType" />
-          <ScalarProperty Name="AvailableQty" ColumnName="AvailableQty" />
-          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-          <ScalarProperty Name="WarehouseId" ColumnName="WarehouseId" />
-          <ScalarProperty Name="BrandId" ColumnName="BrandId" />
-          <ScalarProperty Name="CommodityTypeId" ColumnName="CommodityTypeId" />
-          <ScalarProperty Name="CommodityId" ColumnName="CommodityId" />
-          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
-          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-          <ScalarProperty Name="Ver" ColumnName="Ver" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="SysSettings">
-      <EntityTypeMapping TypeName="MaikeModel.SysSetting">
-        <MappingFragment StoreEntitySet="SysSetting">
-          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-          <ScalarProperty Name="Ver" ColumnName="Ver" />
-          <ScalarProperty Name="CountDown" ColumnName="CountDown" />
-          <ScalarProperty Name="BuyUnit" ColumnName="BuyUnit" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="RelUserCompanies">
-      <EntityTypeMapping TypeName="MaikeModel.RelUserCompany">
-        <MappingFragment StoreEntitySet="RelUserCompany">
-          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-          <ScalarProperty Name="Ver" ColumnName="Ver" />
-          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Roles">
-      <EntityTypeMapping TypeName="MaikeModel.Role">
-        <MappingFragment StoreEntitySet="Role">
           <ScalarProperty Name="Ver" ColumnName="Ver" />
           <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Actions">
-      <EntityTypeMapping TypeName="MaikeModel.Action">
-        <MappingFragment StoreEntitySet="Action">
-          <ScalarProperty Name="ChineseName" ColumnName="ChineseName" />
-          <ScalarProperty Name="ForAll" ColumnName="ForAll" />
-          <ScalarProperty Name="ControllerId" ColumnName="ControllerId" />
-          <ScalarProperty Name="Ver" ColumnName="Ver" />
-          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="Zip" ColumnName="Zip" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Controllers">
       <EntityTypeMapping TypeName="MaikeModel.Controller">
         <MappingFragment StoreEntitySet="Controller">
-          <ScalarProperty Name="ChineseName" ColumnName="ChineseName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="Ver" ColumnName="Ver" />
           <ScalarProperty Name="ForAll" ColumnName="ForAll" />
+          <ScalarProperty Name="ChineseName" ColumnName="ChineseName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OpenTimes">
+      <EntityTypeMapping TypeName="MaikeModel.OpenTime">
+        <MappingFragment StoreEntitySet="OpenTime">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
           <ScalarProperty Name="Ver" ColumnName="Ver" />
           <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Previleges">
       <EntityTypeMapping TypeName="MaikeModel.Previlege">
         <MappingFragment StoreEntitySet="Previlege">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="ControllerId" ColumnName="ControllerId" />
+          <ScalarProperty Name="ActionId" ColumnName="ActionId" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="Ver" ColumnName="Ver" />
           <ScalarProperty Name="PrevilegeLevel" ColumnName="PrevilegeLevel" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RelCommoditySHFECodes">
+      <EntityTypeMapping TypeName="MaikeModel.RelCommoditySHFECode">
+        <MappingFragment StoreEntitySet="RelCommoditySHFECode">
+          <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Ver" ColumnName="Ver" />
           <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-          <ScalarProperty Name="ActionId" ColumnName="ActionId" />
-          <ScalarProperty Name="ControllerId" ColumnName="ControllerId" />
-          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="CommodityId" ColumnName="CommodityId" />
+          <ScalarProperty Name="SHFECodeId" ColumnName="SHFECodeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RelUserCommodities">
+      <EntityTypeMapping TypeName="MaikeModel.RelUserCommodity">
+        <MappingFragment StoreEntitySet="RelUserCommodity">
           <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="CommodityId" ColumnName="CommodityId" />
+          <ScalarProperty Name="Ver" ColumnName="Ver" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RelUserCompanies">
+      <EntityTypeMapping TypeName="MaikeModel.RelUserCompany">
+        <MappingFragment StoreEntitySet="RelUserCompany">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+          <ScalarProperty Name="Ver" ColumnName="Ver" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="MaikeModel.Role">
+        <MappingFragment StoreEntitySet="Role">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="Ver" ColumnName="Ver" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SalesOrders">
+      <EntityTypeMapping TypeName="MaikeModel.SalesOrder">
+        <MappingFragment StoreEntitySet="SalesOrder">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Ver" ColumnName="Ver" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="StockId" ColumnName="StockId" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="PricingType" ColumnName="PricingType" />
+          <ScalarProperty Name="Premium" ColumnName="Premium" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SHFECodes">
+      <EntityTypeMapping TypeName="MaikeModel.SHFECode">
+        <MappingFragment StoreEntitySet="SHFECode">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Ver" ColumnName="Ver" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="CommodityId" ColumnName="CommodityId" />
+          <ScalarProperty Name="IsInUse" ColumnName="IsInUse" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Stocks">
+      <EntityTypeMapping TypeName="MaikeModel.Stock">
+        <MappingFragment StoreEntitySet="Stock">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Ver" ColumnName="Ver" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+          <ScalarProperty Name="CommodityId" ColumnName="CommodityId" />
+          <ScalarProperty Name="CommodityTypeId" ColumnName="CommodityTypeId" />
+          <ScalarProperty Name="BrandId" ColumnName="BrandId" />
+          <ScalarProperty Name="WarehouseId" ColumnName="WarehouseId" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="AvailableQty" ColumnName="AvailableQty" />
+          <ScalarProperty Name="PricingType" ColumnName="PricingType" />
+          <ScalarProperty Name="Premium" ColumnName="Premium" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="BuyUnit" ColumnName="BuyUnit" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SysSettings">
+      <EntityTypeMapping TypeName="MaikeModel.SysSetting">
+        <MappingFragment StoreEntitySet="SysSetting">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="BuyUnit" ColumnName="BuyUnit" />
+          <ScalarProperty Name="CountDown" ColumnName="CountDown" />
+          <ScalarProperty Name="Ver" ColumnName="Ver" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="MaikeModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Ver" ColumnName="Ver" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="LoginName" ColumnName="LoginName" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="IsSuper" ColumnName="IsSuper" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+          <ScalarProperty Name="Tel" ColumnName="Tel" />
+          <ScalarProperty Name="Fax" ColumnName="Fax" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Warehouses">
+      <EntityTypeMapping TypeName="MaikeModel.Warehouse">
+        <MappingFragment StoreEntitySet="Warehouse">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Ver" ColumnName="Ver" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Contact" ColumnName="Contact" />
+          <ScalarProperty Name="Tel" ColumnName="Tel" />
+          <ScalarProperty Name="Fax" ColumnName="Fax" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

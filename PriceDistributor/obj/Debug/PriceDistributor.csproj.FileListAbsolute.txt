@@ -1,3 +1,4 @@
+F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\PriceDistributor\obj\Debug\PriceDistributor.csprojResolveAssemblyReference.cache
 F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\PriceDistributor\bin\PriceDistributor.dll
 F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\PriceDistributor\bin\PriceDistributor.pdb
 F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\PriceDistributor\bin\Entities.dll
@@ -33,6 +34,5 @@ F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\PriceDistributor\
 F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\PriceDistributor\bin\Management.Models.pdb
 F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\PriceDistributor\bin\Util.pdb
 F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\PriceDistributor\bin\zh-Hans\EntityFramework.resources.dll
-F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\PriceDistributor\obj\Debug\PriceDistributor.csprojResolveAssemblyReference.cache
 F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\PriceDistributor\obj\Debug\PriceDistributor.dll
 F:\PerforceWorkspace\Jing.Li_wing-PC_6599\DEV\SourceCode\Maike\PriceDistributor\obj\Debug\PriceDistributor.pdb

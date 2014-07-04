@@ -1,5 +1,6 @@
 ﻿using DAL;
 using Entities;
+using Enums;
 using Management.Models;
 using System;
 using System.Collections.Generic;
@@ -115,10 +116,16 @@ namespace Management.Services
 			}
 
 			List<Company> companies = GetAllCompanyByUser(customerType, userId);
-			List<int> list = companies.Select(u => u.Id).ToList();
-
-			var manager = new QueryManager<Company>();
-			return manager.Compile(clauses, o => list.Contains(o.Id));
+            var manager = new QueryManager<Company>();
+            if (customerType == (int)CustomerType.Internal)
+            {
+                List<int> list = companies.Select(u => u.Id).ToList();
+                return manager.Compile(clauses, o => list.Contains(o.Id));
+            }
+            else
+            {
+                return manager.Compile(clauses);
+            }
 		}
 
 		public List<CompanyVM> GetCompanyByRangeByUser(int from, int to, string key, int customerType, int userId)
@@ -126,7 +133,7 @@ namespace Management.Services
 
 			var func1 = GetQueryExp(key, customerType, userId);
 
-			var sorts = new List<SortCol> {new SortCol {ColName = "Id", IsDescending = false}};
+            var sorts = new List<SortCol> { new SortCol { ColName = "Name", IsDescending = false } };
 			List<Company> res = CompanyDal.Query(func1, sorts, @from, to);
 			return res.Select(o => new CompanyVM
 			{
@@ -181,12 +188,12 @@ namespace Management.Services
 		{
 			var company = new Company
 			{
-				Name = vm.Name,
-				FullName = vm.FullName,
-				Address = vm.Address,
+				Name = vm.Name.Trim(),
+                FullName = vm.FullName.Trim(),
+                Address = vm.Address.Trim(),
 				Type = vm.Type,
-				Comment = vm.Comment,
-				Zip = vm.Zip
+                Comment = vm.Comment.Trim(),
+                Zip = vm.Zip.Trim()
 			};
 
 			try
@@ -209,12 +216,12 @@ namespace Management.Services
 			var company = new Company
 			{
 				Id = vm.Id,
-				Name = vm.Name,
-				FullName = vm.FullName,
-				Address = vm.Address,
+                Name = vm.Name.Trim(),
+                FullName = vm.FullName.Trim(),
+                Address = vm.Address.Trim(),
 				Type = vm.Type,
-				Comment = vm.Comment,
-				Zip = vm.Zip
+                Comment = vm.Comment.Trim(),
+                Zip = vm.Zip.Trim()
 			};
 
 			try
@@ -254,12 +261,14 @@ namespace Management.Services
 
 		public bool NameExisted(string name, int type, int id)
 		{
-			return !CompanyDal.GetExisted(o => o.Id != id && o.Name == name && o.Type == type);
+            //return !CompanyDal.GetExisted(o => o.Id != id && o.Name == name && o.Type == type);
+            return !CompanyDal.GetExisted(o => o.Id != id && o.Name == name.Trim());
 		}
 
 		public bool FullNameExisted(string name, int type, int id)
 		{
-			return !CompanyDal.GetExisted(o => o.Id != id && o.FullName == name && o.Type == type);
+            //return !CompanyDal.GetExisted(o => o.Id != id && o.FullName == name && o.Type == type);
+            return !CompanyDal.GetExisted(o => o.Id != id && o.FullName == name.Trim());
 		}
 		#endregion
 	}

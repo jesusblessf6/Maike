@@ -174,6 +174,11 @@ namespace DAL.Base
 		{
 			using (var ctx = new MaikeEntities())
 			{
+				if (func == null)
+				{
+					return GetObjQuery(ctx, includes).Count();
+				}
+
 				return GetObjQuery(ctx, includes).Count(func);
 			}
 		}

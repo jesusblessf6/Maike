@@ -121,16 +121,19 @@ namespace Management.Controllers
 		public ActionResult UpdatePrice(int id)
 		{
 			StockCreateVM vm = StockSvc.GetById(id);
+			decimal price = 0M;
 			if (vm.PricingType == (int)PricingType.Fixed)
 			{
-				var stock = new StockUpdatePriceVM { Id = vm.Id, Price = vm.Price ?? 0 };
-				return View(stock);
+				price = vm.Price ?? 0;
+				ViewBag.Title = "修改价格";
 			}
 			else
 			{
-				var stock = new StockUpdatePremiumVM { Id = vm.Id, Premium = vm.Premium ?? 0 };
-				return View("UpdatePremium", stock);
+				price = vm.Premium ?? 0;
+				ViewBag.Title = "修改升贴水";
 			}
+			var stock = new StockUpdatePriceVM { Id = vm.Id, Price = price, PricingType = vm.PricingType };
+			return View(stock);
 		}
 
 		[HttpPost]
@@ -143,20 +146,6 @@ namespace Management.Controllers
 			}
 			var error = ModelState.Values.First(o => o.Errors.Count > 0).Errors[0].ErrorMessage;
 			return MyAjaxHelper.RedirectAjax(AjaxStatusCode.Error, error, null, "");
-		}
-
-
-		[HttpPost]
-		public ActionResult UpdatePremium(StockUpdatePremiumVM vm)
-		{
-			if (ModelState.IsValid)
-			{
-				var result = StockSvc.UpdatePrice(vm.Premium, vm.Id);
-				return MyAjaxHelper.RedirectAjax(result, "");
-			}
-			var error = ModelState.Values.First(o => o.Errors.Count > 0).Errors[0].ErrorMessage;
-			return MyAjaxHelper.RedirectAjax(AjaxStatusCode.Error, error, null, "");
-
 		}
 
 		public ActionResult UpdateQty(int id)

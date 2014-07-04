@@ -34,18 +34,17 @@ namespace Management.Services
 			var func1 = GetQueryExp(commodityId, commodityTypeId, brandName);
 
 			var sorts = new List<SortCol> {new SortCol {ColName = "Id", IsDescending = false}};
-			var result = BrandDal.Query(func1, sorts, from, to, new List<string> { "Commodity", "CommodityType" });
+			var result = BrandDal.Query(func1, sorts, from, to, new List<string> {"Commodity", "CommodityType"});
 			return result.Select(o => new BrandViewVM
-			{
-				Id = o.Id,
-				Name = o.Name,
-				CommodityId = o.CommodityId,
-				CommodityName = o.Commodity.Name,
-				CommodityTypeId = o.CommodityTypeId,
-				CommodityTypeName = o.CommodityType.Name,
-				Description = o.Description
-			}).ToList();
-
+				                          {
+					                          Id = o.Id,
+					                          Name = o.Name,
+					                          CommodityId = o.CommodityId,
+					                          CommodityName = o.Commodity.Name,
+					                          CommodityTypeId = o.CommodityTypeId,
+					                          CommodityTypeName = o.CommodityType.Name,
+					                          Description = o.Description
+				                          }).ToList();
 		}
 
 		public List<BrandViewVM> GetBrandByRange(int from, int to)
@@ -67,7 +66,7 @@ namespace Management.Services
 		public List<BrandViewVM> GetBrandByCommodity(int commodityId, int commodityTypeId)
 		{
 			var func1 = GetQueryExp(commodityId, commodityTypeId);
-			var result = BrandDal.Query(func1, new List<string>());
+			var result = BrandDal.Query(func1);
 			return result.Select(o => new BrandViewVM
 			{
 				Id = o.Id,
@@ -132,20 +131,21 @@ namespace Management.Services
 		/// <returns></returns>
 		public ErrorCode Create(BrandEditVM brandEditVM)
 		{
-			var brand = new Brand
-			{
-				Name = brandEditVM.Name,
-				CommodityTypeId = brandEditVM.CommodityTypeId,
-				Description = brandEditVM.Description,
-				CommodityId = brandEditVM.CommodityId
-			};
-
 			try
 			{
-				if (BrandDal.GetExisted(o => o.CommodityTypeId == brand.CommodityTypeId && o.Name == brandEditVM.Name))
+				if (BrandDal.GetExisted(o => o.CommodityTypeId == brandEditVM.CommodityTypeId && o.Name == brandEditVM.Name))
 				{
 					return ErrorCode.BrandExisted;
 				}
+
+				var brand = new Brand
+				{
+					Name = brandEditVM.Name,
+					CommodityTypeId = brandEditVM.CommodityTypeId,
+					Description = brandEditVM.Description,
+					CommodityId = brandEditVM.CommodityId
+				};
+
 				BrandDal.Create(brand);
 				return ErrorCode.NoError;
 			}
@@ -162,21 +162,22 @@ namespace Management.Services
 		/// <returns></returns>
 		public ErrorCode Update(BrandEditVM brandVM)
 		{
-			var brand = new Brand
-			{
-				Id = brandVM.Id,
-				Name = brandVM.Name,
-				CommodityId = brandVM.CommodityId,
-				CommodityTypeId = brandVM.CommodityTypeId,
-				Description = brandVM.Description
-			};
-
 			try
 			{
-				//if(BrandDal.GetExisted(c => c.CommodityTypeId == brand.CommodityTypeId && c.Id != brand.Id && c.Name == brand.Name))
-				//{
-				//    return ErrorCode.BrandExisted;
-				//}
+				if (BrandDal.GetExisted(c => c.CommodityTypeId == brandVM.CommodityTypeId && c.Id != brandVM.Id && c.Name == brandVM.Name))
+				{
+					return ErrorCode.BrandExisted;
+				}
+
+				var brand = new Brand
+				{
+					Id = brandVM.Id,
+					Name = brandVM.Name,
+					CommodityId = brandVM.CommodityId,
+					CommodityTypeId = brandVM.CommodityTypeId,
+					Description = brandVM.Description
+				};
+
 				BrandDal.Update(brand);
 				return ErrorCode.NoError;
 			}

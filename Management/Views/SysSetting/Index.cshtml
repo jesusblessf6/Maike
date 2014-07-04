@@ -95,7 +95,7 @@
             },
             submitHandler: function (validator, form, submitButton) {
                 $.ajax({
-                    url: "/SysSetting/Save",
+                    url: "/SysSetting/Update",
                     data: form.serialize(),
                     dataType: 'json',
                     type: 'POST',

@@ -292,8 +292,8 @@ namespace Management.Services
 					RelUserCommodityDAL.Delete(com.Id);
 				}
 
-				string[] company = vm.SelectCompanyIds.Split(new[] { ',' });
-				string[] commodity = vm.SelectCommodityIds.Split(new[] { ',' });
+				string[] company = vm.SelectCompanyIds.Split(new[] {','});
+				string[] commodity = vm.SelectCommodityIds.Split(new[] {','});
 
 				for (int i = 0; i < company.Length; i++)
 				{
@@ -375,5 +375,32 @@ namespace Management.Services
 		}
 
 		#endregion
+
+		public List<string> GetControllersForUser(int userId)
+		{
+			var result = new List<string>();
+			
+			var controllerDal = new ControllerDAL();
+			var controllers = controllerDal.Query(o => o.ForAll);
+			result.AddRange(controllers.Select(o => o.Name));
+
+			var actionDal = new ActionDAL();
+			var actions = actionDal.Query(o => o.ForAll && o.Name == "Index", new List<string>{"Controller"});
+			result.AddRange(actions.Select(o => o.Controller.Name));
+
+			var user = UserDAL.GetById(userId, new List<string> { "Role", "Role.Previleges", "Role.Previleges.Controller", "Role.Previleges.Action" });
+			if(user.RoleId != null)
+			{
+				var previleges = user.Role.Previleges.Where(o => !o.IsDeleted).ToList();
+				//result.AddRange(
+				//	previleges.Where(o => o.PrevilegeLevel == (int) PrevilegeLevel.ControllerLevel).Select(o => o.Controller.Name));
+				//result.AddRange(
+				//	previleges.Where(o => o.PrevilegeLevel == (int) PrevilegeLevel.ActionLevel && o.Action.Name == "Index")
+				//			  .Select(o => o.Controller.Name));
+				result.AddRange(previleges.Select(o => o.Controller.Name));
+			}
+
+			return result.Distinct().ToList();
+		}
 	}
 }

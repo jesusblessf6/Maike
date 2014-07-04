@@ -5,7 +5,7 @@
     <div class="box-header">
         <div class="box-name">
             <i class="fa fa-edit"></i>
-            <span>修改价格</span>
+            <span>@ViewBag.Title</span>
         </div>
         <div class="box-icons">
             <a class="collapse-link">
@@ -24,14 +24,26 @@
         <form class="form-horizontal" id="stockUpdatePriceForm">
             <div class="form-group">
                 @Html.HiddenFor(o => o.Id, new { @id = "hiddenId" })
+                @Html.HiddenFor(o => o.PricingType, new { id = "hiddenPricingType" })
                 <input type="hidden" id="hiddenOldPrice" />
-                @Html.LabelFor(o => o.Price, "价格", new { @class = "col-sm-3 control-label", @for = "txtPrice" })
+                @{
+                    if (Model.PricingType == (int)Enums.PricingType.Fixed)
+                    {
+                    @Html.LabelFor(o => o.Price, "价格", new { @class = "col-sm-3 control-label", @for = "txtPrice" })
+                    }
+                    else
+                    {
+                    @Html.LabelFor(o => o.Price, "升贴水", new { @class = "col-sm-3 control-label", @for = "txtPrice" })
+                    }
+                }
+
                 <div class="col-sm-8">
                     <div class="input-group">
                         <span class="input-group-addon">
                             <i class="fa fa-info-circle"></i>
                         </span>
-                        @Html.TextBoxFor(o => o.Price, new { @class = "form-control", @id = "txtPrice" })
+                        @Html.TextBoxFor(o => o.Price, new { @class = "form-control", id = "txtPrice" })
+                        
                     </div>
                 </div>
             </div>
@@ -48,6 +60,22 @@
 <script>
     $(function () {
         $("#hiddenOldPrice").val($("#txtPrice").val());
+        var type = $("#hiddenPricingType").val();
+        var emptyStr = "";
+        var regexp;
+        var regStr = "";
+        if (type == 1) {
+            //升贴水
+            emptyStr = "升贴水不能为空";
+            regexp = /^(\-)?\d+(\.\d+)?$/;
+            regStr = "请输入正确的升贴水";
+        }
+        else {
+            //价格
+            emptyStr = "价格不能为空";
+            regexp = /^\d+(\.\d+)?$/;
+            regStr = "请输入正确的价格";
+        }
 
         $('#stockUpdatePriceForm').bootstrapValidator({
             message: "输入有误",
@@ -57,11 +85,11 @@
                     trigger: "blur",
                     validators: {
                         notEmpty: {
-                            message: "价格不能为空"
+                            message: emptyStr
                         },
                         regexp: {
-                            regexp: /^\d+(\.\d+)?$/,
-                            message: "请输入正确的价格"
+                            regexp: regexp,
+                            message: regStr
                         }
                     }
                 }
@@ -75,7 +103,12 @@
                     success: function (data) {
                         $.procAjaxData(data, function () {
                             var oldPrice = $("#hiddenOldPrice").val();
-                            demo.server.backend_UpdatePrice($("#hiddenId").val(), $("#txtPrice").val(), oldPrice);
+                            if (type == 1) {
+                                demo.server.backend_UpdatePremium($("#hiddenId").val(), $("#txtPrice").val(), oldPrice);
+                            }
+                            else {
+                                demo.server.backend_UpdatePrice($("#hiddenId").val(), $("#txtPrice").val(), oldPrice);
+                            }
                             $('#StockInfoBox').remove();
                             //var dt = $('#StockTable').DataTable();
                             //dt.ajax.reload();

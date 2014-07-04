@@ -16,7 +16,12 @@ namespace Management.Controllers
 		public CommodityTypeService CommodityTypeSvc
 		{
 			get { return _commodityTypeSvc ?? (_commodityTypeSvc = new CommodityTypeService()); }
-			set { _commodityTypeSvc = value; }
+		}
+
+		private CommodityService _commoditySvc;
+		public CommodityService CommoditySvc
+		{
+			get { return _commoditySvc ?? (_commoditySvc = new CommodityService()); }
 		}
 
 		#endregion
@@ -37,8 +42,7 @@ namespace Management.Controllers
 		public ActionResult Create()
 		{
 			ViewBag.Title = "金属类型";
-			var commSvc = new CommodityService();
-			ViewBag.AllCommodities = commSvc.GetAllCommodities();
+			ViewBag.AllCommodities = CommoditySvc.GetAllCommodities();
 			return View("Edit", new CommodityTypeEditVM());
 		}
 
@@ -99,8 +103,7 @@ namespace Management.Controllers
 		{
 			var model = CommodityTypeSvc.GetById(id);
 			ViewBag.Title = "金属类型";
-			var commSvc = new CommodityService();
-			ViewBag.AllCommodities = commSvc.GetAllCommodities();
+			ViewBag.AllCommodities = CommoditySvc.GetAllCommodities();
 			return View("Edit", model);
 		}
 
@@ -131,9 +134,7 @@ namespace Management.Controllers
 		[HttpPost]
 		public JsonResult GetAllCommodities(string q)
 		{
-			var commSvc = new CommodityService();
-
-			List<CommodityViewVM> allCommos = string.IsNullOrWhiteSpace(q) ? commSvc.GetAllCommodities() : commSvc.SearchCommodities(q);
+			List<CommodityViewVM> allCommos = string.IsNullOrWhiteSpace(q) ? CommoditySvc.GetAllCommodities() : CommoditySvc.SearchCommodities(q);
 
 			var result = allCommos.Select(o => new Dictionary<string, object>
 												   {

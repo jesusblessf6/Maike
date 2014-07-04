@@ -113,7 +113,7 @@
             paging: true,
             ordering: false,
             filter: false,
-            scrollX: true,
+            //scrollX: true,
             paginationType: "bootstrap",
             iDisplayLength: 10,
 
@@ -163,6 +163,9 @@
                   }
               }
             ],
+            columnDefs: [
+                { "width": "10%", "targets": 3 }
+            ],
             language: chineseLang,
             fnInitComplete: function () {
                 //debugger;
@@ -184,7 +187,7 @@
     }
 
     function editUser(id) {
-        var url = "/User/Edit/" + id;
+        var url = "/User/Update/" + id;
 
         $('#userInfoBox').remove();
         LoadAjaxContent2(url, function (data) {

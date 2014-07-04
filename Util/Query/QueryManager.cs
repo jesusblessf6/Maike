@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using Entities;
 
@@ -25,6 +26,29 @@ namespace Util.Query
 			if (extra != null)
 			{
 				func = func.And(extra);
+			}
+
+			return func;
+		}
+
+		public Expression<Func<TEntity, bool>> Compile(List<Clause> clauses, List<Expression<Func<TEntity, bool>>> extras)
+		{
+			if (clauses.Count <= 0)
+			{
+				return null;
+			}
+			ParameterExpression pe = Expression.Parameter(typeof(TEntity), "ent");
+			Expression result = CompileOneClause(clauses[0], pe);
+			for (int i = 1; i < clauses.Count; i++)
+			{
+				result = Expression.AndAlso(result, CompileOneClause(clauses[i], pe));
+			}
+
+			var func = Expression.Lambda<Func<TEntity, bool>>(result, new[] { pe });
+
+			if (extras != null && extras.Count > 0)
+			{
+				func = extras.Aggregate(func, (current, expression) => current.And(expression));
 			}
 
 			return func;
@@ -61,7 +85,6 @@ namespace Util.Query
 				{
 					case Operator.Eq:
 						result = Expression.Equal(left, right);
-						//result = Expression.Equal(left, right, true, left.Type.GetMethod("Equals", new Type[]{typeof(Object)}));
 						break;
 
 					case Operator.Ge:

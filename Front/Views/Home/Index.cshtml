@@ -2,8 +2,8 @@
     ViewBag.Title = "迈科现货销售平台";
 }
 <style> 
-    #time_back{width:300px;height:20px;border:1px solid #246;background:#CCC} 
-    #time_bar{width:0;height:18px;background:#470;color:#FFF;text-align:center;} 
+    /*#time_back{overflow:visible;height:20px;border-radius:4px;background-color:#f5f5f5;-webkit-box-shadow:inset 0 1px 2px rgba(0, 0, 0, .1);box-shadow:inset 0 1px 2px rgba(0, 0, 0, .1)}*/
+    /*#time_bar{width:0;height:18px;background:#470;color:#FFF;text-align:center;}*/ 
 
     .ajax-link {
     }
@@ -225,15 +225,20 @@
                         <input type="hidden" id="objHidden" />
                     </div>
                 </div>
-                <div class="box-content" style="position: relative; max-height: 440px; overflow: auto;">
-                    您将以 <span id="spanBuyer"></span> 的名义从<span id="salerSpan"></span>以最终价格[<span id="finalPriceSpan"></span>]<span id="txtSpan"></span>元 / 吨，
-                    购买[<span id="qtySpan"></span>]吨的<span id="brandSpan"></span><span id="commodityTypeSpan"></span>，该货物位于<span id="warehouseSpan"></span>
+                <div class="box-content" style="position: relative; max-height: 440px; overflow: auto; font-size:14px; font-family:SimSun">
+                    您将以 <span id="spanBuyer"></span> 的名义从<span id="salerSpan"></span>以最终价格<span id="finalPriceSpan"></span><span id="txtSpan"></span>元/吨，
+                    购买<span id="qtySpan"></span><span id="commUnit"></span><span id="brandSpan"></span><span id="commodityTypeSpan"></span>，该货物位于<span id="warehouseSpan"></span>。
                     <br /><br />
                     <div style="text-align:center; align-content:center;">
-                        <span id="mmSpan"></span>秒后，系统自动取消<br />
-                        @*<div id="time_back" >*@<div id="time_bar" style="margin-left:38%;"></div>@*</div>*@                 
+                        <span id="mmSpan"></span>秒后，系统将自动取消<br />
+                        </div>
+                    <div id="msgBoxDiv" style="align-content:center; text-align:center;">
+                        <div id="time_back" class="progress progress-striped active" style="width:0;margin:0 auto">
+                        <div id="time_bar" class="progress-bar-info" role="progressbar" style="width:0;"></div>
+                        </div>
+                        </div>
                     <br />
-                        </div><br />
+                    @*<div id="time_bar" class="progress-bar progress-bar-info" style="margin-left:38%;"></div>*@
                      <div style="text-align:center">
                     <button type="submit" class="btn btn-primary btn-label-left" id="divMakeSureOrderOK" style="margin-right:30px;">
                         <span><i class="fa fa-clock-o"></i></span>确定
@@ -265,6 +270,7 @@
     var updatePremiumCallBack = $.Callbacks("unique");
     var updateQtyCallBack = $.Callbacks("unique");
     var ClearQtyCallBack = $.Callbacks("unique");
+    var ReceiveMPCallBack = $.Callbacks("unique");
 
     //删除指定下标的数组元素
     Array.prototype.removeByIndex = function (index) {
@@ -346,6 +352,7 @@
         updatePremiumCallBack.add(backUpdatePremium);
         updateQtyCallBack.add(backUpdateQty);
         ClearQtyCallBack.add(backClearQty);
+        ReceiveMPCallBack.add(GetSalePrice);
 
         var menus = $(".dropdown-toggle");
         for (var i = 1; i < menus.length; i++) {
@@ -426,16 +433,17 @@
         demo = $.connection.distributorHub;
 
         $.connection.hub.start().done(function () {
-            demo.server.requireAllPrices();
+            //demo.server.requireAllPrices();
         });
         $.connection.hub.disconnected(function () {
             setTimeout(function () {
                 if ($.connection.hub.state != $.signalR.connectionState.connected) {
-                    $.connection.hub.start().done(function () { });
+                    $.connection.hub.start().done(function () {});
                 }
             }, 10000);
         });
         demo.client.updatePrice = function (item) {
+            //ReceiveMPCallBack.fire(item);
             getChangePrice(item);
         };
         demo.client.addAlert = function (msg) {
@@ -458,11 +466,33 @@
         demo.client.updateStockPrice = function (id, newPrice) {
             updatePriceCallBack.fire(id, newPrice);
         };
-        demo.client.updateStock = function (id, delta) {
+        demo.client.updateBackendStock = function (id, delta) {
             updateQtyCallBack.fire(id, delta);
         };
         demo.client.clearStock = function (id) {
             ClearQtyCallBack.fire(id);
+        };
+        demo.client.backendAddStock = function () {
+            var table = $("#StockTable");
+            if (table.length > 0) {
+                table.DataTable().ajax.reload();
+            }
+        };
+        demo.client.updateFrontendStock = function (id, delta) {
+            var table = $("#StockTable");
+            if (table.length > 0) {
+                var aQty = $("#stockAQty" + id);
+                var sQty = $("#stockSaleQty" + id);
+                var calcaQty = parseFloat(aQty.text()) - parseFloat(delta);
+                var calcsQty = parseFloat(sQty.text()) + parseFloat(delta);
+                if (calcaQty <= 0) {
+                    table.DataTable().ajax.reload();
+                }
+                else {
+                    reciveChange(aQty, calcaQty);
+                    reciveChange(sQty, calcsQty);
+                }
+            }
         };
 
         $("#aTradeManagement").click();
@@ -601,6 +631,7 @@
         var buyPrice = obj.find(".priceBuyP");
         var saleQuan = obj.find(".priceSaleQ");
         var buyQuan = obj.find(".priceBuyQ");
+        ReceiveMPCallBack.fire(priceItem);
 
         changeData(shfeCode, priceItem.Name);
         changeData(price, priceItem.NewPrice);
@@ -721,9 +752,7 @@
             if (editFinalPrice != null) {
                 editFinalPrice.value = newPrice;
             }
-            price.text(newPrice);
-            var label = $("<label class=\"label label-success pull-right\">update</label>");
-            price.append(label);
+            reciveChange(price, newPrice);
         }
     }
     function backUpdatePremium(id, newPremium) {
@@ -731,12 +760,10 @@
         if (table.length > 0) {
             var premium = $("#stockPreminum" + id);
             var editPremium = document.getElementById("tradePremium");
-            premium.text(newPremium);
             if (editPremium != null) {
                 editPremium.value = newPremium;
             }
-            var label = $("<label class=\"label label-success pull-right\">update</label>");
-            premium.append(label);
+            reciveChange(premium, newPremium);
         }
     }
     function backUpdateQty(id, newQty) {
@@ -744,15 +771,40 @@
         if (table.length > 0) {
             var qty = $("#stockAQty" + id);
             var calcQty = parseFloat(qty.text()) + parseFloat(newQty);
-            qty.text(calcQty);
-            var label = $("<label class=\"label label-success pull-right\">update</label>");
-            qty.append(label);
+            reciveChange(qty, calcQty);
         }
     }
     function backClearQty(id) {
         var table = $("#StockTable");
         if (table.length > 0) {
             table.DataTable().ajax.reload();
+        }
+    }
+    function GetSalePrice(item) {
+        var priceTxt = document.getElementById("tradePrice");
+        var finalPriceTxt = document.getElementById("tradeFinalPrice");
+        var tradePremiumTxt = document.getElementById("tradePremium");
+        if (priceTxt != null)
+        {
+            if ($("#PricingTypeField").val() == 1) {
+                if (item.SellPrice != null && item.CommodityCode == $("#CommodityCodeField").val()) {
+                    priceTxt.value = item.SellPrice;
+                    finalPriceTxt.value = parseFloat(priceTxt.value) + parseFloat(tradePremiumTxt.value);
+                }
+            }
+    }
+    }
+    function reciveChange(obj, newData) {
+        if (newData != null && newData != "") {
+            if (obj.is(":animated")) {
+                obj.finish();
+            }
+            if (obj.text() != newData) {
+                obj.animate({ marginTop: "-25px" }, 500, function () {
+                    obj.text(newData);
+                    obj.css({ marginTop: "0px", color: "#9A0009", fontWeight: "bolder" });
+                });
+            }
         }
     }
 </script>

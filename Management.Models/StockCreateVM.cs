@@ -7,9 +7,9 @@ namespace Management.Models
         public int Id { get; set; }
         public int CompanyId { get; set; }
         public int CommotityId { get; set; }
-        public int? CommodityTypeId { get; set; }
-        public int? BrandId { get; set; }
-        public int? WarehouseId { get; set; }
+        public int CommodityTypeId { get; set; }
+        public int BrandId { get; set; }
+        public int WarehouseId { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "数量不能为空！")]
         public decimal Quantity { get; set; }
         public int PricingType { get; set; }

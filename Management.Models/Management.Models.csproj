@@ -57,7 +57,7 @@
     <Compile Include="PrevilegeVM.cs" />
     <Compile Include="ResetPasswordVM.cs" />
     <Compile Include="RoleVM.cs" />
-    <Compile Include="StockUpdatePremiumVM.cs" />
+    <Compile Include="SalesOrderViewVM.cs" />
     <Compile Include="StockUpdatePriceVM.cs" />
     <Compile Include="StockUpdateQtyVM.cs" />
     <Compile Include="StockViewVM.cs" />

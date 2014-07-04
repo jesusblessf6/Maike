@@ -1,5 +1,6 @@
 ﻿using DAL;
 using Entities;
+using Enums;
 using Front.Models;
 using System;
 using System.Collections.Generic;
@@ -40,6 +41,8 @@ namespace Front.Services
               PricingType = stock.PricingType,
               SalerName = stock.Company.Name,
               CommodityId = stock.CommodityId,
+              CommodityCode = stock.Commodity.Code,
+              CommodityUnit = stock.Commodity.CommodityUnit,
               StockId = stock.Id
             };
             var companySvc = new CompanyService();
@@ -75,7 +78,7 @@ namespace Front.Services
                 priceResult = Convert.ToDecimal(price);
             }
 
-            var tradeManagement = new SalesOrder { CompanyId = Convert.ToInt32(companyId), Quantity = quantity.Value, StockId = Convert.ToInt32(stockId), Date = DateTime.Now, Premium = premiumResult, Price = priceResult, PricingType = Convert.ToInt32(pricingType) };
+            var tradeManagement = new SalesOrder { CompanyId = Convert.ToInt32(companyId), Quantity = quantity.Value, StockId = Convert.ToInt32(stockId), Date = DateTime.Now, Premium = premiumResult, Price = priceResult, PricingType = Convert.ToInt32(pricingType), Status = (int)SalesOrderStatus.OrderConfirmed };
 
             var stockDal = new StockDAL();
             var stock = stockDal.GetById(Convert.ToInt32(stockId), null);
@@ -117,6 +120,17 @@ namespace Front.Services
             {
                 return false;
             }
+            return true;
+        }
+
+        public bool GetPriceValidate(string price)
+        {
+            decimal priceResult;
+            if (!Decimal.TryParse(price, out priceResult))
+            {
+                return false;
+            }
+
             return true;
         }
         #endregion
